@@ -6,8 +6,8 @@ This project covers all the necessary features of the new **FEVM** as we use bot
 ### TimeCapsule creation flow
 In the start of the creation process, the creator would be asked to provide the **initial data** and the **date of exposure** when it could be revealed. 
 
-Let's consider the **initial data** as **idata** and **date of exposure** as **edate**.
+Let's consider the **initial data** as `idata` and **date of exposure** as `edate`.
 
-After that, the **idata** would be encrypted by the special algorithm and the **edata** would be stored on the ipfs node for the future transfer to storage providers. The request would be sent to storage providers to store the **edata** untill the `edate + n`. Where **n** is the maximum days of data retrieval after the **edate** occured. 
-After the successful storage deal with one of the providers, the **edata** would be deleted from ipfs and the creator would receive an NFT that would work as a key to retrieve the **idata** after the **edate**.
-On the **edate** the owner of NFT would use this key to decrypt the stored **edata** from the FVM.
+After that, the `idata` would be encrypted by the special algorithm and the `edata` would be stored on the ipfs node for the future transfer to storage providers. The request would be sent to storage providers to store the `edata` untill the `edate + n`. Where **n** is the maximum days of data retrieval after the `edate` occured. 
+After the successful storage deal with one of the providers, the `edata` would be deleted from ipfs and the creator would receive an NFT that would work as a key to retrieve the `idata` after the `edate`.
+On the `edate` the owner of NFT would use this key to decrypt the stored `edata` from the FVM.
