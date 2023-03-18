@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  express:
+    container_name: express
+    build: 
+      context: express
+    restart: always
+    networks:
+      - back
+    ports:
+      - '${EXPRESS_PORT}:${EXPRESS_PORT}'
+    environment:
+      - 'EXPRESS_PORT=${EXPRESS_PORT}'
+      - 'LOTUS_RPC_ENDPOINT=${LOTUS_RPC_ENDPOINT}'
+
+networks:
+  back:
+    driver: bridge
