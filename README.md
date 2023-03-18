@@ -1,4 +1,4 @@
-# TimeCapsule
+# TimePact
 ### Abstract
 The TimeCapsule is created using fresh **FEVM** that just came out on the Mainnet. The idea is to give users the ability to create a time capsule with specific data and an expiration date that could be unlocked by the special NFT. As NFTs could be transferred easily among the accounts on the blockchain, this gives the market a great opportunity to speculate on what could be in a specific TimeCapsule. Because the data that is stored on the filecoin providers is not encrypted, it is essential to design a special algorithm that will only expose the data to the owner of the NFT at a specific time. This project covers all the necessary features of the new **FEVM** as we use both the power of the solidity smart-contracts and the resilience of the original filecoin infrastructure.
 
