@@ -1,5 +1,6 @@
-// non-docker run
-require("dotenv").config({ path: "../.env" });
+if (!process.env.EXPRESS_PORT)
+  // non-docker run
+  require("dotenv").config({ path: "../.env" });
 
 var createError = require("http-errors");
 var express = require("express");
