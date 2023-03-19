@@ -2,3 +2,6 @@
 **/node_modules
 **/npm-debug.log
 build
+
+**/security/RSA/private.pem
+**/security/RSA/public.pem
