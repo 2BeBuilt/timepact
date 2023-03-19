@@ -11,6 +11,7 @@ services:
     ports:
       - '${EXPRESS_PORT}:${EXPRESS_PORT}'
     environment:
+      - 'BASE_URL=${BASE_URL}'
       - 'EXPRESS_PORT=${EXPRESS_PORT}'
       - 'IPFS_HOST=${IPFS_HOST}'
       - 'IPFS_PORT=${IPFS_PORT}'
