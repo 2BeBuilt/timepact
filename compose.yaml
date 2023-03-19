@@ -1,0 +1,48 @@
+version: '3.5'
+
+services:
+  express:
+    container_name: express
+    build: 
+      context: back/express
+    restart: always
+    networks:
+      - app
+    ports:
+      - '${EXPRESS_PORT}:${EXPRESS_PORT}'
+    environment:
+      - 'EXPRESS_PORT=${EXPRESS_PORT}'
+      - 'IPFS_HOST=${IPFS_HOST}'
+      - 'IPFS_PORT=${IPFS_PORT}'
+      - 'IPFS_PROTOCOL=${IPFS_PROTOCOL}'
+      - 'LOTUS_HOST=${LOTUS_HOST}'
+      - 'LOTUS_PORT=${LOTUS_PORT}'
+      - 'LOTUS_PROTOCOL=${LOTUS_PROTOCOL}'
+      - 'LOTUS_AUTH_TOKEN=${LOTUS_AUTH_TOKEN}'
+  ipfs:
+    image: ipfs/go-ipfs:latest
+    environment:
+      - IPFS_PROFILE=server
+      - IPFS_PATH=/ipfsdata
+    networks:
+      - app
+    ports:
+      - "${IPFS_PORT}:${IPFS_PORT}" # ipfs swarm - expose if needed/wanted
+      - "${SWARM_PORT}:${SWARM_PORT}" # ipfs api - expose if needed/wanted
+      - "${GATE_PORT}:${GATE_PORT}" # ipfs gateway - expose if needed/wanted
+    volumes:
+      - ./docker-data/ipfs:/ipfsdata
+
+  # lotus:
+  #   container_name: lotus
+  #   build:
+  #     context: lotus
+  #   restart: always
+  #   networks:
+  #     - app
+  #   ports:
+  #     - '${LOTUS_PORT}:${LOTUS_PORT}'
+
+networks:
+  app:
+    driver: bridge
