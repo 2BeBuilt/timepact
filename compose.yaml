@@ -13,10 +13,8 @@ services:
     environment:
       - 'EXPRESS_PORT=${EXPRESS_PORT}'
       - 'BASE_URL=${BASE_URL}'
-      - 'IPFS_HOST=${IPFS_HOST}'
       - 'IPFS_PORT=${IPFS_PORT}'
       - 'IPFS_PROTOCOL=${IPFS_PROTOCOL}'
-      - 'LOTUS_HOST=${LOTUS_HOST}'
       - 'LOTUS_PORT=${LOTUS_PORT}'
       - 'LOTUS_PROTOCOL=${LOTUS_PROTOCOL}'
       - 'LOTUS_AUTH_TOKEN=${LOTUS_AUTH_TOKEN}'
