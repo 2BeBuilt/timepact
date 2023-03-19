@@ -17,3 +17,4 @@ COPY . .
 
 EXPOSE $EXPRESS_PORT
 CMD [ "npm", "start" ]
+# CMD ["node", "test.js"]
