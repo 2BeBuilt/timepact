@@ -131,4 +131,6 @@ dist
 
 **/security/RSA/
 
-data/ipfs
+**/docker-data/
+
+**/compose/
