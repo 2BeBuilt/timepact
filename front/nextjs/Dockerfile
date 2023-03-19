@@ -1,36 +1,32 @@
-FROM node:18-alpine AS deps
+FROM node:lts-alpine
+
 RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN  npm install --production
-
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN npm run build
-
-FROM node:18-alpine AS runner
-WORKDIR /app
-
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
+RUN npm i -g npm
 
 EXPOSE $NEXT_PORT
 
 ENV PORT $NEXT_PORT
+ENV NODE_ENV $NODE_ENV
 
-CMD ["npm", "start"]
+WORKDIR /home/nextjs/app
+
+COPY package.json .
+COPY package-lock.json .
+
+RUN npm install --omit=optional
+RUN npx browserslist@latest --update-db
+RUN npx next telemetry disable
+
+# need to install linux specific swc builds
+RUN npm install -D @swc/cli @swc/core
+
+COPY . .
+
+RUN npm run build
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+
+USER nextjs
+
+CMD [ "npm", "start" ]

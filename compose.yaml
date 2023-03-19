@@ -41,16 +41,10 @@ services:
   next:
     build:
       context: front/nextjs
-      target: runner
-    volumes:
-      - ./front/nextjs:/app
-    command: sh -c "npm i && npm run dev"
     ports:
       - "${NEXT_PORT}:${NEXT_PORT}"
     networks:
       - app
-    environment:
-      NODE_ENV: development
 
   # lotus:
   #   container_name: lotus
