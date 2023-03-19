@@ -35,7 +35,7 @@ services:
     container_name: nginx
     build: nginx
     ports:
-      - '81:81'
+      - '80:80'
     networks:
       - app
 
