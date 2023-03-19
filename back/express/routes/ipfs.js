@@ -9,9 +9,7 @@ const {
   crypto,
 } = require("../services/encryption");
 
-const client = create(
-  `/ip4/${process.env.IPFS_HOST}/tcp/${process.env.IPFS_PORT}`
-);
+const client = create({ url: `http://ipfs:${process.env.IPFS_PORT}` });
 
 generateKeys();
 
