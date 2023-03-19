@@ -129,9 +129,32 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-**/security/RSA/private.pem
-**/security/RSA/public.pem
+security/RSA/private.pem
+security/RSA/public.pem
 
-**/docker-data/
+docker-data/
 
-**/compose/
+compose/
+
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+
+# production
+build
+
+# misc
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
