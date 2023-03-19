@@ -12,6 +12,7 @@ services:
       - '${EXPRESS_PORT}:${EXPRESS_PORT}'
     environment:
       - 'EXPRESS_PORT=${EXPRESS_PORT}'
+      - 'BASE_URL=${BASE_URL}'
       - 'IPFS_HOST=${IPFS_HOST}'
       - 'IPFS_PORT=${IPFS_PORT}'
       - 'IPFS_PROTOCOL=${IPFS_PROTOCOL}'
@@ -32,6 +33,13 @@ services:
       - "${GATE_PORT}:${GATE_PORT}" # ipfs gateway - expose if needed/wanted
     volumes:
       - ./docker-data/ipfs:/ipfsdata
+  nginx:
+    container_name: nginx
+    build: nginx
+    ports:
+      - '80:80'
+    networks:
+      - app
 
   # lotus:
   #   container_name: lotus
