@@ -129,7 +129,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-**/security/RSA/
+**/security/RSA/private.pem
+**/security/RSA/public.pem
 
 **/docker-data/
 
