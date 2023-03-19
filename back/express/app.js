@@ -27,9 +27,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // use routers
-app.use("/", indexRouter);
-app.use("/deals", dealsRouter);
-app.use("/ipfs", ipfsRouter);
+app.use(path.join(process.env.BASE_URL, "/"), indexRouter);
+app.use(path.join(process.env.BASE_URL, "/deals"), dealsRouter);
+app.use(path.join(process.env.BASE_URL, "/ipfs"), ipfsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
