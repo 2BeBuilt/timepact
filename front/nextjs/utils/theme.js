@@ -1,5 +1,9 @@
+'use client'
+
 function getTheme() {
-  return localStorage.getItem('theme')
+  return typeof window !== 'undefined'
+    ? window.localStorage.getItem('theme')
+    : 'dark'
 }
 
 export { getTheme }
