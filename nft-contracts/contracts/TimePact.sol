@@ -10,13 +10,36 @@ error TimePact__CallerIsNotOwnerNorApproved();
 error TimePact__TokenDoesNotExist();
 error TimePact__AlreadyUnlocked();
 
+interface IDeal {
+    event DealProposalCreate(bytes32 indexed id, uint64 size, bool indexed verified, uint256 price);
+
+    // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
+    // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
+    // contract.
+    struct DealRequest {
+        bytes piece_cid;
+        uint64 piece_size;
+        bool verified_deal;
+        string label;
+        int64 start_epoch;
+        int64 end_epoch;
+        uint256 storage_price_per_epoch;
+        uint256 provider_collateral;
+        uint256 client_collateral;
+        uint64 extra_params_version;
+        bytes extra_params;
+    }
+
+    function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
+}
+
 contract TimePact is ERC721 {
     constructor() ERC721("TimePact", "TP") {}
 
     struct PactInfo {
         string creator; // reference to the creator of the Pact
         uint64 unlock; // unix timestamp
-        string CID; // reference to the encrypted storage
+        string pCID; // reference to the encrypted storage piece CID
         bool locked; //Pact locked or unlocked
     }
 
@@ -29,22 +52,31 @@ contract TimePact is ERC721 {
     event Unlocked(uint256 tokenId, address owner, string cid); //Unlocking the file (expiration of the Pact)
 
     /// @notice Creates the record of the tokenId -> CID pair
-    /// @param cid IPFS pointer
+    /// @param pcid IPFS pointer
     /// @param creator Original creator of the Pact
     /// @param edate The expiry date in UNIX format
-    function pact(string memory cid, string memory creator, uint64 edate) external {
-        if (keccak256(abi.encode(cid)) == keccak256(abi.encode(""))) {
+    function pact(
+        string memory pcid,
+        string memory creator,
+        uint64 edate,
+        address dealClient,
+        IDeal.DealRequest calldata deal
+    ) external {
+        if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
+        IDeal dealsContract = IDeal(dealClient);
+        dealsContract.makeDealProposal(deal);
+
         PactInfo storage info = keys[number];
         info.creator = creator;
         info.unlock = edate;
-        info.CID = cid;
+        info.pCID = pcid;
         info.locked = true;
 
         _safeMint(msg.sender, number); //Only works with ERC721 reciever/holder in the case with smart contracts
         ++number;
-        emit Pact(cid, creator, edate);
+        emit Pact(pcid, creator, edate);
     }
 
     /// @notice Unlocks the file and emits the event
@@ -59,7 +91,7 @@ contract TimePact is ERC721 {
 
         keys[tokenId].locked = false;
 
-        emit Unlocked(tokenId, msg.sender, keys[tokenId].CID);
+        emit Unlocked(tokenId, msg.sender, keys[tokenId].pCID);
     }
 
     /// @notice Checks if the files can be unlocked
@@ -92,81 +124,6 @@ contract TimePact is ERC721 {
         string memory baseURI = _baseURI();
         return baseURI;
     }
-
-    // /**
-    //  * @dev See {IERC721-transferFrom}.
-    //  */
-    // function transferFrom(address from, address to, uint256 tokenId) public override {
-    //     if (!keys[tokenId].locked) {
-    //         revert TimePact__AlreadyUnlocked();
-    //     }
-    //     require(
-    //         _isApprovedOrOwner(_msgSender(), tokenId),
-    //         "ERC721: caller is not token owner or approved"
-    //     );
-    //     _transfer(from, to, tokenId);
-    // }
-
-    // /**
-    //  * @dev See {IERC721-safeTransferFrom}.
-    //  */
-    // function safeTransferFrom(address from, address to, uint256 tokenId) public override {
-    //     if (!keys[tokenId].locked) {
-    //         revert TimePact__AlreadyUnlocked();
-    //     }
-    //     safeTransferFrom(from, to, tokenId, "");
-    // }
-
-    // /**
-    //  * @dev See {IERC721-safeTransferFrom}.
-    //  */
-    // function safeTransferFrom(
-    //     address from,
-    //     address to,
-    //     uint256 tokenId,
-    //     bytes memory data
-    // ) public override {
-    //     if (!keys[tokenId].locked) {
-    //         revert TimePact__AlreadyUnlocked();
-    //     }
-    //     require(
-    //         _isApprovedOrOwner(_msgSender(), tokenId),
-    //         "ERC721: caller is not token owner or approved"
-    //     );
-    //     _safeTransfer(from, to, tokenId, data);
-    // }
-
-    // //////////////////TESTING THIS/////////////////////
-    //     /**
-    //  * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
-    //  * are aware of the ERC721 protocol to prevent tokens from being forever locked.
-    //  *
-    //  * `data` is additional data, it has no specified format and it is sent in call to `to`.
-    //  *
-    //  * This internal function is equivalent to {safeTransferFrom}, and can be used to e.g.
-    //  * implement alternative mechanisms to perform token transfer, such as signature-based.
-    //  *
-    //  * Requirements:
-    //  *
-    //  * - `from` cannot be the zero address.
-    //  * - `to` cannot be the zero address.
-    //  * - `tokenId` token must exist and be owned by `from`.
-    //  * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
-    //  *
-    //  * Emits a {Transfer} event.
-    //  */
-    // function _safeTransfer(
-    //     address from,
-    //     address to,
-    //     uint256 tokenId,
-    //     bytes memory data
-    // ) internal virtual {
-    // if (!keys[tokenId].locked) {
-    //     revert TimePact__AlreadyUnlocked();
-    // }
-    //     _transfer(from, to, tokenId);
-    //     require(_checkOnERC721Received(from, to, tokenId, data), "ERC721: transfer to non ERC721Receiver implementer");
-    // }
 
     /**
      * @dev Token becomes wallet-bound after Pact is unlocked (to prevent malicious trading)
