@@ -1,6 +1,6 @@
 'use client'
 
-import { getTheme } from '/utils/theme'
+import { useTheme } from 'next-themes'
 
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 
@@ -11,9 +11,9 @@ import Web3Providers from './Web3Providers'
 import Logo from './Images/Logo'
 
 export default function Header({ handleClick }) {
-  const theme = getTheme()
+  const { resolvedTheme } = useTheme()
   return (
-    <Web3Providers>
+    <Web3Providers resolvedTheme={resolvedTheme}>
       <Navbar fluid={false} rounded={true}>
         <Navbar.Brand href="/">
           <Logo />
@@ -24,12 +24,12 @@ export default function Header({ handleClick }) {
         <div className="flex md:order-2">
           <ConnectButton />
           <Button
-            color={theme === 'dark' ? 'dark' : 'light'}
+            color={resolvedTheme === 'dark' ? 'dark' : 'light'}
             pill={true}
             className="ml-2 m-a"
             onClick={handleClick}
           >
-            {theme === 'dark' ? (
+            {resolvedTheme === 'dark' ? (
               <MoonIcon className="h-4 w-4" />
             ) : (
               <SunIcon className="h-4 w-4" />
