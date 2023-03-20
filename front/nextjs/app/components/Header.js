@@ -1,7 +1,5 @@
 'use client'
 
-import { useTheme } from 'next-themes'
-
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 
 import { Navbar, Button } from 'flowbite-react'
@@ -10,8 +8,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Web3Providers from './Web3Providers'
 import Logo from './Images/Logo'
 
-export default function Header({ handleClick }) {
-  const { resolvedTheme } = useTheme()
+export default function Header({ resolvedTheme, handleClick }) {
   return (
     <Web3Providers resolvedTheme={resolvedTheme}>
       <Navbar fluid={false} rounded={true}>
