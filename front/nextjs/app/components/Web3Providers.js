@@ -1,6 +1,5 @@
 'use client'
 
-import { getTheme } from '../../utils/theme'
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -28,13 +27,12 @@ const wagmiClient = createClient({
   provider,
 })
 
-export default function Web3Providers({ children }) {
-  const theme = getTheme()
+export default function Web3Providers({ resolvedTheme, children }) {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider
         chains={chains}
-        theme={theme === 'dark' ? darkTheme() : lightTheme()}
+        theme={resolvedTheme === 'dark' ? darkTheme() : lightTheme()}
       >
         {children}
       </RainbowKitProvider>
