@@ -1,30 +1,20 @@
 'use client'
 
-import { useState } from 'react'
-import { Modal, Button } from 'flowbite-react'
+import { Modal, Button, Label } from 'flowbite-react'
 
-export default function Alert({ show, text, setAlert }) {
+export default function Alert({ show, text, onClose }) {
   return (
     <>
-      <Modal
-        show={show}
-        size="md"
-        popup={true}
-        onClose={() => setVisible(false)}
-      >
+      <Modal show={show} popup={true} onClose={onClose}>
         <Modal.Header />
         <Modal.Body>
-          <Label>{text}</Label>
+          <div className="flex-col justify-center gap-4">
+            <p>File uploaded</p>
+            <p className="font-bold">CID: {text}</p>
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            disabled={!cid}
-            onClick={() => {
-              setAlert(false)
-            }}
-          >
-            Ok
-          </Button>
+          <Button onClick={onClose}>Ok</Button>
         </Modal.Footer>
       </Modal>
     </>

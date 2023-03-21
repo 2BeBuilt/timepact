@@ -10,15 +10,14 @@ export default function UploadModal({ handleClick }) {
     const files = Array.from(e.target.files)
     selectFile(files[0])
   }
+  const onClose = () => {
+    selectFile(null)
+    setVisible(false)
+  }
   return (
     <>
       <Button onClick={() => setVisible(true)}>Upload</Button>
-      <Modal
-        show={visible}
-        size="md"
-        popup={true}
-        onClose={() => setVisible(false)}
-      >
+      <Modal show={visible} size="md" popup={true} onClose={onClose}>
         <Modal.Header />
         <Modal.Body>
           <div id="fileUpload">
@@ -33,7 +32,13 @@ export default function UploadModal({ handleClick }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button disabled={!file} onClick={() => handleClick(file)}>
+          <Button
+            disabled={!file}
+            onClick={() => {
+              onClose()
+              handleClick(file)
+            }}
+          >
             Ok
           </Button>
         </Modal.Footer>
