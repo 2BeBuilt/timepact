@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "./basic-deal-client/DealClient.sol";
 
 error TimePact__EmptyKey();
 error TimePact__NotEnoughTimePassed();
@@ -10,30 +11,30 @@ error TimePact__CallerIsNotOwnerNorApproved();
 error TimePact__TokenDoesNotExist();
 error TimePact__AlreadyUnlocked();
 
-interface IDeal {
-    event DealProposalCreate(bytes32 indexed id, uint64 size, bool indexed verified, uint256 price);
+// interface IDeal {
+//     event DealProposalCreate(bytes32 indexed id, uint64 size, bool indexed verified, uint256 price);
 
-    // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
-    // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
-    // contract.
-    struct DealRequest {
-        bytes piece_cid;
-        uint64 piece_size;
-        bool verified_deal;
-        string label;
-        int64 start_epoch;
-        int64 end_epoch;
-        uint256 storage_price_per_epoch;
-        uint256 provider_collateral;
-        uint256 client_collateral;
-        uint64 extra_params_version;
-        bytes extra_params;
-    }
+//     // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
+//     // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
+//     // contract.
+//     struct DealRequest {
+//         bytes piece_cid;
+//         uint64 piece_size;
+//         bool verified_deal;
+//         string label;
+//         int64 start_epoch;
+//         int64 end_epoch;
+//         uint256 storage_price_per_epoch;
+//         uint256 provider_collateral;
+//         uint256 client_collateral;
+//         uint64 extra_params_version;
+//         bytes extra_params;
+//     }
 
-    function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
-}
+//     function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
+// }
 
-contract TimePact is ERC721 {
+contract TimePact is ERC721Enumerable, DealClient {
     constructor() ERC721("TimePact", "TP") {}
 
     struct PactInfo {
@@ -41,6 +42,7 @@ contract TimePact is ERC721 {
         uint64 unlock; // unix timestamp
         string pCID; // reference to the encrypted storage piece CID
         bool locked; //Pact locked or unlocked
+        uint64 erase; //unlock + delay (UNIX)
     }
 
     mapping(uint256 => PactInfo) internal keys;
@@ -59,14 +61,31 @@ contract TimePact is ERC721 {
         string memory pcid,
         string memory creator,
         uint64 edate,
-        address dealClient,
-        IDeal.DealRequest calldata deal
+        DealRequest calldata deal
     ) external {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
-        IDeal dealsContract = IDeal(dealClient);
-        dealsContract.makeDealProposal(deal);
+        // IDeal.DealRequest memory deal = IDeal.DealRequest({piece_cid: piece_cid,
+        //     piece_size: piece_size,
+        //     verified_deal: false,
+        //     label: label,
+        //     start_epoch: start_epoch,
+        //     end_epoch: edate,
+        //     storage_price_per_epoch: storage_price_per_epoch,
+        //     provider_collateral: provider_collateral,
+        //     client_collateral: client_collateral,
+        //     extra_params_version: 0,
+        //     extra_params: ExtraParamsV1({
+        //         location_ref: "",
+        //         car_size: 0,
+        //         skip_ipni_announce: false,
+        //         remove_unsealed_copy: false})});
+        // bytes memory data = abi.encodeWithSignature("makeDealProposal(DealRequest)")
+        // IDeal dealsContract = IDeal(dealClient);
+        // dealsContract.makeDealProposal(deal);
+
+        makeDealProposal(deal);
 
         PactInfo storage info = keys[number];
         info.creator = creator;
@@ -94,6 +113,19 @@ contract TimePact is ERC721 {
         emit Unlocked(tokenId, msg.sender, keys[tokenId].pCID);
     }
 
+    /// @notice gives out details on specific deal
+    function tokenInfo(
+        uint256 tokenId
+    ) public view returns (string memory, uint64, string memory, bool, uint64) {
+        return (
+            keys[tokenId].creator,
+            keys[tokenId].unlock,
+            keys[tokenId].pCID,
+            keys[tokenId].locked,
+            keys[tokenId].erase
+        );
+    }
+
     /// @notice Checks if the files can be unlocked
     /// @dev True => can be unlocked
     /// @param tokenId The NFT to get the user address for
@@ -109,7 +141,7 @@ contract TimePact is ERC721 {
     /// @dev True => deleted
     /// @param tokenId The NFT to get the user address for
     function checkDelete(uint256 tokenId) public view returns (bool) {
-        if (uint256((keys[tokenId].unlock) + delay) <= block.timestamp + delay) {
+        if (uint256((keys[tokenId].unlock) + delay) <= block.timestamp) {
             return true;
         } else {
             return false;
@@ -125,7 +157,7 @@ contract TimePact is ERC721 {
         return baseURI;
     }
 
-    function getDelay() public view returns (uint256) {
+    function getDelay() public pure returns (uint256) {
         return delay;
     }
 
