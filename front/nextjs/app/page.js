@@ -8,15 +8,15 @@ import {
   usePrepareContractWrite,
   useAccount,
 } from 'wagmi'
-import { Card, Button, Image } from 'flowbite-react'
+import { Card, Button, Toast } from 'flowbite-react'
 import { useState } from 'react'
+
+import Alert from './components/Alerts/Alert'
 import UploadModal from './components/Files/UploadModal'
 import NoSsr from './components/NoSsr'
 import DownloadModal from './components/Files/DownloadModal'
-import JsFileDownloader from 'js-file-downloader'
 
-export default function Home() {
-  const [source, setSource] = useState(null)
+export default function Home({ host }) {
   const account = useAccount({
     onConnect({ address, connector, isReconnected }) {
       console.log('Connected', { address, connector, isReconnected })
@@ -28,13 +28,14 @@ export default function Home() {
     var formData = new FormData()
     formData.append('data', file)
     axios
-      .post(`http://localhost:3010/api/ipfs/upload`, formData, {
+      .post('/api/ipfs/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then(function (response) {
         console.log(response)
+        alert(response.data.path)
       })
       .catch(function (error) {
         console.log(error)
@@ -46,7 +47,7 @@ export default function Home() {
       <div className="flex flex-wrap gap-2 items-center m-2">
         <NoSsr>
           <UploadModal handleClick={uploadClick} />
-          <DownloadModal />
+          <DownloadModal host={host} />
         </NoSsr>
       </div>
     </main>

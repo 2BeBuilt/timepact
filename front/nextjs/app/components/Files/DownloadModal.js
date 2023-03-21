@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { TextInput, Label, Modal, Button } from 'flowbite-react'
 
-export default function DownloadModal({ handleClick }) {
+export default function DownloadModal({ host }) {
   const [visible, setVisible] = useState(false)
   const [cid, setCid] = useState(null)
   const onCidChange = (e) => {
@@ -32,10 +32,7 @@ export default function DownloadModal({ handleClick }) {
           <Button
             disabled={!cid}
             onClick={() => {
-              window.open(
-                `http://localhost:3010/api/ipfs/retrieve?cid=${cid}`,
-                '_blank'
-              )
+              window.open(`/api/ipfs/retrieve?cid=${cid}`, '_blank')
               setVisible(false)
             }}
           >
