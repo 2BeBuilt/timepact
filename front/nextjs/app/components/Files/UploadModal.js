@@ -12,6 +12,8 @@ export default function UploadModal({ handleClick }) {
   }
   const onClose = () => {
     selectFile(null)
+    document.getElementById('file').value = ''
+
     setVisible(false)
   }
   return (
