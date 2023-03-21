@@ -1,10 +1,9 @@
-//No deal input vars, no deal call
-
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.17;
+pragma abicoder v2;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
 error TimePact__EmptyKey();
 error TimePact__NotEnoughTimePassed();
@@ -35,7 +34,7 @@ interface IDeal {
     function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
 }
 
-contract TimePact is ERC721 {
+contract TimePact is ERC721Enumerable {
     constructor() ERC721("TimePact", "TP") {}
 
     struct PactInfo {
@@ -43,6 +42,7 @@ contract TimePact is ERC721 {
         uint64 unlock; // unix timestamp
         string pCID; // reference to the encrypted storage piece CID
         bool locked; //Pact locked or unlocked
+        uint64 erase; //unlock + delay (UNIX)
     }
 
     mapping(uint256 => PactInfo) internal keys;
@@ -61,6 +61,8 @@ contract TimePact is ERC721 {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
+        //IDeal dealsContract = IDeal(dealClient);
+        //dealsContract.makeDealProposal(deal);
 
         PactInfo storage info = keys[number];
         info.creator = creator;
@@ -86,6 +88,18 @@ contract TimePact is ERC721 {
         keys[tokenId].locked = false;
 
         emit Unlocked(tokenId, msg.sender, keys[tokenId].pCID);
+    }
+
+    function tokenInfo(
+        uint256 tokenId
+    ) public view returns (string memory, uint64, string memory, bool, uint64) {
+        return (
+            keys[tokenId].creator,
+            keys[tokenId].unlock,
+            keys[tokenId].pCID,
+            keys[tokenId].locked,
+            keys[tokenId].erase
+        );
     }
 
     /// @notice Checks if the files can be unlocked
@@ -119,7 +133,7 @@ contract TimePact is ERC721 {
         return baseURI;
     }
 
-    function getDelay() public view returns (uint256) {
+    function getDelay() public pure returns (uint256) {
         return delay;
     }
 

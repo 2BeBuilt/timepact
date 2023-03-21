@@ -12,9 +12,56 @@
     ]
   },
   "files": {
+    "contracts/ITimePact.sol": {
+      "lastModificationDate": 1679429812411,
+      "contentHash": "276822897d9a305712fdd9fbadc29292",
+      "sourceName": "contracts/ITimePact.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200,
+            "details": {
+              "constantOptimizer": true,
+              "yul": false
+            }
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.17",
+      "artifacts": {
+        "IDeal": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "ITimePact.sol/IDeal.json"
+        },
+        "ITimePact": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "ITimePact.sol/ITimePact.json"
+        }
+      }
+    },
     "contracts/TimePact.sol": {
-      "lastModificationDate": 1679352336485,
-      "contentHash": "ffc40da316548aec2bac64710d7eef0b",
+      "lastModificationDate": 1679433177231,
+      "contentHash": "678ffb2f3124d36efd957f634c0cb465",
       "sourceName": "contracts/TimePact.sol",
       "solcConfig": {
         "settings": {
@@ -49,30 +96,48 @@
         }
       },
       "imports": [
+        "contracts/basic-deal-client/DealClient.sol",
+        "contracts/basic-deal-client/Types.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
         "node_modules/@openzeppelin/contracts/utils/Address.sol",
         "node_modules/@openzeppelin/contracts/utils/Context.sol",
         "node_modules/@openzeppelin/contracts/utils/Strings.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
       ],
-      "versionRequirement": "^0.8.18",
+      "versionRequirement": "^0.8.17",
       "artifacts": {
-        "IDeal": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "TimePact.sol/IDeal.json"
-        },
         "TimePact": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "TimePact.sol/TimePact.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.sol/TimePact.json"
         }
       }
     },
     "contracts/TimePactNoDeal.sol": {
-      "lastModificationDate": 1679352339105,
-      "contentHash": "ec1a6484fc55bba6b4fae278b1cd6cdf",
+      "lastModificationDate": 1679431070581,
+      "contentHash": "f27fff509d9cd58f60d330e361203556",
       "sourceName": "contracts/TimePactNoDeal.sol",
       "solcConfig": {
         "settings": {
@@ -110,6 +175,8 @@
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
         "node_modules/@openzeppelin/contracts/utils/Address.sol",
         "node_modules/@openzeppelin/contracts/utils/Context.sol",
@@ -118,13 +185,13 @@
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
         "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
       ],
-      "versionRequirement": "^0.8.18",
+      "versionRequirement": "^0.8.17",
       "artifacts": {
         "IDeal": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "TimePactNoDeal.sol/IDeal.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePactNoDeal.sol/IDeal.json"
         },
         "TimePact": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "TimePactNoDeal.sol/TimePact.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePactNoDeal.sol/TimePact.json"
         }
       }
     },
@@ -168,7 +235,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "CBORParse": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "CBORParse.sol/CBORParse.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "CBORParse.sol/CBORParse.json"
         }
       }
     },
@@ -283,8 +350,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "Types": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "Types.sol/Types.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "Types.sol/Types.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "Types.sol/Types.0.8.17.json"
         }
       }
     },
@@ -328,7 +394,7 @@
       "versionRequirement": ">=0.5.0",
       "artifacts": {
         "DSTest": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "test.sol/DSTest.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "test.sol/DSTest.json"
         }
       }
     },
@@ -382,7 +448,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "ERC721": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "ERC721.sol/ERC721.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "ERC721.sol/ERC721.json"
         }
       }
     },
@@ -428,7 +494,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "IERC721": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "IERC721.sol/IERC721.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "IERC721.sol/IERC721.json"
         }
       }
     },
@@ -472,7 +538,110 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "IERC721Receiver": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "IERC721Receiver.sol/IERC721Receiver.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "IERC721Receiver.sol/IERC721Receiver.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol": {
+      "lastModificationDate": 1679285314684,
+      "contentHash": "212e86880d210b6cac8c3eb0cd6b1fad",
+      "sourceName": "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200,
+            "details": {
+              "constantOptimizer": true,
+              "yul": false
+            }
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+        "node_modules/@openzeppelin/contracts/utils/Address.sol",
+        "node_modules/@openzeppelin/contracts/utils/Context.sol",
+        "node_modules/@openzeppelin/contracts/utils/Strings.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "ERC721Enumerable": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "ERC721Enumerable.sol/ERC721Enumerable.json"
+        }
+      }
+    },
+    "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
+      "lastModificationDate": 1679285314684,
+      "contentHash": "f4dd06783f321aa26179bc2b6e361c29",
+      "sourceName": "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200,
+            "details": {
+              "constantOptimizer": true,
+              "yul": false
+            }
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol"
+      ],
+      "versionRequirement": "^0.8.0",
+      "artifacts": {
+        "IERC721Enumerable": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "IERC721Enumerable.sol/IERC721Enumerable.json"
         }
       }
     },
@@ -519,7 +688,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "IERC721Metadata": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "IERC721Metadata.sol/IERC721Metadata.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "IERC721Metadata.sol/IERC721Metadata.json"
         }
       }
     },
@@ -565,7 +734,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "ERC721Holder": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "ERC721Holder.sol/ERC721Holder.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "ERC721Holder.sol/ERC721Holder.json"
         }
       }
     },
@@ -609,7 +778,7 @@
       "versionRequirement": "^0.8.1",
       "artifacts": {
         "Address": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "Address.sol/Address.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "Address.sol/Address.json"
         }
       }
     },
@@ -653,7 +822,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "Context": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "Context.sol/Context.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "Context.sol/Context.json"
         }
       }
     },
@@ -699,7 +868,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "Strings": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "Strings.sol/Strings.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "Strings.sol/Strings.json"
         }
       }
     },
@@ -745,7 +914,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "ERC165": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "ERC165.sol/ERC165.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "ERC165.sol/ERC165.json"
         }
       }
     },
@@ -789,7 +958,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "IERC165": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "IERC165.sol/IERC165.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "IERC165.sol/IERC165.json"
         }
       }
     },
@@ -833,7 +1002,7 @@
       "versionRequirement": "^0.8.0",
       "artifacts": {
         "Math": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "Math.sol/Math.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "Math.sol/Math.json"
         }
       }
     },
@@ -988,8 +1157,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "BigIntCBOR": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "BigIntCbor.sol/BigIntCBOR.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "BigIntCbor.sol/BigIntCBOR.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "BigIntCbor.sol/BigIntCBOR.0.8.17.json"
         }
       }
     },
@@ -1089,8 +1257,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "FilecoinCBOR": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "FilecoinCbor.sol/FilecoinCBOR.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "FilecoinCbor.sol/FilecoinCBOR.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "FilecoinCbor.sol/FilecoinCBOR.0.8.17.json"
         }
       }
     },
@@ -1231,8 +1398,7 @@
       "versionRequirement": "^0.8.4",
       "artifacts": {
         "Buffer": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "Buffer.sol/Buffer.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "Buffer.sol/Buffer.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "Buffer.sol/Buffer.0.8.17.json"
         }
       }
     },
@@ -1278,8 +1444,7 @@
       "versionRequirement": "^0.8.4",
       "artifacts": {
         "CBOR": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "CBOR.sol/CBOR.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "CBOR.sol/CBOR.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "CBOR.sol/CBOR.0.8.17.json"
         }
       }
     },
@@ -1373,8 +1538,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "CommonTypes": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "CommonTypes.sol/CommonTypes.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "CommonTypes.sol/CommonTypes.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "CommonTypes.sol/CommonTypes.0.8.17.json"
         }
       }
     },
@@ -1421,8 +1585,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "MarketTypes": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "MarketTypes.sol/MarketTypes.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "MarketTypes.sol/MarketTypes.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "MarketTypes.sol/MarketTypes.0.8.17.json"
         }
       }
     },
@@ -1514,8 +1677,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "CBORDecoder": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "CborDecode.sol/CBORDecoder.0.8.17.json",
-          "0.8.19+commit.7dd6d404.Linux.gcc": "CborDecode.sol/CBORDecoder.0.8.19.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "CborDecode.sol/CBORDecoder.0.8.17.json"
         }
       }
     },
@@ -1658,9 +1820,173 @@
         }
       }
     },
+    "test/DealClient.t.sol": {
+      "lastModificationDate": 1679434005041,
+      "contentHash": "f65548964220943683ab77659c95e05d",
+      "sourceName": "test/DealClient.t.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200,
+            "details": {
+              "constantOptimizer": true,
+              "yul": false
+            }
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "contracts/TimePact.sol",
+        "contracts/basic-deal-client/DealClient.sol",
+        "contracts/basic-deal-client/Types.sol",
+        "lib/forge-std/lib/ds-test/src/test.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol",
+        "node_modules/@openzeppelin/contracts/utils/Address.sol",
+        "node_modules/@openzeppelin/contracts/utils/Context.sol",
+        "node_modules/@openzeppelin/contracts/utils/Strings.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
+      ],
+      "versionRequirement": "^0.8.17",
+      "artifacts": {
+        "DealClientTest": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "DealClient.t.sol/DealClientTest.json"
+        },
+        "MockMarket": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "DealClient.t.sol/MockMarket.json"
+        }
+      }
+    },
+    "test/DealClientT.t.sol": {
+      "lastModificationDate": 1679433920721,
+      "contentHash": "2710f2e5c203c53d304e79feaa9c480c",
+      "sourceName": "test/DealClientT.t.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200,
+            "details": {
+              "constantOptimizer": true,
+              "yul": false
+            }
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "contracts/TimePact.sol",
+        "contracts/basic-deal-client/DealClient.sol",
+        "contracts/basic-deal-client/Types.sol",
+        "lib/forge-std/lib/ds-test/src/test.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol",
+        "node_modules/@openzeppelin/contracts/utils/Address.sol",
+        "node_modules/@openzeppelin/contracts/utils/Context.sol",
+        "node_modules/@openzeppelin/contracts/utils/Strings.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
+        "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
+      ],
+      "versionRequirement": "^0.8.13",
+      "artifacts": {
+        "DealClientTest": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "DealClientT.t.sol/DealClientTest.json"
+        },
+        "MockMarket": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "DealClientT.t.sol/MockMarket.json"
+        }
+      }
+    },
     "test/TimePact.t.sol": {
-      "lastModificationDate": 1679352361205,
-      "contentHash": "5f3582dad4de849e364fd7349233e6cb",
+      "lastModificationDate": 1679428872891,
+      "contentHash": "ca243a939bab057758436cf1c20958cf",
       "sourceName": "test/TimePact.t.sol",
       "solcConfig": {
         "settings": {
@@ -1700,6 +2026,8 @@
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
+        "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol",
         "node_modules/@openzeppelin/contracts/utils/Address.sol",
@@ -1712,7 +2040,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "TimePactTest": {
-          "0.8.19+commit.7dd6d404.Linux.gcc": "TimePact.t.sol/TimePactTest.json"
+          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.t.sol/TimePactTest.json"
         }
       }
     }

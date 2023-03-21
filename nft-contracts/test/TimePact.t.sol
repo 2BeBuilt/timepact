@@ -21,6 +21,9 @@ contract TimePactTest is DSTest, ERC721Holder {
             "ipfs://bafyreidzk5x25hnwj2qsyueplg4k3vgrg7nlflv36xihntpycrgqh7yure/metadata.json"
         );
         //assertEq(timePact.number(), 1); //works with public getter as expected
+        (string memory creator, uint64 time, , , ) = timePact.tokenInfo(0);
+        emit log_uint(time);
+        emit log_string(creator);
     }
 
     function testUnlock() public {
@@ -35,5 +38,19 @@ contract TimePactTest is DSTest, ERC721Holder {
         timePact.pact("pcideeee", "creatoor", 0);
         assert(timePact.checkDelete(0) == false);
         emit log_uint(block.timestamp + timePact.getDelay());
+    }
+
+    function testTokenIdRetrieval() public {
+        timePact.pact("pcideeee", "creatoor", 0);
+        timePact.pact("pcideeee", "creatoor", 1);
+        timePact.balanceOf(address(this));
+        uint256 token = timePact.tokenOfOwnerByIndex(address(this), 0);
+        (string memory creator, uint64 time, , , ) = timePact.tokenInfo(token);
+        assertEq(creator, "creatoor");
+        assertEq(time, 0);
+        uint256 token2 = timePact.tokenOfOwnerByIndex(address(this), 1);
+        (string memory creator2, uint64 time2, , , ) = timePact.tokenInfo(token2);
+        assertEq(creator2, "creatoor");
+        assertEq(time2, 1);
     }
 }
