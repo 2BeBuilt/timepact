@@ -3,6 +3,7 @@ require("hardhat-deploy")
 require("hardhat-deploy-ethers")
 require("./tasks")
 require("dotenv").config()
+require("@nomicfoundation/hardhat-foundry")
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 /** @type import('hardhat/config').HardhatUserConfig */

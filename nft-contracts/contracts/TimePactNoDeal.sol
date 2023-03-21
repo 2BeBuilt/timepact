@@ -1,3 +1,5 @@
+//No deal input vars, no deal call
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
@@ -55,18 +57,10 @@ contract TimePact is ERC721 {
     /// @param pcid IPFS pointer
     /// @param creator Original creator of the Pact
     /// @param edate The expiry date in UNIX format
-    function pact(
-        string memory pcid,
-        string memory creator,
-        uint64 edate,
-        address dealClient,
-        IDeal.DealRequest calldata deal
-    ) external {
+    function pact(string memory pcid, string memory creator, uint64 edate) external {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
-        IDeal dealsContract = IDeal(dealClient);
-        dealsContract.makeDealProposal(deal);
 
         PactInfo storage info = keys[number];
         info.creator = creator;
@@ -109,7 +103,7 @@ contract TimePact is ERC721 {
     /// @dev True => deleted
     /// @param tokenId The NFT to get the user address for
     function checkDelete(uint256 tokenId) public view returns (bool) {
-        if (uint256((keys[tokenId].unlock) + delay) <= block.timestamp + delay) {
+        if (uint256((keys[tokenId].unlock) + delay) <= block.timestamp) {
             return true;
         } else {
             return false;
