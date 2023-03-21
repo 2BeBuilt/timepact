@@ -8,7 +8,7 @@ export default function Alert({ show, onClose, onAbort }) {
       <Modal show={show} size="md" popup={true} onClose={onClose}>
         <Modal.Header />
         <Modal.Body>
-          <div className="flex flex-col justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4">
             <p>File is uploading</p>
             <Spinner
               className="m-2"

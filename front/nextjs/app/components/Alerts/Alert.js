@@ -8,7 +8,7 @@ export default function Alert({ show, text, onClose }) {
       <Modal show={show} popup={true} onClose={onClose}>
         <Modal.Header />
         <Modal.Body>
-          <div className="flex-col justify-center gap-4">
+          <div className="flex-col items-center justify-center gap-4">
             <p>File uploaded</p>
             <p className="font-bold">CID: {text}</p>
           </div>

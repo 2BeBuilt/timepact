@@ -9,17 +9,18 @@ export default function DownloadModal({ host }) {
   const onCidChange = (e) => {
     setCid(e.target.value)
   }
+  const onClose = () => {
+    setCid(null)
+    document.getElementById('cidInput').value = ''
+    setVisible(false)
+  }
   return (
     <>
       <Button onClick={() => setVisible(true)}>Download</Button>
-      <Modal
-        show={visible}
-        size="md"
-        popup={true}
-        onClose={() => setVisible(false)}
-      >
+      <Modal show={visible} size="md" popup={true} onClose={onClose}>
         <Modal.Header />
         <Modal.Body>
+          <p>Download file</p>
           <TextInput
             id="cidInput"
             placeholder="Enter CID"
@@ -32,8 +33,8 @@ export default function DownloadModal({ host }) {
           <Button
             disabled={!cid}
             onClick={() => {
+              onClose()
               window.open(`/api/ipfs/retrieve?cid=${cid}`, '_blank')
-              setVisible(false)
             }}
           >
             Ok
