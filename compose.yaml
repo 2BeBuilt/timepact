@@ -19,6 +19,7 @@ services:
       - 'LOTUS_PROTOCOL=${LOTUS_PROTOCOL}'
       - 'LOTUS_AUTH_TOKEN=${LOTUS_AUTH_TOKEN}'
   ipfs:
+    container_name: ipfs
     image: ipfs/go-ipfs:latest
     environment:
       - IPFS_PROFILE=server
@@ -39,6 +40,7 @@ services:
     networks:
       - app
   next:
+    container_name: next
     build:
       context: front/nextjs
     ports:

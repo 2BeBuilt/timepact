@@ -1,0 +1,6 @@
+"AppendAnnounce": [
+     "/ip4/157.230.100.226/tcp/4001",
+     "/ip4/157.230.100.22/udp/4001/quic",
+     "/ip4/157.230.100.226/udp/4001/quic-v1",
+     "/ip4/157.230.100.226/udp/4001/quic-v1/webtransport"
+    ]
