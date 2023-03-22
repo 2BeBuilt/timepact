@@ -28,24 +28,12 @@ export default function Home({ host }) {
 
     var formData = new FormData()
     formData.append('data', file)
-    axios
-      .post('/api/ipfs/upload', formData, {
-        signal: abortController.signal,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(function (response) {
-        console.log(response)
-        setCid(response.data.path)
-
-        setLoading(false)
-        setAlert(true)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-      .finally(function () {})
+    axios.post('/api/ipfs/route', formData, {
+      signal: abortController.signal,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
   }
   const handleAlertClose = () => {
     setAlert(false)

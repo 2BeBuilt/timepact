@@ -47,6 +47,8 @@ services:
       - "${NEXT_PORT}:${NEXT_PORT}"
     networks:
       - app
+    environment:
+      - 'EXPRESS_PORT=${EXPRESS_PORT}'
 
   # lotus:
   #   container_name: lotus
