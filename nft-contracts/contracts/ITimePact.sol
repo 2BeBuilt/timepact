@@ -3,8 +3,6 @@
 pragma solidity ^0.8.17;
 
 interface IDeal {
-    event DealProposalCreate(bytes32 indexed id, uint64 size, bool indexed verified, uint256 price);
-
     // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
     // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
     // contract.
@@ -19,10 +17,17 @@ interface IDeal {
         uint256 provider_collateral;
         uint256 client_collateral;
         uint64 extra_params_version;
-        bytes extra_params;
+        ExtraParamsV1 extra_params;
     }
 
-    function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
+    // Extra parameters associated with the deal request. These are off-protocol flags that
+    // the storage provider will need.
+    struct ExtraParamsV1 {
+        string location_ref;
+        uint64 car_size;
+        bool skip_ipni_announce;
+        bool remove_unsealed_copy;
+    }
 }
 
 interface ITimePact is IDeal {

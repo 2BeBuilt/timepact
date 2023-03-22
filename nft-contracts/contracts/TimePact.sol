@@ -11,30 +11,37 @@ error TimePact__CallerIsNotOwnerNorApproved();
 error TimePact__TokenDoesNotExist();
 error TimePact__AlreadyUnlocked();
 
-// interface IDeal {
-//     event DealProposalCreate(bytes32 indexed id, uint64 size, bool indexed verified, uint256 price);
+interface IDeal {
+    // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
+    // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
+    // contract.
+    struct DealRequest {
+        bytes piece_cid;
+        uint64 piece_size;
+        bool verified_deal;
+        string label;
+        int64 start_epoch;
+        int64 end_epoch;
+        uint256 storage_price_per_epoch;
+        uint256 provider_collateral;
+        uint256 client_collateral;
+        uint64 extra_params_version;
+        ExtraParamsV1 extra_params;
+    }
 
-//     // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
-//     // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
-//     // contract.
-//     struct DealRequest {
-//         bytes piece_cid;
-//         uint64 piece_size;
-//         bool verified_deal;
-//         string label;
-//         int64 start_epoch;
-//         int64 end_epoch;
-//         uint256 storage_price_per_epoch;
-//         uint256 provider_collateral;
-//         uint256 client_collateral;
-//         uint64 extra_params_version;
-//         bytes extra_params;
-//     }
+    // Extra parameters associated with the deal request. These are off-protocol flags that
+    // the storage provider will need.
+    struct ExtraParamsV1 {
+        string location_ref;
+        uint64 car_size;
+        bool skip_ipni_announce;
+        bool remove_unsealed_copy;
+    }
 
-//     function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
-// }
+    function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
+}
 
-contract TimePact is ERC721Enumerable, DealClient {
+contract TimePact is ERC721Enumerable {
     constructor() ERC721("TimePact", "TP") {}
 
     struct PactInfo {
@@ -44,6 +51,27 @@ contract TimePact is ERC721Enumerable, DealClient {
         bool locked; //Pact locked or unlocked
         uint64 erase; //unlock + delay (UNIX)
     }
+
+    // struct DealRequest {
+    //     bytes piece_cid;
+    //     uint64 piece_size;
+    //     bool verified_deal;
+    //     string label;
+    //     int64 start_epoch;
+    //     int64 end_epoch;
+    //     uint256 storage_price_per_epoch;
+    //     uint256 provider_collateral;
+    //     uint256 client_collateral;
+    //     uint64 extra_params_version;
+    //     bytes extra_params;
+    // }
+
+    // struct ExtraParamsV1 {
+    //     string location_ref;
+    //     uint64 car_size;
+    //     bool skip_ipni_announce;
+    //     bool remove_unsealed_copy;
+    // }
 
     mapping(uint256 => PactInfo) internal keys;
 
@@ -61,7 +89,8 @@ contract TimePact is ERC721Enumerable, DealClient {
         string memory pcid,
         string memory creator,
         uint64 edate,
-        DealRequest calldata deal
+        address client,
+        IDeal.DealRequest calldata deal
     ) external {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
@@ -81,11 +110,13 @@ contract TimePact is ERC721Enumerable, DealClient {
         //         car_size: 0,
         //         skip_ipni_announce: false,
         //         remove_unsealed_copy: false})});
-        // bytes memory data = abi.encodeWithSignature("makeDealProposal(DealRequest)")
-        // IDeal dealsContract = IDeal(dealClient);
-        // dealsContract.makeDealProposal(deal);
 
-        makeDealProposal(deal);
+        IDeal dealsContract = IDeal(client);
+        dealsContract.makeDealProposal(deal);
+
+        //IDeal(client).makeDealProposal(createDealRequest());
+
+        //makeDealProposal(deal);
 
         PactInfo storage info = keys[number];
         info.creator = creator;
@@ -152,9 +183,7 @@ contract TimePact is ERC721Enumerable, DealClient {
         if (!_exists(tokenId)) {
             revert TimePact__TokenDoesNotExist();
         }
-
-        string memory baseURI = _baseURI();
-        return baseURI;
+        return _baseURI();
     }
 
     function getDelay() public pure returns (uint256) {
@@ -174,4 +203,26 @@ contract TimePact is ERC721Enumerable, DealClient {
     function _baseURI() internal pure override returns (string memory) {
         return "ipfs://bafyreidzk5x25hnwj2qsyueplg4k3vgrg7nlflv36xihntpycrgqh7yure/metadata.json";
     }
+
+    // function createDealRequest(string memory pcid) internal view returns (DealRequest memory) {
+    //     DealRequest memory request = DealRequest({
+    //         piece_cid: pcid,
+    //         piece_size: 2048,
+    //         verified_deal: false,
+    //         label: "",
+    //         start_epoch: 0,
+    //         end_epoch: 0,
+    //         storage_price_per_epoch: 0,
+    //         provider_collateral: 0,
+    //         client_collateral: 0,
+    //         extra_params_version: 0,
+    //         extra_params: ExtraParamsV1({
+    //             location_ref: "",
+    //             car_size: 0,
+    //             skip_ipni_announce: false,
+    //             remove_unsealed_copy: false
+    //         })
+    //     });
+    //     return request;
+    // }
 }
