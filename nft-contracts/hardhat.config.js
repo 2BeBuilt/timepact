@@ -26,8 +26,11 @@ module.exports = {
             },
         ],
     },
-    defaultNetwork: "Hyperspace",
+    defaultNetwork: "hardhat",
     networks: {
+        hardhat: {
+            chainId: 31337,
+        },
         Hyperspace: {
             chainId: 3141,
             url: "https://api.hyperspace.node.glif.io/rpc/v1",
@@ -41,7 +44,7 @@ module.exports = {
     },
     paths: {
         sources: "./contracts",
-        tests: "./test",
+        tests: "./tests",
         cache: "./cache",
         artifacts: "./artifacts",
     },
