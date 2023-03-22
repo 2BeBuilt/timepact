@@ -75,7 +75,7 @@ contract TimePact is ERC721Enumerable {
 
     mapping(uint256 => PactInfo) internal keys;
 
-    uint constant delay = 24 weeks;
+    uint constant delay = 12 weeks;
     uint256 private number;
 
     event Pact(string cid, string creator, uint64 edate); //Creation of the Pact

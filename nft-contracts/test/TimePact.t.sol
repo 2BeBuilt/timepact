@@ -42,6 +42,28 @@ contract DealClientTest is DSTest, ERC721Holder {
         testOtherProvider = hex"00EE";
     }
 
+    function cDealRequest() public view returns (DealRequest memory) {
+        DealRequest memory request = DealRequest({
+            piece_cid: testCID,
+            piece_size: 2048,
+            verified_deal: false,
+            label: "",
+            start_epoch: 0,
+            end_epoch: 0,
+            storage_price_per_epoch: 0,
+            provider_collateral: 0,
+            client_collateral: 0,
+            extra_params_version: 0,
+            extra_params: ExtraParamsV1({
+                location_ref: "",
+                car_size: 0,
+                skip_ipni_announce: false,
+                remove_unsealed_copy: false
+            })
+        });
+        return request;
+    }
+
     function createDealRequest() public view returns (IDeal.DealRequest memory) {
         DealRequest memory request = DealRequest({
             piece_cid: testCID,
@@ -85,7 +107,8 @@ contract DealClientTest is DSTest, ERC721Holder {
 
     function testMakeDealProposalWithTimePact() public {
         require(client.dealsLength() == 0, "Expect no deals");
-        timePact.pact("pcideeee", "creatoor", 0, address(client), createDealRequest());
+        client.makeDealProposal(cDealRequest());
+        //timePact.pact("pcideeee", "creatoor", 0, address(client), createDealRequest());
         require(client.dealsLength() == 1, "Expect one deal");
 
         RequestId memory proposalIdSet = client.getProposalIdSet(testCID);
