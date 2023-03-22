@@ -96,8 +96,6 @@
         }
       },
       "imports": [
-        "contracts/basic-deal-client/DealClient.sol",
-        "contracts/basic-deal-client/Types.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
@@ -109,30 +107,10 @@
         "node_modules/@openzeppelin/contracts/utils/Strings.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
       ],
       "versionRequirement": "^0.8.17",
       "artifacts": {
-        "IDeal": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.sol/IDeal.json"
-        },
         "TimePact": {
           "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.sol/TimePact.json"
         }
@@ -1763,6 +1741,74 @@
         }
       }
     },
+    "test/DealClient.t.sol": {
+      "lastModificationDate": 1679460814249,
+      "contentHash": "3c2345dba6abef0975069c6a246839ba",
+      "sourceName": "test/DealClient.t.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200,
+            "details": {
+              "constantOptimizer": true,
+              "yul": false
+            }
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "london",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "contracts/basic-deal-client/DealClient.sol",
+        "contracts/basic-deal-client/Types.sol",
+        "lib/forge-std/lib/ds-test/src/test.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
+      ],
+      "versionRequirement": "^0.8.13",
+      "artifacts": {
+        "DealClientTest": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "DealClient.t.sol/DealClientTest.json"
+        },
+        "MockMarket": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "DealClient.t.sol/MockMarket.json"
+        }
+      }
+    },
     "test/TimePact.t.sol": {
       "lastModificationDate": 1679498507476,
       "contentHash": "fd7d86ff63652bb9d6f32ce76750d004",
@@ -1801,8 +1847,6 @@
       },
       "imports": [
         "contracts/TimePact.sol",
-        "contracts/basic-deal-client/DealClient.sol",
-        "contracts/basic-deal-client/Types.sol",
         "lib/forge-std/lib/ds-test/src/test.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
@@ -1816,32 +1860,12 @@
         "node_modules/@openzeppelin/contracts/utils/Strings.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
-        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
       ],
       "versionRequirement": "^0.8.17",
       "artifacts": {
-        "DealClientTest": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.t.sol/DealClientTest.json"
-        },
-        "MockMarket": {
-          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.t.sol/MockMarket.json"
+        "TimePactTest": {
+          "0.8.17+commit.8df45f5f.Linux.gcc": "TimePact.t.sol/TimePactTest.json"
         }
       }
     }
