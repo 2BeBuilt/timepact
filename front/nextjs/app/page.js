@@ -16,7 +16,7 @@ export default function Home({ host }) {
   const [loading, setLoading] = useState(null)
   const [alert, setAlert] = useState(null)
   const [cid, setCid] = useState(null)
-  const account = useAccount({
+  const { account, isConnected } = useAccount({
     onConnect({ address, connector, isReconnected }) {
       console.log('Connected', { address, connector, isReconnected })
     },
@@ -60,18 +60,20 @@ export default function Home({ host }) {
   }
   return (
     <main>
-      <div className="flex flex-wrap gap-2 items-center m-2">
-        <NoSsr>
-          <UploadModal handleClick={uploadClick} />
-          <DownloadModal host={host} />
-          <Alert show={alert} text={cid} onClose={handleAlertClose} />
-          <Loading
-            show={loading}
-            onClose={handleLoadingClose}
-            onAbort={handleAbortLoading}
-          />
-        </NoSsr>
-      </div>
+      {isConnected && (
+        <div className="flex flex-wrap gap-2 items-center m-2">
+          <NoSsr>
+            <UploadModal handleClick={uploadClick} />
+            <DownloadModal host={host} />
+            <Alert show={alert} text={cid} onClose={handleAlertClose} />
+            <Loading
+              show={loading}
+              onClose={handleLoadingClose}
+              onAbort={handleAbortLoading}
+            />
+          </NoSsr>
+        </div>
+      )}
     </main>
   )
 }
