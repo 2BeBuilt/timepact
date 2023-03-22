@@ -157,4 +157,40 @@ contract TimePact is ERC721Enumerable {
     function getDealClient() public view returns (address) {
         return address(dealsClient);
     }
+
+    /////////////////test funcs////////////
+    uint256 public write;
+    function testWrite() public {
+        write = 1;
+    }
+
+    function testWrite(uint256 value) public {
+        write = value;
+    }
+    struct DealRequestTest {
+        bytes piece_cid;
+        uint64 piece_size;
+        bool verified_deal;
+        string label;
+        int64 start_epoch;
+        int64 end_epoch;
+        uint256 storage_price_per_epoch;
+        uint256 provider_collateral;
+        uint256 client_collateral;
+        uint64 extra_params_version;
+        ExtraParamsV1Test extra_params;
+    }
+
+     struct ExtraParamsV1Test {
+        string location_ref;
+        uint64 car_size;
+        bool skip_ipni_announce;
+        bool remove_unsealed_copy;
+    }
+
+
+    function testTuples(DealRequest calldata deal) public returns(bool){
+        write = 100;
+        return true;
+    }
 }
