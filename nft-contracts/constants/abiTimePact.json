@@ -249,6 +249,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "getDelay",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -320,73 +333,6 @@
                 "internalType": "uint64",
                 "name": "edate",
                 "type": "uint64"
-            },
-            {
-                "internalType": "address",
-                "name": "dealClient",
-                "type": "address"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "bytes",
-                        "name": "piece_cid",
-                        "type": "bytes"
-                    },
-                    {
-                        "internalType": "uint64",
-                        "name": "piece_size",
-                        "type": "uint64"
-                    },
-                    {
-                        "internalType": "bool",
-                        "name": "verified_deal",
-                        "type": "bool"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "label",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "int64",
-                        "name": "start_epoch",
-                        "type": "int64"
-                    },
-                    {
-                        "internalType": "int64",
-                        "name": "end_epoch",
-                        "type": "int64"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "storage_price_per_epoch",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "provider_collateral",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "client_collateral",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint64",
-                        "name": "extra_params_version",
-                        "type": "uint64"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "extra_params",
-                        "type": "bytes"
-                    }
-                ],
-                "internalType": "struct IDeal.DealRequest",
-                "name": "deal",
-                "type": "tuple"
             }
         ],
         "name": "pact",
@@ -499,6 +445,88 @@
         "inputs": [
             {
                 "internalType": "uint256",
+                "name": "index",
+                "type": "uint256"
+            }
+        ],
+        "name": "tokenByIndex",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "tokenInfo",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "index",
+                "type": "uint256"
+            }
+        ],
+        "name": "tokenOfOwnerByIndex",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
                 "name": "tokenId",
                 "type": "uint256"
             }
@@ -509,6 +537,19 @@
                 "internalType": "string",
                 "name": "",
                 "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
