@@ -3,6 +3,7 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "contracts/basic-deal-client/DealClient.sol";
 
 error TimePact__EmptyKey();
 error TimePact__NotEnoughTimePassed();
