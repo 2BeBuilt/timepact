@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import "lib/forge-std/lib/ds-test/src/test.sol";
-import "contracts/TimePactNoDeal.sol";
+import "contracts/TimePact.sol";
 import "node_modules/@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 contract TimePactTest is DSTest, ERC721Holder {
@@ -35,5 +35,19 @@ contract TimePactTest is DSTest, ERC721Holder {
         timePact.pact("pcideeee", "creatoor", 0);
         assert(timePact.checkDelete(0) == false);
         emit log_uint(block.timestamp + timePact.getDelay());
+    }
+
+    function testTokenIdRetrieval() public {
+        timePact.pact("pcideeee", "creatoor", 0);
+        timePact.pact("pcideeee", "creatoor", 1);
+        timePact.balanceOf(address(this));
+        uint256 token = timePact.tokenOfOwnerByIndex(address(this), 0);
+        (string memory creator, uint64 time, , , ) = timePact.tokenInfo(token);
+        assertEq(creator, "creatoor");
+        assertEq(time, 0);
+        uint256 token2 = timePact.tokenOfOwnerByIndex(address(this), 1);
+        (string memory creator2, uint64 time2, , , ) = timePact.tokenInfo(token2);
+        assertEq(creator2, "creatoor");
+        assertEq(time2, 1);
     }
 }
