@@ -13,8 +13,8 @@
   },
   "files": {
     "contracts/ITimePact.sol": {
-      "lastModificationDate": 1679447827961,
-      "contentHash": "f7acf2848cb5ddd3d3990dc62d4e2318",
+      "lastModificationDate": 1679460094629,
+      "contentHash": "481c972d4ac3b8bd00892b98844468e4",
       "sourceName": "contracts/ITimePact.sol",
       "solcConfig": {
         "settings": {
@@ -60,8 +60,8 @@
       }
     },
     "contracts/TimePact.sol": {
-      "lastModificationDate": 1679453246141,
-      "contentHash": "4b1bf3e3740a663e981a95a99358cd20",
+      "lastModificationDate": 1679498463166,
+      "contentHash": "469e166efaab56b88770134e99187bde",
       "sourceName": "contracts/TimePact.sol",
       "solcConfig": {
         "settings": {
@@ -1764,8 +1764,8 @@
       }
     },
     "test/TimePact.t.sol": {
-      "lastModificationDate": 1679454937661,
-      "contentHash": "0e4857b16423190d96ea7604b97cf9ec",
+      "lastModificationDate": 1679498507476,
+      "contentHash": "fd7d86ff63652bb9d6f32ce76750d004",
       "sourceName": "test/TimePact.t.sol",
       "solcConfig": {
         "settings": {

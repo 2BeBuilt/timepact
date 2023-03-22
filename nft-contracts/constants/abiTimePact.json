@@ -157,6 +157,19 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "addBalanceClient",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "to",
                 "type": "address"
@@ -230,6 +243,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "dealsClient",
+        "outputs": [
+            {
+                "internalType": "contract DealClient",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -246,6 +272,32 @@
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getDealClient",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getDelay",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "pure",
         "type": "function"
     },
     {
@@ -286,6 +338,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -320,11 +385,6 @@
                 "internalType": "uint64",
                 "name": "edate",
                 "type": "uint64"
-            },
-            {
-                "internalType": "address",
-                "name": "dealClient",
-                "type": "address"
             },
             {
                 "components": [
@@ -379,12 +439,34 @@
                         "type": "uint64"
                     },
                     {
-                        "internalType": "bytes",
+                        "components": [
+                            {
+                                "internalType": "string",
+                                "name": "location_ref",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "uint64",
+                                "name": "car_size",
+                                "type": "uint64"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "skip_ipni_announce",
+                                "type": "bool"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "remove_unsealed_copy",
+                                "type": "bool"
+                            }
+                        ],
+                        "internalType": "struct ExtraParamsV1",
                         "name": "extra_params",
-                        "type": "bytes"
+                        "type": "tuple"
                     }
                 ],
-                "internalType": "struct IDeal.DealRequest",
+                "internalType": "struct DealRequest",
                 "name": "deal",
                 "type": "tuple"
             }
@@ -499,6 +581,88 @@
         "inputs": [
             {
                 "internalType": "uint256",
+                "name": "index",
+                "type": "uint256"
+            }
+        ],
+        "name": "tokenByIndex",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "tokenInfo",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint64",
+                "name": "",
+                "type": "uint64"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "index",
+                "type": "uint256"
+            }
+        ],
+        "name": "tokenOfOwnerByIndex",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
                 "name": "tokenId",
                 "type": "uint256"
             }
@@ -509,6 +673,19 @@
                 "internalType": "string",
                 "name": "",
                 "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "totalSupply",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -546,6 +723,24 @@
             }
         ],
         "name": "unlock",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "client",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "withdrawBalanceClient",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
