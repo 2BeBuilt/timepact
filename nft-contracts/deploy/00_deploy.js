@@ -17,10 +17,10 @@ module.exports = async ({ deployments }) => {
     await timePact.deployed()
     console.log("TimePact deployed to:", timePact.address)
 
-    //deploy DealClient
-    const DealClient = await ethers.getContractFactory("DealClient", wallet)
-    console.log("Deploying DealClient...")
-    const dc = await DealClient.deploy()
-    await dc.deployed()
-    console.log("DealClient deployed to:", dc.address)
+    // // //deploy DealClient
+    // const DealClient = await ethers.getContractFactory("DealClient", wallet)
+    // console.log("Deploying DealClient...")
+    // const dc = await DealClient.deploy()
+    // await dc.deployed()
+    // console.log("DealClient deployed to:", dc.address)
 }

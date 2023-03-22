@@ -157,6 +157,19 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "addBalanceClient",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "address",
                 "name": "to",
                 "type": "address"
@@ -230,6 +243,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "dealsClient",
+        "outputs": [
+            {
+                "internalType": "contract DealClient",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -238,6 +264,19 @@
             }
         ],
         "name": "getApproved",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getDealClient",
         "outputs": [
             {
                 "internalType": "address",
@@ -299,6 +338,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -333,6 +385,90 @@
                 "internalType": "uint64",
                 "name": "edate",
                 "type": "uint64"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "bytes",
+                        "name": "piece_cid",
+                        "type": "bytes"
+                    },
+                    {
+                        "internalType": "uint64",
+                        "name": "piece_size",
+                        "type": "uint64"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "verified_deal",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "label",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "int64",
+                        "name": "start_epoch",
+                        "type": "int64"
+                    },
+                    {
+                        "internalType": "int64",
+                        "name": "end_epoch",
+                        "type": "int64"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "storage_price_per_epoch",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "provider_collateral",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "client_collateral",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint64",
+                        "name": "extra_params_version",
+                        "type": "uint64"
+                    },
+                    {
+                        "components": [
+                            {
+                                "internalType": "string",
+                                "name": "location_ref",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "uint64",
+                                "name": "car_size",
+                                "type": "uint64"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "skip_ipni_announce",
+                                "type": "bool"
+                            },
+                            {
+                                "internalType": "bool",
+                                "name": "remove_unsealed_copy",
+                                "type": "bool"
+                            }
+                        ],
+                        "internalType": "struct ExtraParamsV1",
+                        "name": "extra_params",
+                        "type": "tuple"
+                    }
+                ],
+                "internalType": "struct DealRequest",
+                "name": "deal",
+                "type": "tuple"
             }
         ],
         "name": "pact",
@@ -587,6 +723,24 @@
             }
         ],
         "name": "unlock",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "client",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "value",
+                "type": "uint256"
+            }
+        ],
+        "name": "withdrawBalanceClient",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
