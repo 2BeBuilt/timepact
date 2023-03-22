@@ -3,43 +3,12 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "./basic-deal-client/DealClient.sol";
 
 error TimePact__EmptyKey();
 error TimePact__NotEnoughTimePassed();
 error TimePact__CallerIsNotOwnerNorApproved();
 error TimePact__TokenDoesNotExist();
 error TimePact__AlreadyUnlocked();
-
-interface IDeal {
-    // User request for this contract to make a deal. This structure is modelled after Filecoin's Deal
-    // Proposal, but leaves out the provider, since any provider can pick up a deal broadcast by this
-    // contract.
-    struct DealRequest {
-        bytes piece_cid;
-        uint64 piece_size;
-        bool verified_deal;
-        string label;
-        int64 start_epoch;
-        int64 end_epoch;
-        uint256 storage_price_per_epoch;
-        uint256 provider_collateral;
-        uint256 client_collateral;
-        uint64 extra_params_version;
-        ExtraParamsV1 extra_params;
-    }
-
-    // Extra parameters associated with the deal request. These are off-protocol flags that
-    // the storage provider will need.
-    struct ExtraParamsV1 {
-        string location_ref;
-        uint64 car_size;
-        bool skip_ipni_announce;
-        bool remove_unsealed_copy;
-    }
-
-    function makeDealProposal(DealRequest calldata deal) external returns (bytes32);
-}
 
 contract TimePact is ERC721Enumerable {
     constructor() ERC721("TimePact", "TP") {}
@@ -51,27 +20,6 @@ contract TimePact is ERC721Enumerable {
         bool locked; //Pact locked or unlocked
         uint64 erase; //unlock + delay (UNIX)
     }
-
-    // struct DealRequest {
-    //     bytes piece_cid;
-    //     uint64 piece_size;
-    //     bool verified_deal;
-    //     string label;
-    //     int64 start_epoch;
-    //     int64 end_epoch;
-    //     uint256 storage_price_per_epoch;
-    //     uint256 provider_collateral;
-    //     uint256 client_collateral;
-    //     uint64 extra_params_version;
-    //     bytes extra_params;
-    // }
-
-    // struct ExtraParamsV1 {
-    //     string location_ref;
-    //     uint64 car_size;
-    //     bool skip_ipni_announce;
-    //     bool remove_unsealed_copy;
-    // }
 
     mapping(uint256 => PactInfo) internal keys;
 
@@ -85,38 +33,10 @@ contract TimePact is ERC721Enumerable {
     /// @param pcid IPFS pointer
     /// @param creator Original creator of the Pact
     /// @param edate The expiry date in UNIX format
-    function pact(
-        string memory pcid,
-        string memory creator,
-        uint64 edate,
-        address client,
-        IDeal.DealRequest calldata deal
-    ) external {
+    function pact(string memory pcid, string memory creator, uint64 edate) external {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
-        // IDeal.DealRequest memory deal = IDeal.DealRequest({piece_cid: piece_cid,
-        //     piece_size: piece_size,
-        //     verified_deal: false,
-        //     label: label,
-        //     start_epoch: start_epoch,
-        //     end_epoch: edate,
-        //     storage_price_per_epoch: storage_price_per_epoch,
-        //     provider_collateral: provider_collateral,
-        //     client_collateral: client_collateral,
-        //     extra_params_version: 0,
-        //     extra_params: ExtraParamsV1({
-        //         location_ref: "",
-        //         car_size: 0,
-        //         skip_ipni_announce: false,
-        //         remove_unsealed_copy: false})});
-
-        IDeal dealsContract = IDeal(client);
-        dealsContract.makeDealProposal(deal);
-
-        //IDeal(client).makeDealProposal(createDealRequest());
-
-        //makeDealProposal(deal);
 
         PactInfo storage info = keys[number];
         info.creator = creator;
