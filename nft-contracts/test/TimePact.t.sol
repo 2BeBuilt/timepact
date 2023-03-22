@@ -34,7 +34,7 @@ contract DealClientTest is DSTest, ERC721Holder {
 
     function setUp() public {
         timePact = new TimePact();
-        client = new DealClient();
+        client = timePact.dealsClient();
         relay = new MockMarket();
         testCID = hex"000181E2039220206B86B273FF34FCE19D6B804EFF5A3F5747ADA4EAA22F1D49C01E52DDB7875B4B";
         testShortCID = hex"42";
@@ -64,7 +64,7 @@ contract DealClientTest is DSTest, ERC721Holder {
         return request;
     }
 
-    function createDealRequest() public view returns (IDeal.DealRequest memory) {
+    function createDealRequest() public view returns (DealRequest memory) {
         DealRequest memory request = DealRequest({
             piece_cid: testCID,
             piece_size: 2048,
@@ -102,13 +102,13 @@ contract DealClientTest is DSTest, ERC721Holder {
                 remove_unsealed_copy: false
             })
         });
-        return idRequest;
+        return request;
     }
 
     function testMakeDealProposalWithTimePact() public {
         require(client.dealsLength() == 0, "Expect no deals");
-        client.makeDealProposal(cDealRequest());
-        //timePact.pact("pcideeee", "creatoor", 0, address(client), createDealRequest());
+        //client.makeDealProposal(cDealRequest());
+        timePact.pact("pcideeee", "creatoor", 0, createDealRequest());
         require(client.dealsLength() == 1, "Expect one deal");
 
         RequestId memory proposalIdSet = client.getProposalIdSet(testCID);
@@ -127,7 +127,7 @@ contract DealClientTest is DSTest, ERC721Holder {
     }
 
     function testDealNoClient() public {
-        timePact.pact("pcideeee", "creatoor", 126743876124, address(client), createDealRequest());
+        timePact.pact("pcideeee", "creatoor", 126743876124, createDealRequest());
         assertEq(timePact.balanceOf(address(this)), 1);
         assertEq(
             timePact.tokenURI(0),
@@ -140,7 +140,7 @@ contract DealClientTest is DSTest, ERC721Holder {
     }
 
     function testUnlock() public {
-        timePact.pact("pcideeee", "creatoor", 0, address(client), createDealRequest());
+        timePact.pact("pcideeee", "creatoor", 0, createDealRequest());
         //vm.warp(2079348802);
         timePact.unlock(0);
         assert(block.timestamp > 0);
@@ -148,14 +148,14 @@ contract DealClientTest is DSTest, ERC721Holder {
     }
 
     function testCheckDelete() public {
-        timePact.pact("pcideeee", "creatoor", 0, address(client), createDealRequest());
+        timePact.pact("pcideeee", "creatoor", 0, createDealRequest());
         assert(timePact.checkDelete(0) == false);
         emit log_uint(block.timestamp + timePact.getDelay());
     }
 
     function testTokenIdRetrieval() public {
-        timePact.pact("pcideeee", "creatoor", 0, address(client), createDealRequest());
-        timePact.pact("pcideeee", "creatoor", 1, address(client), createDealRequest());
+        timePact.pact("pcideeee", "creatoor", 0, createDealRequest());
+        timePact.pact("pcideeee", "creatoor", 1, createDealRequest());
         timePact.balanceOf(address(this));
         uint256 token = timePact.tokenOfOwnerByIndex(address(this), 0);
         (string memory creator, uint64 time, , , ) = timePact.tokenInfo(token);

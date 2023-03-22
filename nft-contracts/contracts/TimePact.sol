@@ -42,8 +42,6 @@ interface IDeal {
 }
 
 contract TimePact is ERC721Enumerable {
-    constructor() ERC721("TimePact", "TP") {}
-
     struct PactInfo {
         string creator; // reference to the creator of the Pact
         uint64 unlock; // unix timestamp
@@ -52,31 +50,17 @@ contract TimePact is ERC721Enumerable {
         uint64 erase; //unlock + delay (UNIX)
     }
 
-    // struct DealRequest {
-    //     bytes piece_cid;
-    //     uint64 piece_size;
-    //     bool verified_deal;
-    //     string label;
-    //     int64 start_epoch;
-    //     int64 end_epoch;
-    //     uint256 storage_price_per_epoch;
-    //     uint256 provider_collateral;
-    //     uint256 client_collateral;
-    //     uint64 extra_params_version;
-    //     bytes extra_params;
-    // }
-
-    // struct ExtraParamsV1 {
-    //     string location_ref;
-    //     uint64 car_size;
-    //     bool skip_ipni_announce;
-    //     bool remove_unsealed_copy;
-    // }
-
     mapping(uint256 => PactInfo) internal keys;
 
     uint constant delay = 12 weeks;
     uint256 private number;
+    DealClient public dealsClient;
+    address public owner;
+
+    constructor() ERC721("TimePact", "TP") {
+        dealsClient = new DealClient();
+        owner = msg.sender;
+    }
 
     event Pact(string cid, string creator, uint64 edate); //Creation of the Pact
     event Unlocked(uint256 tokenId, address owner, string cid); //Unlocking the file (expiration of the Pact)
@@ -89,34 +73,13 @@ contract TimePact is ERC721Enumerable {
         string memory pcid,
         string memory creator,
         uint64 edate,
-        address client,
-        IDeal.DealRequest calldata deal
+        DealRequest calldata deal
     ) external {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
-        // IDeal.DealRequest memory deal = IDeal.DealRequest({piece_cid: piece_cid,
-        //     piece_size: piece_size,
-        //     verified_deal: false,
-        //     label: label,
-        //     start_epoch: start_epoch,
-        //     end_epoch: edate,
-        //     storage_price_per_epoch: storage_price_per_epoch,
-        //     provider_collateral: provider_collateral,
-        //     client_collateral: client_collateral,
-        //     extra_params_version: 0,
-        //     extra_params: ExtraParamsV1({
-        //         location_ref: "",
-        //         car_size: 0,
-        //         skip_ipni_announce: false,
-        //         remove_unsealed_copy: false})});
 
-        IDeal dealsContract = IDeal(client);
-        dealsContract.makeDealProposal(deal);
-
-        //IDeal(client).makeDealProposal(createDealRequest());
-
-        //makeDealProposal(deal);
+        dealsClient.makeDealProposal(deal);
 
         PactInfo storage info = keys[number];
         info.creator = creator;
@@ -204,25 +167,24 @@ contract TimePact is ERC721Enumerable {
         return "ipfs://bafyreidzk5x25hnwj2qsyueplg4k3vgrg7nlflv36xihntpycrgqh7yure/metadata.json";
     }
 
-    // function createDealRequest(string memory pcid) internal view returns (DealRequest memory) {
-    //     DealRequest memory request = DealRequest({
-    //         piece_cid: pcid,
-    //         piece_size: 2048,
-    //         verified_deal: false,
-    //         label: "",
-    //         start_epoch: 0,
-    //         end_epoch: 0,
-    //         storage_price_per_epoch: 0,
-    //         provider_collateral: 0,
-    //         client_collateral: 0,
-    //         extra_params_version: 0,
-    //         extra_params: ExtraParamsV1({
-    //             location_ref: "",
-    //             car_size: 0,
-    //             skip_ipni_announce: false,
-    //             remove_unsealed_copy: false
-    //         })
-    //     });
-    //     return request;
-    // }
+    //////////////////////Panel for Deal Client (with access control)////////////
+    // addBalance funds the builtin storage market actor's escrow
+    // with funds from the contract's own balance
+    // @value - amount to be added in escrow in attoFIL
+    function addBalanceClient(uint256 value) public {
+        dealsClient.addBalance(value);
+    }
+
+    // This function attempts to withdraw the specified amount from the contract addr's escrow balance
+    // If less than the given amount is available, the full escrow balance is withdrawn
+    // @client - Eth address where the balance is withdrawn to. This can be the contract address or an external address
+    // @value - amount to be withdrawn in escrow in attoFIL
+    function withdrawBalanceClient(address client, uint256 value) public {
+        require(msg.sender == owner);
+        dealsClient.withdrawBalance(client, value);
+    }
+
+    function getDealClient() public view returns (address) {
+        return address(dealsClient);
+    }
 }

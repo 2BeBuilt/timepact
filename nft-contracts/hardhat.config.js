@@ -26,7 +26,7 @@ module.exports = {
             },
         ],
     },
-    defaultNetwork: "hardhat",
+    defaultNetwork: "Hyperspace",
     networks: {
         hardhat: {
             chainId: 31337,
