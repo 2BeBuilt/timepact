@@ -60,8 +60,8 @@
       }
     },
     "contracts/TimePact.sol": {
-      "lastModificationDate": 1679498463166,
-      "contentHash": "469e166efaab56b88770134e99187bde",
+      "lastModificationDate": 1679499850846,
+      "contentHash": "1e986580023cbd0198d4a4ce4f74f911",
       "sourceName": "contracts/TimePact.sol",
       "solcConfig": {
         "settings": {
@@ -96,6 +96,8 @@
         }
       },
       "imports": [
+        "contracts/basic-deal-client/DealClient.sol",
+        "contracts/basic-deal-client/Types.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
@@ -107,7 +109,24 @@
         "node_modules/@openzeppelin/contracts/utils/Strings.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
       ],
       "versionRequirement": "^0.8.17",
       "artifacts": {
@@ -1742,8 +1761,8 @@
       }
     },
     "test/DealClient.t.sol": {
-      "lastModificationDate": 1679460814249,
-      "contentHash": "3c2345dba6abef0975069c6a246839ba",
+      "lastModificationDate": 1679499599526,
+      "contentHash": "9257e2961bd387117cdb606732dd9cb7",
       "sourceName": "test/DealClient.t.sol",
       "solcConfig": {
         "settings": {
@@ -1810,8 +1829,8 @@
       }
     },
     "test/TimePact.t.sol": {
-      "lastModificationDate": 1679498507476,
-      "contentHash": "fd7d86ff63652bb9d6f32ce76750d004",
+      "lastModificationDate": 1679500187406,
+      "contentHash": "0c40973c06fbececf1f6fd11949e11c8",
       "sourceName": "test/TimePact.t.sol",
       "solcConfig": {
         "settings": {
@@ -1847,6 +1866,8 @@
       },
       "imports": [
         "contracts/TimePact.sol",
+        "contracts/basic-deal-client/DealClient.sol",
+        "contracts/basic-deal-client/Types.sol",
         "lib/forge-std/lib/ds-test/src/test.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
@@ -1860,7 +1881,24 @@
         "node_modules/@openzeppelin/contracts/utils/Strings.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol",
         "node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
-        "node_modules/@openzeppelin/contracts/utils/math/Math.sol"
+        "node_modules/@openzeppelin/contracts/utils/math/Math.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BigIntCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/Buffer.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/AccountTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Leb128.sol",
+        "node_modules/@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol"
       ],
       "versionRequirement": "^0.8.17",
       "artifacts": {
