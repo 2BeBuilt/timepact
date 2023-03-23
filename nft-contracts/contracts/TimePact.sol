@@ -9,6 +9,7 @@ error TimePact__NotEnoughTimePassed();
 error TimePact__CallerIsNotOwnerNorApproved();
 error TimePact__TokenDoesNotExist();
 error TimePact__AlreadyUnlocked();
+error TimePact__CidExists();
 
 contract TimePact is ERC721Enumerable {
     constructor() ERC721("TimePact", "TP") {}
@@ -16,37 +17,42 @@ contract TimePact is ERC721Enumerable {
     struct PactInfo {
         string creator; // reference to the creator of the Pact
         uint64 unlock; // unix timestamp
-        string pCID; // reference to the encrypted storage piece CID
+        string CID; // reference to the encrypted storage piece CID
         bool locked; //Pact locked or unlocked
         uint64 erase; //unlock + delay (UNIX)
     }
 
     mapping(uint256 => PactInfo) internal keys;
+    mapping(uint256 => string) internal cidCheck;
 
-    uint constant delay = 12 weeks;
+    uint constant delay = 24 weeks;
     uint256 private number;
 
     event Pact(string cid, string creator, uint64 edate); //Creation of the Pact
     event Unlocked(uint256 tokenId, address owner, string cid); //Unlocking the file (expiration of the Pact)
 
     /// @notice Creates the record of the tokenId -> CID pair
-    /// @param pcid IPFS pointer
+    /// @param cid IPFS pointer
     /// @param creator Original creator of the Pact
     /// @param edate The expiry date in UNIX format
-    function pact(string memory pcid, string memory creator, uint64 edate) external {
-        if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
+    function pact(string memory cid, string memory creator, uint64 edate) external {
+        if (keccak256(abi.encode(cid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
         }
+        if (!cidSybil(cid)) {
+            revert TimePact__CidExists();
+        }
 
+        cidCheck[number] = cid;
         PactInfo storage info = keys[number];
         info.creator = creator;
         info.unlock = edate;
-        info.pCID = pcid;
+        info.CID = cid;
         info.locked = true;
 
         _safeMint(msg.sender, number); //Only works with ERC721 reciever/holder in the case with smart contracts
         ++number;
-        emit Pact(pcid, creator, edate);
+        emit Pact(cid, creator, edate);
     }
 
     /// @notice Unlocks the file and emits the event
@@ -61,7 +67,7 @@ contract TimePact is ERC721Enumerable {
 
         keys[tokenId].locked = false;
 
-        emit Unlocked(tokenId, msg.sender, keys[tokenId].pCID);
+        emit Unlocked(tokenId, msg.sender, keys[tokenId].CID);
     }
 
     /// @notice gives out details on specific deal
@@ -71,7 +77,7 @@ contract TimePact is ERC721Enumerable {
         return (
             keys[tokenId].creator,
             keys[tokenId].unlock,
-            keys[tokenId].pCID,
+            keys[tokenId].CID,
             keys[tokenId].locked,
             keys[tokenId].erase
         );
@@ -121,28 +127,15 @@ contract TimePact is ERC721Enumerable {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://bafyreidzk5x25hnwj2qsyueplg4k3vgrg7nlflv36xihntpycrgqh7yure/metadata.json";
+        return "ipfs://bafyreic3rh2kbw5ulhlq67nu4e65p37acfitkgqglxhn7o3ima7pstn56m/metadata.json";
     }
 
-    // function createDealRequest(string memory pcid) internal view returns (DealRequest memory) {
-    //     DealRequest memory request = DealRequest({
-    //         piece_cid: pcid,
-    //         piece_size: 2048,
-    //         verified_deal: false,
-    //         label: "",
-    //         start_epoch: 0,
-    //         end_epoch: 0,
-    //         storage_price_per_epoch: 0,
-    //         provider_collateral: 0,
-    //         client_collateral: 0,
-    //         extra_params_version: 0,
-    //         extra_params: ExtraParamsV1({
-    //             location_ref: "",
-    //             car_size: 0,
-    //             skip_ipni_announce: false,
-    //             remove_unsealed_copy: false
-    //         })
-    //     });
-    //     return request;
-    // }
+    function cidSybil(string memory cid) internal view returns (bool) {
+        for (uint i = 0; i <= number; ++i) {
+            if (keccak256(abi.encode(cid)) == keccak256(abi.encode(cidCheck[i]))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
