@@ -25,7 +25,7 @@ contract TimePact is ERC721Enumerable {
     mapping(uint256 => PactInfo) internal keys;
     mapping(uint256 => string) internal cidCheck;
 
-    uint constant delay = 24 weeks;
+    uint64 constant delay = 24 weeks;
     uint256 private number;
     DealClient public dealsClient;
     address public owner;
@@ -58,6 +58,8 @@ contract TimePact is ERC721Enumerable {
         info.CID = cid;
         info.locked = true;
         info.filecoin = false;
+        info.erase = edate + delay;
+
 
         _safeMint(msg.sender, number); //Only works with ERC721 reciever/holder in the case with smart contracts
         ++number;
