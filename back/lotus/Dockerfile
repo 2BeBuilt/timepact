@@ -1,4 +1,4 @@
-FROM filecoin/lotus:stable
+FROM filecoin/lotus:v1.20.4
 
 COPY ./config.toml ~/.lotus/config.toml
 

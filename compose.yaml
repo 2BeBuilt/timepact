@@ -47,16 +47,17 @@ services:
       - "${NEXT_PORT}:${NEXT_PORT}"
     networks:
       - app
-
-  # lotus:
-  #   container_name: lotus
-  #   build:
-  #     context: lotus
-  #   restart: always
-  #   networks:
-  #     - app
-  #   ports:
-  #     - '${LOTUS_PORT}:${LOTUS_PORT}'
+  lotus:
+    container_name: lotus
+    build:
+      context: back/lotus
+    restart: always
+    volumes:
+      - ./docker-data/lotus:/var/lib/lotus
+    networks:
+      - app
+    ports:
+      - '${LOTUS_PORT}:${LOTUS_PORT}'
 
 networks:
   app:
