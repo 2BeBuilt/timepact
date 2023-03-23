@@ -1,0 +1,29 @@
+{
+  "name": "next12",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/react": "^2.5.3",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@rainbow-me/rainbowkit": "^0.12.3",
+    "cids": "^1.1.9",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "ethers": "^5.7.2",
+    "framer-motion": "^10.8.5",
+    "fs": "^0.0.1-security",
+    "ipfs-car": "^0.5.1",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "wagmi": "^0.12.6"
+  }
+}
