@@ -1,32 +1,34 @@
 import FileUpload from '@/components/FileUpload'
 import { useState } from 'react'
-import { Flex } from '@chakra-ui/react'
+import { Flex, Input } from '@chakra-ui/react'
 import SignPact from '@/components/contracts/SignPact'
-import DefaultAlert from '@/components/Alerts/DefaultAlert'
+
+import { useAccount, useNetwork } from 'wagmi'
+import PageAlerts from '@/components/Alerts/PageAlerts'
 
 export default function Sign() {
-  const [data, setData] = useState(null)
+  const { address, isDisconnected } = useAccount()
+  const { chain } = useNetwork()
   const handleUpload = () => {
     console.log('Ok')
   }
-  const handleSuccess = (data) => {
-    setData(data)
-  }
+
+  const [cid, setCid] = useState('')
   return (
-    <>
-      <main>
-        <Flex align="center" justify="center" marginTop="50vh">
-          {data && (
-            <DefaultAlert
-              status="success"
-              title="Pact was signed"
-              description={`https://hyperspace.filfox.info/en/tx/${data?.hash}`}
-            />
-          )}
-          <FileUpload onUpload={handleUpload} />
-          <SignPact onSuccess={handleSuccess} />
-        </Flex>
-      </main>
-    </>
+    <main>
+      <PageAlerts chain={chain} isDisconnected={isDisconnected} />
+      <Flex align="center" justify="center" marginTop={4}>
+        <Input
+          placeholder="Cid"
+          width="400px"
+          mr={2}
+          onChange={(e) => {
+            setCid(e.target.value)
+          }}
+          value={cid}
+        />
+        <SignPact address={address} cid={cid} />
+      </Flex>
+    </main>
   )
 }

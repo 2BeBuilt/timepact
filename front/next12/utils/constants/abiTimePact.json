@@ -113,6 +113,31 @@
         "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
+                "internalType": "string",
+                "name": "pcid",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "creator",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint64",
+                "name": "edate",
+                "type": "uint64"
+            }
+        ],
+        "name": "PactWithFilecoin",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "address",
                 "name": "from",
@@ -390,6 +415,24 @@
                 "internalType": "uint64",
                 "name": "edate",
                 "type": "uint64"
+            }
+        ],
+        "name": "pact",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "pcid",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
             },
             {
                 "components": [
@@ -476,7 +519,7 @@
                 "type": "tuple"
             }
         ],
-        "name": "pact",
+        "name": "pactFilecoin",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -635,6 +678,11 @@
                 "internalType": "uint64",
                 "name": "",
                 "type": "uint64"
+            },
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
             }
         ],
         "stateMutability": "view",
