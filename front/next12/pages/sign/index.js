@@ -17,18 +17,21 @@ export default function Sign() {
   return (
     <main>
       <PageAlerts chain={chain} isDisconnected={isDisconnected} />
-      <Flex align="center" justify="center" marginTop={4}>
-        <Input
-          placeholder="Cid"
-          width="400px"
-          mr={2}
-          onChange={(e) => {
-            setCid(e.target.value)
-          }}
-          value={cid}
-        />
-        <SignPact address={address} cid={cid} />
-      </Flex>
+      {!isDisconnected && (
+        <Flex align="center" justify="center" marginTop={4}>
+          <Input
+            visibility={!isDisconnected}
+            placeholder="Cid"
+            width="400px"
+            mr={2}
+            onChange={(e) => {
+              setCid(e.target.value)
+            }}
+            value={cid}
+          />
+          <SignPact address={address} cid={cid} />
+        </Flex>
+      )}
     </main>
   )
 }
