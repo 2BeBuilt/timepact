@@ -56,12 +56,6 @@ interface ITimePact is IDeal {
      */
     function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256);
 
-    /**
-     * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.
-     * Use along with {totalSupply} to enumerate all tokens.
-     */
-    function tokenByIndex(uint256 index) external view returns (uint256);
-
     /// @notice Creates the record of the tokenId -> CID pair
     /// @param pcid IPFS pointer
     /// @param creator Original creator of the Pact
@@ -77,6 +71,24 @@ interface ITimePact is IDeal {
     /// @notice Unlocks the file and emits the event
     /// @param tokenId The NFT to get the user address for
     function unlock(uint256 tokenId) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721
+     * or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must
+     * understand this adds an external call which potentially creates a reentrancy vulnerability.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(address from, address to, uint256 tokenId) external;
 
     /// @notice gives out details on specific deal
     function tokenInfo(

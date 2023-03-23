@@ -16,6 +16,11 @@
     },
     {
         "inputs": [],
+        "name": "TimePact__CidExists",
+        "type": "error"
+    },
+    {
+        "inputs": [],
         "name": "TimePact__EmptyKey",
         "type": "error"
     },
@@ -373,7 +378,7 @@
         "inputs": [
             {
                 "internalType": "string",
-                "name": "pcid",
+                "name": "cid",
                 "type": "string"
             },
             {
