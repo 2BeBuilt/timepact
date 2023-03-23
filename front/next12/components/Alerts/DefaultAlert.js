@@ -5,9 +5,9 @@ import {
   AlertDescription,
 } from '@chakra-ui/react'
 
-export default function Error({ title, description }) {
+export default function DefaultAlert({ status, title, description }) {
   return (
-    <Alert status="error">
+    <Alert status={status}>
       <AlertIcon />
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>{description}</AlertDescription>

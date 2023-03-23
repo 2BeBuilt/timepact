@@ -7,7 +7,7 @@ import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 import { ChakraProvider } from '@chakra-ui/react'
 
-import Navbar from '../components/Navbar'
+import Layout from '../components/Layout'
 
 const { chains, provider } = configureChains(
   [filecoin, filecoinHyperspace],
@@ -30,8 +30,9 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
         <ChakraProvider>
-          <Navbar />
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </ChakraProvider>
       </RainbowKitProvider>
     </WagmiConfig>
