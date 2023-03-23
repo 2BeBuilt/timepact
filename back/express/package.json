@@ -15,6 +15,7 @@
     "filecoin.js": "^0.0.5-alpha",
     "fs": "^0.0.1-security",
     "http-errors": "~1.6.3",
+    "ipfs-car": "^0.5.10",
     "ipfs-http-client": "^56.0.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",

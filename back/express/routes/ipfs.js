@@ -1,4 +1,8 @@
 const { create } = require('ipfs-http-client')
+const { packToFs } = require('ipfs-car/pack/fs')
+const { FsBlockStore } = require('ipfs-car/blockstore/fs')
+const { unpackToFs } = require('ipfs-car/unpack/fs')
+const fs = require('fs')
 const fileUpload = require('express-fileupload')
 const {
   generateKeys,
@@ -15,13 +19,29 @@ generateKeys()
 
 var express = require('express')
 var router = express.Router()
-router.use(fileUpload())
+router.use(fileUpload({ useTempFiles: true, tempFileDir: '/temp/' }))
 
 router.post('/upload', async (req, res, next) => {
   if (!req.files) {
     res.send('File was not found')
     return
   }
+
+  for (const key in req.files) {
+    const file = req.files[key]
+    fs.mkdir('/tmp/test/', (err) => {
+      if (err) console.log(err)
+    })
+    fs.writeFile(`/tmp/test/${file.name}`, file.data, (err) => {
+      if (err) console.log(err)
+    })
+  }
+
+  await packToFs({
+    input: `/tmp/test`,
+    output: `/tmp/cars/my.car`,
+    blockstore: new FsBlockStore(),
+  })
 
   const data = req.files.data.data
 
