@@ -1,12 +1,11 @@
-import Error from '@/components/Alerts/Error'
+import GetPacts from '@/components/contracts/GetPacts'
 import { Button } from '@chakra-ui/react'
 import { useState } from 'react'
 
 export default function Pacts() {
-  const [error, setError] = useState(null)
   return (
-    <>
-      <main></main>
-    </>
+    <main>
+      <GetPacts />
+    </main>
   )
 }

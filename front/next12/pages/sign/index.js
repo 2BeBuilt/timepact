@@ -1,19 +1,31 @@
-import { Button } from '@chakra-ui/react'
+import FileUpload from '@/components/FileUpload'
 import { useState } from 'react'
+import { Flex } from '@chakra-ui/react'
+import SignPact from '@/components/contracts/SignPact'
+import DefaultAlert from '@/components/Alerts/DefaultAlert'
 
 export default function Sign() {
-  const [error, setError] = useState(null)
+  const [data, setData] = useState(null)
+  const handleUpload = () => {
+    console.log('Ok')
+  }
+  const handleSuccess = (data) => {
+    setData(data)
+  }
   return (
     <>
       <main>
-        <Button
-          size="sm"
-          onClick={() => {
-            setError(true)
-          }}
-        >
-          Button
-        </Button>
+        <Flex align="center" justify="center" marginTop="50vh">
+          {data && (
+            <DefaultAlert
+              status="success"
+              title="Pact was signed"
+              description={`https://hyperspace.filfox.info/en/tx/${data?.hash}`}
+            />
+          )}
+          <FileUpload onUpload={handleUpload} />
+          <SignPact onSuccess={handleSuccess} />
+        </Flex>
       </main>
     </>
   )
