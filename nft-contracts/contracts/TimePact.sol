@@ -3,6 +3,7 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "contracts/basic-deal-client/DealClient.sol";
 
 error TimePact__EmptyKey();
 error TimePact__NotEnoughTimePassed();
@@ -12,8 +13,6 @@ error TimePact__AlreadyUnlocked();
 error TimePact__CidExists();
 
 contract TimePact is ERC721Enumerable {
-    constructor() ERC721("TimePact", "TP") {}
-
     struct PactInfo {
         string creator; // reference to the creator of the Pact
         uint64 unlock; // unix timestamp
@@ -27,6 +26,13 @@ contract TimePact is ERC721Enumerable {
 
     uint constant delay = 24 weeks;
     uint256 private number;
+    DealClient public dealsClient;
+    address public owner;
+
+    constructor() ERC721("TimePact", "TP") {
+        dealsClient = new DealClient();
+        owner = msg.sender;
+    }
 
     event Pact(string cid, string creator, uint64 edate); //Creation of the Pact
     event Unlocked(uint256 tokenId, address owner, string cid); //Unlocking the file (expiration of the Pact)
