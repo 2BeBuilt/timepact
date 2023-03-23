@@ -8,7 +8,6 @@ import AlertContainer from '../Alerts/AlertContainer'
 
 export default function GetPacts({ address }) {
   const [amount] = useBalanceOf(address)
-
   const pacts = []
   for (let i = 0; i < amount; i++) {
     pacts.push({ key: i })
@@ -19,7 +18,7 @@ export default function GetPacts({ address }) {
       {amount != 0 ? (
         <SimpleGrid columns={5} spacing={10}>
           {pacts.map((pact) => (
-            <Pact key={pact.key} index={pact.key} />
+            <Pact key={pact.key} index={pact.key} address={address} />
           ))}
         </SimpleGrid>
       ) : (

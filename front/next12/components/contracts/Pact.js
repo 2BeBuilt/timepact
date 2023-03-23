@@ -23,8 +23,8 @@ import useTokenId from '@/hooks/useTokenId'
 import axios from 'axios'
 import useTokenInfo from '@/hooks/useTokenInfo'
 
-export default function Pact({ index }) {
-  const [tokenId] = useTokenId(index)
+export default function Pact({ address, index }) {
+  const [tokenId] = useTokenId(address, index)
   const [image, setImage] = useState(null)
   const [uri] = useTokenUri(tokenId)
   const [info] = useTokenInfo(tokenId)

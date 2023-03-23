@@ -49,7 +49,8 @@ export default function SignPact({ cid, address }) {
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
-
+  console.log(isSuccess)
+  console.log(data)
   return (
     <>
       <AlertContainer>
