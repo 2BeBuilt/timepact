@@ -1,17 +1,17 @@
 import {
-  useAccount,
   usePrepareContractWrite,
   useContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Flex, Heading, Input } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
 import FileUpload from '../FileUpload'
 import AlertContainer from '../Alerts/AlertContainer'
-import { Input } from '@chakra-ui/react'
 import { useState } from 'react'
 import LinkAlert from '../Alerts/LinkAlert'
+import axios from 'axios'
+import UploadModal from '../Modals/UploadModal'
 /*
 [
         '0x' +
@@ -38,6 +38,7 @@ import LinkAlert from '../Alerts/LinkAlert'
 
 export default function SignPact({ address }) {
   const [cid, setCid] = useState('')
+  const [uploadModal, setUploadModal] = useState(false)
   const {
     config,
     error: prepareError,
@@ -52,24 +53,42 @@ export default function SignPact({ address }) {
   const { isLoading, isSuccess, isError } = useWaitForTransaction({
     hash: data?.hash,
   })
+  const handleFilesSelected = (e) => {
+    const files = Array.from(e.target.files)
+    var formData = new FormData()
+    for (let key in files) {
+      formData.append('file' + key, files[key])
+    }
+    axios
+      .post('/api/ipfs/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(function (response) {
+        setCid(response.data.path)
+        console.log(cid)
+        setUploadModal(true)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+      .finally(function () {})
+  }
+  const handleCloseUploadModal = () => {
+    setUploadModal(false)
+  }
+
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
-        <FileUpload />
-        <Input
-          placeholder="Cid"
-          width="400px"
-          mr={2}
-          ml={2}
-          onChange={(e) => {
-            setCid(e.target.value)
-          }}
-          value={cid}
-        />
+        <FileUpload handleFilesSelected={handleFilesSelected} />
+        <UploadModal isOpen={uploadModal} onClose={handleCloseUploadModal} />
         <Button
           isLoading={isLoading}
-          disabled={!write || isLoading}
+          disabled={!write || isLoading || !cid}
           onClick={write}
+          ml={2}
         >
           Sign Pact
         </Button>
