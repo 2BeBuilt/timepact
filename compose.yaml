@@ -10,6 +10,8 @@ services:
       - app
     ports:
       - '${EXPRESS_PORT}:${EXPRESS_PORT}'
+    volumes:
+      - './docker-data/express/security/RSA:/usr/src/app/security/RSA'
     environment:
       - 'EXPRESS_PORT=${EXPRESS_PORT}'
       - 'BASE_URL=${BASE_URL}'
@@ -47,6 +49,8 @@ services:
       - "${NEXT_PORT}:${NEXT_PORT}"
     networks:
       - app
+    environment:
+      - "EXPRESS_PORT=${EXPRESS_PORT}"
 
 networks:
   app:
