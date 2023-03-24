@@ -191,6 +191,10 @@ contract TimePact is ERC721Enumerable {
         }
     }
 
+    function tBlockTime() public returns (uint256) {
+        return block.timestamp;
+    }
+
     //////////////////////Panel for Deal Client (with access control)////////////
     // addBalance funds the builtin storage market actor's escrow
     // with funds from the contract's own balance
