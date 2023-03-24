@@ -1,24 +1,21 @@
 import axios from 'axios'
+import { express } from '@/utils/hosts'
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    console.log(req.query.cid)
     axios
-      .get(
-        `http://express:${process.env.EXPRESS_PORT}/api/ipfs/retrieve?cid=${req.query.cid}`
-      )
+      .get(`${express}/ipfs/retrieve?cid=${req.query.cid}`)
       .then(function (response) {
-        // handle success
-        console.log(response)
+        res.status(200).json(response.data)
       })
       .catch(function (error) {
-        // handle error
-        console.log(error)
+        if (error.response) {
+          res.status(500).json(error.response.data)
+        } else if (error.request) {
+          res.status(500).json('Request error')
+        } else {
+          res.status(500).json(('Error', error.message))
+        }
       })
-      .finally(function () {
-        // always executed
-      })
-
-    res.status(200).json('ok')
   }
 }

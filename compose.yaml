@@ -51,6 +51,7 @@ services:
       - app
     environment:
       - "EXPRESS_PORT=${EXPRESS_PORT}"
+      - "BASE_URL=${BASE_URL}"
 
 networks:
   app:

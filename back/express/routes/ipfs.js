@@ -23,6 +23,7 @@ router.use(fileUpload({ useTempFiles: true, tempFileDir: '/temp/' }))
 
 router.post('/upload', async (req, res, next) => {
   if (!req.files) {
+    console.log('here')
     res.send('File was not found')
     return
   }
@@ -63,7 +64,7 @@ router.post('/upload', async (req, res, next) => {
     const uploaded = await client.add(content)
 
     fs.rmSync('/tmp/test', { recursive: true, force: true })
-
+    console.log(uploaded)
     res.send(uploaded)
   })
 })
