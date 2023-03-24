@@ -27,7 +27,7 @@ export default function Home({ host }) {
     setLoading(true)
 
     var formData = new FormData()
-    formData.append('data', file)
+    formData.set('data', file)
     axios
       .post('/api/ipfs/upload', formData, {
         signal: abortController.signal,

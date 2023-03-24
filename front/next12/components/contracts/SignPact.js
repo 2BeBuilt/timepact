@@ -5,11 +5,13 @@ import {
   useWaitForTransaction,
 } from 'wagmi'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import CID from 'cids'
 import { Button, Flex } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
 import DefaultAlert from '../Alerts/DefaultAlert'
 import AlertContainer from '../Alerts/AlertContainer'
+import { Input } from '@chakra-ui/react'
+import { useState } from 'react'
+import LinkAlert from '../Alerts/LinkAlert'
 /*
 [
         '0x' +
@@ -34,7 +36,8 @@ import AlertContainer from '../Alerts/AlertContainer'
       ]
 */
 
-export default function SignPact({ cid, address }) {
+export default function SignPact({ address }) {
+  const [cid, setCid] = useState('')
   const {
     config,
     error: prepareError,
@@ -45,29 +48,44 @@ export default function SignPact({ cid, address }) {
     functionName: 'pact',
     args: [cid, address, 1679598588],
   })
-  const { data, error, isError, write } = useContractWrite(config)
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { data, write } = useContractWrite(config)
+  const { isLoading, isSuccess, isError } = useWaitForTransaction({
     hash: data?.hash,
   })
-  console.log(isSuccess)
-  console.log(data)
   return (
     <>
+      <Flex align="center" justify="center" marginTop={4}>
+        <Input
+          placeholder="Cid"
+          width="400px"
+          mr={2}
+          onChange={(e) => {
+            setCid(e.target.value)
+          }}
+          value={cid}
+        />
+        <Button
+          isLoading={isLoading}
+          disabled={!write || isLoading}
+          onClick={write}
+        >
+          Sign Pact
+        </Button>
+      </Flex>
       <AlertContainer>
-        <DefaultAlert
+        <LinkAlert
           isOpen={isSuccess}
           status="success"
           title="Pact was signed"
-          description={`https://hyperspace.filfox.info/en/tx/${data?.hash}`}
+          url={`https://hyperspace.filfox.info/en/tx/${data?.hash}`}
+        />
+        <LinkAlert
+          isOpen={isError}
+          status="error"
+          title="Error occured!"
+          url={`https://hyperspace.filfox.info/en/tx/${data?.hash}`}
         />
       </AlertContainer>
-      <Button
-        isLoading={isLoading}
-        disabled={!write || isLoading}
-        onClick={write}
-      >
-        Sign Pact
-      </Button>
     </>
   )
 }
