@@ -5,7 +5,7 @@ import {
   ModalFooter,
   ModalBody,
   Button,
-  Lorem,
+  Spinner,
   ModalHeader,
   ModalCloseButton,
   Box,
@@ -15,6 +15,7 @@ import {
   Text,
   Stack,
   Image,
+  Flex,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import convertToGateway from '@/utils/ipfsStringConverter'
@@ -27,7 +28,6 @@ export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
   const [image, setImage] = useState(null)
   const [uri] = useTokenUri(tokenId)
-  console.log(uri)
   const [info] = useTokenInfo(tokenId)
   const [clicked, setClicked] = useState(false)
   useEffect(() => {
@@ -39,8 +39,10 @@ export default function Pact({ address, index }) {
             'ipfs://',
             'https://ipfs.io/ipfs/'
           )
-          console.log(image)
           setImage(image)
+          console.log('id:', index)
+          console.log('tokenId:', tokenId)
+          console.log('uri:', uri)
         })
         .catch(function (error) {
           console.log(error)
@@ -87,13 +89,19 @@ export default function Pact({ address, index }) {
               },
             }}
           >
-            <Image
-              rounded={'lg'}
-              height={230}
-              width={282}
-              objectFit={'cover'}
-              src={image}
-            />
+            {image ? (
+              <Image
+                rounded={'lg'}
+                height={230}
+                width={282}
+                objectFit={'cover'}
+                src={image}
+              />
+            ) : (
+              <Flex direction="column" align="center" justify="center">
+                <Spinner size="xl" />
+              </Flex>
+            )}
           </Box>
           <Stack pt={10} align={'center'}>
             <Text
