@@ -144,12 +144,12 @@ export default function FileUpload({ handleFilesSelected }) {
               spacing="4"
             >
               <Box height="32" width="20" position="relative">
+                <PreviewImage variants={first} backgroundImage="/frag2.png" />
+                <PreviewImage variants={second} backgroundImage="/frag1.png" />
                 <PreviewImage
-                  variants={first}
-                  backgroundImage="/paper_files.png"
+                  variants={third}
+                  backgroundImage="/frag_main.png"
                 />
-                <PreviewImage variants={second} backgroundImage="/folder.png" />
-                <PreviewImage variants={third} backgroundImage="/archive.png" />
               </Box>
               <Stack p="1" textAlign="center" spacing="1">
                 <Heading fontSize="lg" color="gray.700" fontWeight="bold">
