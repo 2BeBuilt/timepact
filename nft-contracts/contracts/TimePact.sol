@@ -168,19 +168,19 @@ contract TimePact is ERC721Enumerable {
         if (!_exists(tokenId)) {
             revert TimePact__TokenDoesNotExist();
         }
-        if (block.timestamp % 5 == 0) {
+        if (block.number % 5 == 0) {
             tokenURIs[
                 tokenId
             ] = "ipfs://bafyreie2nx7mno2oxwfmyxmp55ivu7pb7c5vn327lo24zkfna4fgizrp64/metadata.json";
-        } else if (block.timestamp % 5 == 1) {
+        } else if (block.number % 5 == 1) {
             tokenURIs[
                 tokenId
             ] = "ipfs://bafyreihcesnp7z6ptqshcfcy2uzbetdhrdhvvjjxljjgmj7cqgego6jjti/metadata.json";
-        } else if (block.timestamp % 5 == 2) {
+        } else if (block.number % 5 == 2) {
             tokenURIs[
                 tokenId
             ] = "ipfs://bafyreifodcypt2weuvt2oyp62wbsc7hrzpw5ogsddyizmixenfip5pml24/metadata.json";
-        } else if (block.timestamp % 5 == 3) {
+        } else if (block.number % 5 == 3) {
             tokenURIs[
                 tokenId
             ] = "ipfs://bafyreifoszfw23ea4ge4hmbhoj3osyihfi3p3wqjdh7qj43rj7mut7t55y/metadata.json";
@@ -189,14 +189,6 @@ contract TimePact is ERC721Enumerable {
                 tokenId
             ] = "ipfs://bafyreibc4t2e7wwpn6c63m7ewgruj7tfj7z4rgoclkh3bybj3aehszrkri/metadata.json";
         }
-    }
-
-    function tBlockTime() public view returns (uint256) {
-        return block.timestamp;
-    }
-
-    function tBlockNumber() public view returns (uint256) {
-        return block.number;
     }
 
     //////////////////////Panel for Deal Client (with access control)////////////
