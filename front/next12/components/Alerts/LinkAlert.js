@@ -6,10 +6,11 @@ import {
   CloseButton,
   Box,
   Flex,
+  Link,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 
-export default function DefaultAlert({ isOpen, status, title, description }) {
+export default function LinkAlert({ isOpen, status, title, url }) {
   const [open, setOpen] = useState(isOpen)
   useEffect(() => {
     setOpen(isOpen)
@@ -32,7 +33,11 @@ export default function DefaultAlert({ isOpen, status, title, description }) {
           <AlertTitle mt={4} mb={1} fontSize="lg">
             {title}
           </AlertTitle>
-          <AlertDescription maxWidth="sm">{description}</AlertDescription>
+          <AlertDescription maxWidth="sm">
+            <Link href={url} isExternal>
+              {url}
+            </Link>
+          </AlertDescription>
         </Box>
         <CloseButton mt={4} onClick={() => setOpen((prev) => !prev)} />
       </Flex>
