@@ -14,6 +14,7 @@ export default function useTokenUri(tokenId) {
   })
   useEffect(() => {
     const refactor = () => {
+      console.log(data)
       setURI(data.replace('ipfs://', 'https://ipfs.io/ipfs/'))
     }
     data && refactor()
