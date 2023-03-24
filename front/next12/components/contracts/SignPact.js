@@ -7,7 +7,7 @@ import {
 import contractAbi from '@/utils/constants/abiTimePact.json'
 import { Button, Flex } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
-import DefaultAlert from '../Alerts/DefaultAlert'
+import FileUpload from '../FileUpload'
 import AlertContainer from '../Alerts/AlertContainer'
 import { Input } from '@chakra-ui/react'
 import { useState } from 'react'
@@ -55,10 +55,12 @@ export default function SignPact({ address }) {
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
+        <FileUpload />
         <Input
           placeholder="Cid"
           width="400px"
           mr={2}
+          ml={2}
           onChange={(e) => {
             setCid(e.target.value)
           }}

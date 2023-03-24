@@ -29,7 +29,6 @@ export default function Pact({ address, index }) {
   const [uri] = useTokenUri(tokenId)
   const [info] = useTokenInfo(tokenId)
   const [clicked, setClicked] = useState(false)
-
   useEffect(() => {
     const fetchData = () => {
       axios
