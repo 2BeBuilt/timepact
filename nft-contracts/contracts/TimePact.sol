@@ -62,6 +62,7 @@ contract TimePact is ERC721Enumerable {
         info.erase = edate + delay;
 
         _safeMint(msg.sender, number); //Only works with ERC721 reciever/holder in the case with smart contracts
+        _setTokenURI(number);
         ++number;
         emit Pact(cid, creator, edate);
     }
@@ -183,7 +184,7 @@ contract TimePact is ERC721Enumerable {
             tokenURIs[
                 tokenId
             ] = "ipfs://bafyreifoszfw23ea4ge4hmbhoj3osyihfi3p3wqjdh7qj43rj7mut7t55y/metadata.json";
-        } else if (block.timestamp % 5 == 4) {
+        } else {
             tokenURIs[
                 tokenId
             ] = "ipfs://bafyreibc4t2e7wwpn6c63m7ewgruj7tfj7z4rgoclkh3bybj3aehszrkri/metadata.json";
