@@ -191,8 +191,12 @@ contract TimePact is ERC721Enumerable {
         }
     }
 
-    function tBlockTime() public returns (uint256) {
+    function tBlockTime() public view returns (uint256) {
         return block.timestamp;
+    }
+
+    function tBlockNumber() public view returns (uint256) {
+        return block.number;
     }
 
     //////////////////////Panel for Deal Client (with access control)////////////
