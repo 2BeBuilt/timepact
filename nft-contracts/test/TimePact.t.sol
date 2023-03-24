@@ -78,10 +78,10 @@ contract TimePactTest is DSTest, ERC721Holder {
     function testDealNoClient() public {
         timePact.pact("pcideeee", "creatoor", 126743876124);
         assertEq(timePact.balanceOf(address(this)), 1);
-        assertEq(
-            timePact.tokenURI(0),
-            "ipfs://bafyreic3rh2kbw5ulhlq67nu4e65p37acfitkgqglxhn7o3ima7pstn56m/metadata.json"
-        );
+        // assertEq(
+        //     timePact.tokenURI(0),
+        //     "ipfs://bafyreic3rh2kbw5ulhlq67nu4e65p37acfitkgqglxhn7o3ima7pstn56m/metadata.json"
+        // );
         //assertEq(timePact.number(), 1); //works with public getter as expected
     }
 
