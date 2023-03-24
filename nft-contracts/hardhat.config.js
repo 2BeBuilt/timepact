@@ -6,6 +6,8 @@ require("dotenv").config()
 require("@nomicfoundation/hardhat-foundry")
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
+const PRIVATE_KEY_GOERLI = process.env.PRIVATE_KEY_GOERLI
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
     solidity: {
@@ -28,6 +30,11 @@ module.exports = {
     },
     defaultNetwork: "Hyperspace",
     networks: {
+        Goerli: {
+            chainId: 5,
+            url: "https://rpc.ankr.com/eth_goerli",
+            accounts: [PRIVATE_KEY_GOERLI],
+        },
         Hyperspace: {
             chainId: 3141,
             url: "https://api.hyperspace.node.glif.io/rpc/v1",
@@ -44,5 +51,9 @@ module.exports = {
         tests: "./test",
         cache: "./cache",
         artifacts: "./artifacts",
+    },
+    etherscan: {
+        apiKey: ETHERSCAN_API_KEY,
+        customChains: [],
     },
 }
