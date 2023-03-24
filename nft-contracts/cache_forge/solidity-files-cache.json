@@ -60,8 +60,8 @@
       }
     },
     "contracts/TimePact.sol": {
-      "lastModificationDate": 1679695775351,
-      "contentHash": "8f3d178604f12bd2048477cc16cb2df6",
+      "lastModificationDate": 1679696703861,
+      "contentHash": "4cd28f85e23d1c5fb300e5e38804bc71",
       "sourceName": "contracts/TimePact.sol",
       "solcConfig": {
         "settings": {
