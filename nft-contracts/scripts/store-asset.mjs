@@ -7,7 +7,7 @@ const API_KEY = process.env.NFT_STORAGE_API_KEY
 
 async function storeAsset() {
     const client = new NFTStorage({ token: API_KEY })
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 5; i++) {
         const metadata = await client.store({
             name: `TimePact #${i}`,
             description: "Encrypt and save your data for the future!",
