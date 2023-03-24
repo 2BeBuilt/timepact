@@ -1,4 +1,4 @@
 Wallet Ethereum Address: 0x93df989465E0b1cD882E195DD5C4a760018151F9
 Deploying TimePact...
-TimePact deployed to: 0xFae147Cd844BF838fa4CE5F6A1041AF103C09b29
+TimePact deployed to: 0x3D9c8DcEE5341cF1D48243BFE239943c54D279cf
 

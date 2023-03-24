@@ -24,6 +24,7 @@ contract TimePact is ERC721Enumerable {
 
     mapping(uint256 => PactInfo) internal keys;
     mapping(uint256 => string) internal cidCheck;
+    mapping(uint256 => string) private tokenURIs;
 
     uint64 constant delay = 24 weeks;
     uint256 private number;
@@ -59,7 +60,6 @@ contract TimePact is ERC721Enumerable {
         info.locked = true;
         info.filecoin = false;
         info.erase = edate + delay;
-
 
         _safeMint(msg.sender, number); //Only works with ERC721 reciever/holder in the case with smart contracts
         ++number;
@@ -137,25 +137,19 @@ contract TimePact is ERC721Enumerable {
         if (!_exists(tokenId)) {
             revert TimePact__TokenDoesNotExist();
         }
-        return _baseURI();
+        return tokenURIs[tokenId];
     }
 
     function getDelay() public pure returns (uint256) {
         return delay;
     }
 
-    /**
-     * @dev Token becomes wallet-bound after Pact is unlocked (to prevent malicious trading)
-     */
+    //@dev Token becomes wallet-bound after Pact is unlocked (to prevent malicious trading)
     function _transfer(address from, address to, uint256 tokenId) internal override {
         if (!keys[tokenId].locked) {
             revert TimePact__AlreadyUnlocked();
         }
         super._transfer(from, to, tokenId);
-    }
-
-    function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://bafyreic3rh2kbw5ulhlq67nu4e65p37acfitkgqglxhn7o3ima7pstn56m/metadata.json";
     }
 
     function cidSybil(string memory cid) internal view returns (bool) {
@@ -165,6 +159,35 @@ contract TimePact is ERC721Enumerable {
             }
         }
         return true;
+    }
+
+    //@dev Sets `_tokenURI` as the tokenURI of `tokenId`.
+    //`tokenId` must exist.
+    function _setTokenURI(uint256 tokenId) internal {
+        if (!_exists(tokenId)) {
+            revert TimePact__TokenDoesNotExist();
+        }
+        if (block.timestamp % 5 == 0) {
+            tokenURIs[
+                tokenId
+            ] = "ipfs://bafyreie2nx7mno2oxwfmyxmp55ivu7pb7c5vn327lo24zkfna4fgizrp64/metadata.json";
+        } else if (block.timestamp % 5 == 1) {
+            tokenURIs[
+                tokenId
+            ] = "ipfs://bafyreihcesnp7z6ptqshcfcy2uzbetdhrdhvvjjxljjgmj7cqgego6jjti/metadata.json";
+        } else if (block.timestamp % 5 == 2) {
+            tokenURIs[
+                tokenId
+            ] = "ipfs://bafyreifodcypt2weuvt2oyp62wbsc7hrzpw5ogsddyizmixenfip5pml24/metadata.json";
+        } else if (block.timestamp % 5 == 3) {
+            tokenURIs[
+                tokenId
+            ] = "ipfs://bafyreifoszfw23ea4ge4hmbhoj3osyihfi3p3wqjdh7qj43rj7mut7t55y/metadata.json";
+        } else if (block.timestamp % 5 == 4) {
+            tokenURIs[
+                tokenId
+            ] = "ipfs://bafyreibc4t2e7wwpn6c63m7ewgruj7tfj7z4rgoclkh3bybj3aehszrkri/metadata.json";
+        }
     }
 
     //////////////////////Panel for Deal Client (with access control)////////////
