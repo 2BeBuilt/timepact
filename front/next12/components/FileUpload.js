@@ -1,8 +1,6 @@
 import {
   AspectRatio,
   Box,
-  BoxProps,
-  Container,
   forwardRef,
   Heading,
   Input,
@@ -10,8 +8,6 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { motion, useAnimation } from 'framer-motion'
-import { useState } from 'react'
-import axios from 'axios'
 
 const first = {
   rest: {
@@ -107,30 +103,7 @@ const PreviewImage = forwardRef((props, ref) => {
   )
 })
 
-export default function FileUpload() {
-  const [cid, setCid] = useState(null)
-  const [files, selectFiles] = useState(null)
-  const handleFilesSelected = (e) => {
-    const files = Array.from(e.target.files)
-    selectFiles(files)
-    var formData = new FormData()
-    for (let key in files) {
-      formData.append('file' + key, files[key])
-    }
-    axios
-      .post('/api/ipfs/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(function (response) {
-        console.log(response)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-      .finally(function () {})
-  }
+export default function FileUpload({ handleFilesSelected }) {
   const controls = useAnimation()
   const startAnimation = () => controls.start('hover')
   const stopAnimation = () => controls.stop()

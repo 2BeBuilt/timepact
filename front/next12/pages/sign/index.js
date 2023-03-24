@@ -5,9 +5,6 @@ import PageAlerts from '@/components/Alerts/PageAlerts'
 export default function Sign() {
   const { address, isDisconnected } = useAccount()
   const { chain } = useNetwork()
-  const handleUpload = () => {
-    console.log('Ok')
-  }
   return (
     <main>
       {/*TODO wrong chain handler*/}

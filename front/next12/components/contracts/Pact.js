@@ -27,6 +27,7 @@ export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
   const [image, setImage] = useState(null)
   const [uri] = useTokenUri(tokenId)
+  console.log(uri)
   const [info] = useTokenInfo(tokenId)
   const [clicked, setClicked] = useState(false)
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function Pact({ address, index }) {
             'ipfs://',
             'https://ipfs.io/ipfs/'
           )
+          console.log(image)
           setImage(image)
         })
         .catch(function (error) {
