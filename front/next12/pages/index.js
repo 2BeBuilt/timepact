@@ -3,10 +3,10 @@ import {
   Container,
   Heading,
   SimpleGrid,
-  Icon,
+  Image,
   Text,
   Stack,
-  HStack,
+  Flex,
   VStack,
 } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
@@ -27,27 +27,33 @@ export default function Home() {
       <PageHead title="TimePact" />
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
-          <Heading fontSize={'3xl'}>This is the headline</Heading>
+          <Heading fontSize={'3xl'}>Welcome to the TimePact</Heading>
           <Text color={'gray.600'} fontSize={'xl'}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua.
+            This app was designed to help you preserve the most necessary data
+            in the blockchain
           </Text>
         </Stack>
 
         <Container maxW={'6xl'} mt={10}>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
-            {features.map((feature) => (
-              <HStack key={feature.id} align={'top'}>
-                <Box color={'green.400'} px={2}>
-                  <Icon as={CheckIcon} />
-                </Box>
-                <VStack align={'start'}>
-                  <Text fontWeight={600}>{feature.title}</Text>
-                  <Text color={'gray.600'}>{feature.text}</Text>
-                </VStack>
-              </HStack>
-            ))}
+          <SimpleGrid columns={3} spacing={10}>
+            <Flex direction="column" justify="center" alignItems="center">
+              <Text fontSize="xl" mb={2}>
+                You choose yout data
+              </Text>
+              <Image src="main/data.png" />
+            </Flex>
+            <Flex direction="column" justify="center" alignItems="center">
+              <Text fontSize="xl" mb={2}>
+                You choose the date of exposure
+              </Text>
+              <Image src="main/date.png" />
+            </Flex>
+            <Flex direction="column" justify="center" alignItems="center">
+              <Text fontSize="xl" mb={2}>
+                We encrypt, we secure
+              </Text>
+              <Image src="main/crypto-key.png" />
+            </Flex>
           </SimpleGrid>
         </Container>
       </Box>
