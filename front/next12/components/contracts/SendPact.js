@@ -50,7 +50,7 @@ export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
 
   const [canUnlock] = useCheckUnlock(tokenId)
 
-  console.log(tokenId, ' unlocked? ', canUnlock, 'timeout ', timeOut)
+  console.log(tokenId, ' unlocked? ', canUnlock)
 
   return (
     <>
