@@ -7,6 +7,7 @@ import {
   Stack,
   Image,
   Flex,
+  Skeleton,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
@@ -17,6 +18,7 @@ import Countdown from 'react-countdown'
 import PactModal from '../Modals/PactModal'
 import { zeroPad } from 'react-countdown'
 import { useInterval } from 'usehooks-ts'
+import UnlockPact from './UnlockPact'
 
 export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
@@ -48,6 +50,7 @@ export default function Pact({ address, index }) {
   }, [uri])
 
   useEffect(() => {
+    console.log(`indx:${index}, tokenId:${tokenId}`)
     info && setStamp(Number(info[1]))
   }, [info])
 
@@ -61,6 +64,8 @@ export default function Pact({ address, index }) {
 
     getTimeNow()
   }, [clicked])
+
+  useEffect(() => {}, [tokenId])
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
@@ -80,7 +85,6 @@ export default function Pact({ address, index }) {
     <>
       <Center py={12}>
         <Box
-          onClick={() => setClicked((prev) => !prev)}
           role={'group'}
           p={6}
           maxW={'330px'}
@@ -116,6 +120,7 @@ export default function Pact({ address, index }) {
           >
             {image ? (
               <Image
+                onClick={() => setClicked((prev) => !prev)}
                 rounded={'lg'}
                 height={230}
                 width={282}
@@ -134,7 +139,7 @@ export default function Pact({ address, index }) {
               fontSize={'sm'}
               textTransform={'uppercase'}
             >
-              Pact #{tokenId}
+              {tokenId === null ? '...' : `Pact #${tokenId}`}
             </Text>
             <Text color={'gray.500'} fontSize={'m'} textTransform={'uppercase'}>
               {stamp && timeNow && (
@@ -146,6 +151,7 @@ export default function Pact({ address, index }) {
                 ></Countdown>
               )}
             </Text>
+            <UnlockPact tokenId={tokenId} />
           </Stack>
         </Box>
       </Center>
