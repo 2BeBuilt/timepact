@@ -47,7 +47,12 @@ router.get('/retrieve', async (req, res, next) => {
     res.send('No cid provided')
   }
 
-  const cid = req.query.cid
+  const ecid = req.query.cid
+    .replaceAll('xMl13Jk', '+')
+    .replaceAll('Po3r21Ld', '/')
+    .replaceAll('M1l32', '=')
+
+  const cid = decryptRSA(ecid)
 
   const stream = client.cat(cid)
 
