@@ -5,12 +5,29 @@ import {
   useContractEvent,
 } from 'wagmi'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import { Button, Flex } from '@chakra-ui/react'
+import {
+  Spinner,
+  Flex,
+  Tooltip,
+  Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  Input,
+  SimpleGrid,
+  Text,
+  Button,
+  ModalFooter,
+} from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
-import useCheckUnlock from '@/hooks/useCheckUnlock'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function SendPact({ from, tokenId }) {
+  const [to, setTo] = useState(null)
+  const [modalOpen, setModalOpen] = useState(false)
   const {
     config,
     error: prepareError,
@@ -19,7 +36,7 @@ export default function SendPact({ from, tokenId }) {
     address: pact,
     abi: contractAbi,
     functionName: 'transferFrom',
-    args: [tokenId],
+    args: [from, to, tokenId],
   })
 
   const { data, write } = useContractWrite(config)
@@ -27,21 +44,51 @@ export default function SendPact({ from, tokenId }) {
     hash: data?.hash,
   })
 
-  useContractEvent({
-    address: pact,
-    abi: contractAbi,
-    eventName: 'Unlocked',
-    listener(fetchedTokenId, owner, cid) {
-      const fTokenId = Number(fetchedTokenId)
-      if (fTokenId === tokenId) {
-        setLocked(false)
-      }
-    },
-  })
+  const handleAddressChange = (e) => {
+    setTo(e.target.value)
+  }
+
+  if (isSuccess) window.location.reload(false)
 
   return (
     <>
-      <Button>Transfer</Button>
+      <Tooltip label={isLoading ? 'Transfering...' : 'Transfer'} fontSize="md">
+        <Flex
+          cursor="pointer"
+          onClick={!isLoading ? () => setModalOpen(true) : () => {}}
+        >
+          {isLoading ? (
+            <Spinner size="md" />
+          ) : (
+            <Image
+              borderRadius="full"
+              boxSize="23px"
+              src="send.png"
+              alt="transfer icon"
+            />
+          )}
+        </Flex>
+      </Tooltip>
+      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Enter address</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input
+              type="text"
+              placeholder="to"
+              onChange={handleAddressChange}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <SimpleGrid columns={2} spacing={2}>
+              <Button onClick={write}>Ok</Button>
+              <Button onClick={() => setModalOpen(false)}>Close</Button>
+            </SimpleGrid>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }
