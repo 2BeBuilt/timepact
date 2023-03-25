@@ -78,7 +78,7 @@ export default function Provider({ cid, tokenId, isProposed }) {
           ) : (
             <Image
               borderRadius="full"
-              boxSize="23px"
+              boxSize="30px"
               src={proposed || isSuccess ? filecoin_logo : ipfs_logo}
               alt={proposed || isSuccess ? filecoin_name : ipfs_name}
             />

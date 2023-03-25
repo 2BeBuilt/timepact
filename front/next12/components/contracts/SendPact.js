@@ -62,7 +62,7 @@ export default function SendPact({ from, tokenId }) {
           ) : (
             <Image
               borderRadius="full"
-              boxSize="23px"
+              boxSize="30px"
               src="send.png"
               alt="transfer icon"
             />
