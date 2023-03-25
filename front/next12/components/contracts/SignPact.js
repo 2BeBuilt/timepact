@@ -4,7 +4,7 @@ import {
   useWaitForTransaction,
 } from 'wagmi'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import { Button, Flex, Heading, Input } from '@chakra-ui/react'
+import { Button, Flex, Text } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
 import FileUpload from '../FileUpload'
 import AlertContainer from '../Alerts/AlertContainer'
@@ -68,19 +68,24 @@ export default function SignPact({ address }) {
     <>
       <Flex align="center" justify="center" marginTop={4}>
         <FileUpload handleFilesSelected={handleFilesSelected} />
-        <UploadModal
-          isOpen={uploadModal}
-          onClose={handleCloseUploadModal}
-          handleDateChange={handleDateChange}
-        />
-        <Button
-          isLoading={isLoading}
-          disabled={!write || isLoading || !cid}
-          onClick={write}
-          ml={2}
-        >
-          Sign Pact
-        </Button>
+        {!(date && cid) ? (
+          <UploadModal
+            isOpen={uploadModal}
+            onClose={handleCloseUploadModal}
+            handleDateChange={handleDateChange}
+          />
+        ) : (
+          <>
+            <Button
+              isLoading={isLoading}
+              disabled={!write || isLoading}
+              onClick={write}
+              ml={2}
+            >
+              Sign Pact
+            </Button>
+          </>
+        )}
       </Flex>
       <AlertContainer>
         <LinkAlert
