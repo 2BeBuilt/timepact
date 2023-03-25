@@ -15,6 +15,7 @@ import NextLink from 'next/link'
 import { useAccount } from 'wagmi'
 
 const Links = [
+  { label: 'Vision', href: '/vision' },
   { label: 'Sign Pact', href: '/sign' },
   { label: 'My Pacts', href: '/pacts' },
 ]
