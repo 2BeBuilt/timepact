@@ -55,7 +55,7 @@ export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
-        {timeout && !canUnlock ? (
+        {timeOut && !canUnlock ? (
           <Button disabled>Soon</Button>
         ) : (
           <>
