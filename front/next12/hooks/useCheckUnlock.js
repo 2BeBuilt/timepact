@@ -4,7 +4,7 @@ import { pact } from '@/utils/constants/addresses'
 import contractAbi from '@/utils/constants/abiTimePact.json'
 
 export default function useCheckUnlock(tokenId) {
-  const [unlock, setUnlock] = useState(null)
+  const [canUnlock, setUnlock] = useState(null)
   const { data, isSuccess } = useContractRead({
     address: pact,
     abi: contractAbi,
@@ -16,5 +16,5 @@ export default function useCheckUnlock(tokenId) {
     setUnlock(data)
   }, [data, isSuccess])
 
-  return [unlock]
+  return [canUnlock]
 }

@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 
-export default function UploadModal({ isOpen, onClose }) {
+export default function UploadModal({ isOpen, onClose, handleDateChange }) {
   const [open, setOpen] = useState(isOpen)
   useEffect(() => {
     setOpen(isOpen)
@@ -34,6 +34,7 @@ export default function UploadModal({ isOpen, onClose }) {
                 size="md"
                 type="datetime-local"
                 width="200"
+                onChange={handleDateChange}
               />
             </Flex>
           </ModalBody>
