@@ -27,8 +27,8 @@ export default function Home() {
       <PageHead title="TimePact" />
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
-          <Heading fontSize={'3xl'}>Welcome to the TimePact</Heading>
-          <Text color={'gray.600'} fontSize={'lg'}>
+          <Heading fontSize={'3xl'}>TimePact</Heading>
+          <Text color={'gray.600'} fontSize={'xl'}>
             Introducing TimePact - a blockchain marvel that blends ancient magic
             and futuristic technology to lock and encrypt your data. Enter into
             an Immutable Pact with an ancient librarian, who safeguards your
@@ -57,7 +57,7 @@ export default function Home() {
             </Flex>
             <Flex direction="column" justify="center" alignItems="center">
               <Text fontSize="xl" mb={2}>
-                We encrypt, we secure
+                We encrypt, we secure, we deliver
               </Text>
               <Image src="main/crypto-key.png" />
             </Flex>
