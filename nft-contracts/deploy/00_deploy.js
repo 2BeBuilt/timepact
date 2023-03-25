@@ -11,11 +11,11 @@ module.exports = async ({ deployments }) => {
     const chainId = network.config.chainId
 
     //deploy TimePact
-    // const TimePact = await ethers.getContractFactory("TimePact", wallet)
-    // console.log("Deploying TimePact...")
-    // const timePact = await TimePact.deploy()
-    // await timePact.deployed()
-    // console.log("TimePact deployed to:", timePact.address)
+    const TimePact = await ethers.getContractFactory("TimePact", wallet)
+    console.log("Deploying TimePact...")
+    const timePact = await TimePact.deploy()
+    await timePact.deployed()
+    console.log("TimePact deployed to:", timePact.address)
 
     // // //deploy DealClient
     // const DealClient = await ethers.getContractFactory("DealClient", wallet)
@@ -24,9 +24,9 @@ module.exports = async ({ deployments }) => {
     // await dc.deployed()
     // console.log("DealClient deployed to:", dc.address)
 
-    const ScrollBridge = await ethers.getContractFactory("ScrollBridge", wallet)
-    console.log("Deploying ScrollBridge...")
-    const scrollBridge = await ScrollBridge.deploy()
-    await scrollBridge.deployed()
-    console.log("ScrollBridge deployed to Scroll:", scrollBridge.address)
+    // const ScrollBridge = await ethers.getContractFactory("ScrollBridge", wallet)
+    // console.log("Deploying ScrollBridge...")
+    // const scrollBridge = await ScrollBridge.deploy()
+    // await scrollBridge.deployed()
+    // console.log("ScrollBridge deployed to Scroll:", scrollBridge.address)
 }
