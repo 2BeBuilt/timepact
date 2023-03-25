@@ -1,11 +1,3 @@
-# Filecoin infrustructure
-
-Wallet Ethereum Address: 0x93df989465E0b1cD882E195DD5C4a760018151F9 
-
-TimePact deployed to: 0x1A0FF661F18F545dB13653988F009c9D26E06b81
-
-ScrollBridge deployed to Scroll: 0x0f97BaE260F9a1Da70A8976914D5dE002509D1B0
-
 # Scroll Bridge for TimePact
 
 Bridging process:

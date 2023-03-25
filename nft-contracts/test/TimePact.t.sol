@@ -78,10 +78,10 @@ contract TimePactTest is DSTest, ERC721Holder {
     function testDealNoClient() public {
         timePact.pact("pcideeee", "creatoor", 126743876124);
         assertEq(timePact.balanceOf(address(this)), 1);
-        // assertEq(
-        //     timePact.tokenURI(0),
-        //     "ipfs://bafyreic3rh2kbw5ulhlq67nu4e65p37acfitkgqglxhn7o3ima7pstn56m/metadata.json"
-        // );
+        assertEq(
+            timePact.tokenURI(0),
+            "ipfs://bafyreihcesnp7z6ptqshcfcy2uzbetdhrdhvvjjxljjgmj7cqgego6jjti/metadata.json"
+        );
         //assertEq(timePact.number(), 1); //works with public getter as expected
     }
 
@@ -111,5 +111,51 @@ contract TimePactTest is DSTest, ERC721Holder {
         (string memory creator2, uint64 time2, , , , ) = timePact.tokenInfo(token2);
         assertEq(creator2, "creatoor");
         assertEq(time2, 1);
+    }
+
+    function testBridgeOut() public {
+        timePact.pact("pcideeee", "creatoor", 0);
+        assertEq(timePact.balanceOf(address(this)), 1);
+        (
+            string memory creator,
+            uint64 unlock,
+            bool filecoin,
+            address recipient,
+            string memory uri,
+            uint256 tokenId
+        ) = timePact.bridgeToScroll(0);
+        assertEq(creator, "creatoor");
+        assertEq(unlock, 0);
+        require(!filecoin);
+        assertEq(recipient, address(this));
+        assertEq(
+            uri,
+            "ipfs://bafyreihcesnp7z6ptqshcfcy2uzbetdhrdhvvjjxljjgmj7cqgego6jjti/metadata.json"
+        );
+        assertEq(tokenId, 0);
+    }
+
+    function testBridgeIn() public {
+        timePact.pact("pcideeee", "creatoor", 0);
+        assertEq(timePact.balanceOf(address(this)), 1);
+        (
+            string memory creator,
+            uint64 unlock,
+            bool filecoin,
+            address recipient,
+            string memory uri,
+            uint256 tokenId
+        ) = timePact.bridgeToScroll(0);
+        assertEq(creator, "creatoor");
+        assertEq(unlock, 0);
+        require(!filecoin);
+        assertEq(recipient, address(this));
+        assertEq(
+            uri,
+            "ipfs://bafyreihcesnp7z6ptqshcfcy2uzbetdhrdhvvjjxljjgmj7cqgego6jjti/metadata.json"
+        );
+        assertEq(tokenId, 0);
+        timePact.bridgeFromScroll(tokenId, recipient);
+        assertEq(timePact.balanceOf(address(this)), 1);
     }
 }
