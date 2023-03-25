@@ -7,7 +7,7 @@ The TimePact is built in **Hyperspace**, the testnet of **FEVM** that just came 
 Introducing TimePact - a blockchain marvel that blends ancient magic and futuristic technology to lock and encrypt your data. Enter into an Immutable Pact with an ancient librarian, who safeguards your information with powerful magic encryption. Receive a unique NFT key that can unlock and retrieve your data from the formidable IPFS or Filecoin Storage Providers at a pre-determined time. The keys can travel through space and time and can even be traded for mystical cryptographic currency on other blockchains, like Scroll. Step into the future with TimePact, where magic meets technology.
 
 ### TimePact creation flow
-At the start of the creation process, the **creator** would be asked to upload the files, input **Creator** information and choose the **date of exposure** when the encypted data can be decrypted and revealed to the holder of the **Pact** (a specific NFT that serves as a key to the data). 
+At the start of the creation process, the **creator** would be asked to upload the files, input **Creator** information and choose the **date of exposure** (`unlock date`) when the encypted data can be decrypted and revealed to the holder of the **Pact** (a specific NFT that serves as a key to the data). 
 
 After signing the **TimePact**, data is stored on the ipfs node for future transfer to Filecoin Storage Providers in case the user chooses this option. In the case of Filecoin Storage, the `end_epoch` is `unlock date` + 24 weeks delay. After the `unlock date`, the owner of NFT would use it to decrypt the stored `data` from the Filecoin Storage Providers or the IPFS node into `initial data`.
 
