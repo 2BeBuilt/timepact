@@ -60,11 +60,6 @@ export default function Provider({ cid, tokenId, isProposed }) {
     hash: data?.hash,
   })
 
-  const handleClick = () => {
-    if (proposed) return
-    write()
-  }
-
   return (
     <>
       <Tooltip
@@ -77,7 +72,7 @@ export default function Provider({ cid, tokenId, isProposed }) {
         }
         fontSize="md"
       >
-        <Flex cursor="pointer" onClick={handleClick}>
+        <Flex cursor="pointer" onClick={!proposed ? write : () => {}}>
           {isLoading ? (
             <Spinner size="md" />
           ) : (
