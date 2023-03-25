@@ -56,7 +56,8 @@ contract TimePactTest is DSTest, ERC721Holder {
     function testMakeDealProposalWithTimePact() public {
         require(client.dealsLength() == 0, "Expect no deals");
         //client.makeDealProposal(cDealRequest());
-        timePact.pactFilecoin("pcideeerrree", 0, createDealRequest());
+        timePact.pact("pcideeee", "creatoor", 0);
+        timePact.pactFilecoin("pcideeee", 0, createDealRequest());
         require(client.dealsLength() == 1, "Expect one deal");
 
         RequestId memory proposalIdSet = client.getProposalIdSet(testCID);

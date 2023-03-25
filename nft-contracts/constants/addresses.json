@@ -1,5 +1,5 @@
 {
-    "filecoin": { "pact": ["0x7df86c47473b58Bfa4ee13d36C8274064341A5f7"] },
+    "filecoin": { "pact": ["0x885406419d89f20eFB2e7E5789CB7c0cD6BFecaA"] },
     "scroll": {
         "ScrollBridge": ["0xC567266cca974BDabE3e669D2B5e6A3deb0a7Ae6"]
     }
