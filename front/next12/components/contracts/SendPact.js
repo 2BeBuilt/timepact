@@ -10,12 +10,7 @@ import { pact } from '@/utils/constants/addresses'
 import useCheckUnlock from '@/hooks/useCheckUnlock'
 import { useEffect, useState } from 'react'
 
-export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
-  const [locked, setLocked] = useState(isLocked)
-  useEffect(() => {
-    setLocked(isLocked)
-  }, [isLocked])
-
+export default function SendPact({ from, tokenId }) {
   const {
     config,
     error: prepareError,
@@ -23,7 +18,7 @@ export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
   } = usePrepareContractWrite({
     address: pact,
     abi: contractAbi,
-    functionName: 'unlock',
+    functionName: 'transferFrom',
     args: [tokenId],
   })
 
