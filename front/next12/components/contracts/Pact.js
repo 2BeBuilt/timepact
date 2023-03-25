@@ -1,35 +1,33 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
-  Button,
   Spinner,
-  ModalHeader,
-  ModalCloseButton,
   Box,
   Center,
   useColorModeValue,
-  Heading,
   Text,
   Stack,
   Image,
   Flex,
 } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-import convertToGateway from '@/utils/ipfsStringConverter'
+import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
 import useTokenId from '@/hooks/useTokenId'
 import axios from 'axios'
 import useTokenInfo from '@/hooks/useTokenInfo'
+import Countdown from 'react-countdown'
+import PactModal from '../Modals/PactModal'
+import { zeroPad } from 'react-countdown'
+import { useInterval } from 'usehooks-ts'
 
 export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
   const [image, setImage] = useState(null)
+  const [stamp, setStamp] = useState(null)
   const [uri] = useTokenUri(tokenId)
   const [info] = useTokenInfo(tokenId)
   const [clicked, setClicked] = useState(false)
+  const handleClose = () => {
+    setClicked((prev) => !prev)
+  }
   useEffect(() => {
     const fetchData = () => {
       axios
@@ -40,9 +38,6 @@ export default function Pact({ address, index }) {
             'https://ipfs.io/ipfs/'
           )
           setImage(image)
-          console.log('id:', index)
-          console.log('tokenId:', tokenId)
-          console.log('uri:', uri)
         })
         .catch(function (error) {
           console.log(error)
@@ -51,6 +46,36 @@ export default function Pact({ address, index }) {
     }
     uri && fetchData()
   }, [uri])
+
+  useEffect(() => {
+    info && setStamp(Number(info[1]))
+  }, [info])
+
+  const [timeNow, setTimeNow] = useState(null)
+  useEffect(() => {
+    const getTimeNow = () => {
+      axios.get('/api/time/now').then((response) => {
+        setTimeNow(response.data / 1000)
+      })
+    }
+
+    getTimeNow()
+  }, [clicked])
+
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a completed state
+      return <></>
+    } else {
+      // Render a countdown
+      return (
+        <span>
+          {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
+        </span>
+      )
+    }
+  }
+
   return (
     <>
       <Center py={12}>
@@ -111,35 +136,25 @@ export default function Pact({ address, index }) {
             >
               Pact #{tokenId}
             </Text>
+            <Text color={'gray.500'} fontSize={'m'} textTransform={'uppercase'}>
+              {stamp && timeNow && (
+                <Countdown
+                  date={Date.now() + (stamp - timeNow) * 1000}
+                  intervalDelay={0}
+                  precision={3}
+                  renderer={renderer}
+                ></Countdown>
+              )}
+            </Text>
           </Stack>
         </Box>
       </Center>
-      <Modal isOpen={clicked} onClose={() => setClicked((prev) => !prev)}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Pact #{tokenId}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-              {clicked && info && info[0].toString()}
-            </Heading>
-            <Stack direction={'row'} align={'center'}>
-              <Text fontWeight={800} fontSize={'xl'}>
-                {clicked && info && info[2].toString()}
-              </Text>
-            </Stack>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              colorScheme="blue"
-              mr={3}
-              onClick={() => setClicked((prev) => !prev)}
-            >
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <PactModal
+        clicked={clicked}
+        tokenId={tokenId}
+        info={info}
+        handleClose={handleClose}
+      />
     </>
   )
 }

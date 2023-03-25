@@ -47,7 +47,7 @@ export default function SignPact({ address }) {
     address: pact,
     abi: contractAbi,
     functionName: 'pact',
-    args: [cid, address, 1679598588],
+    args: [cid, address, 1679784613],
   })
   const { data, write } = useContractWrite(config)
   const { isLoading, isSuccess, isError } = useWaitForTransaction({
