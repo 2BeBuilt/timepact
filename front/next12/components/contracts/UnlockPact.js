@@ -10,7 +10,7 @@ import { pact } from '@/utils/constants/addresses'
 import useCheckUnlock from '@/hooks/useCheckUnlock'
 import { useEffect, useState } from 'react'
 
-export default function UnlockPact({ tokenId, isLocked, cid }) {
+export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
   const [locked, setLocked] = useState(isLocked)
   useEffect(() => {
     setLocked(isLocked)
@@ -49,13 +49,15 @@ export default function UnlockPact({ tokenId, isLocked, cid }) {
   }
 
   const [canUnlock] = useCheckUnlock(tokenId)
-  {
-    console.log(tokenId, ' unlocked? ', canUnlock)
-  }
+
+  console.log(tokenId, ' unlocked? ', canUnlock)
+
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
-        {canUnlock && (
+        {timeout && !canUnlock ? (
+          <Button disabled>Soon</Button>
+        ) : (
           <>
             {!locked ? (
               <Button onClick={retrieve}>Download</Button>

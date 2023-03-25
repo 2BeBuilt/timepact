@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { filecoinHyperspace, filecoin } from 'wagmi/chains'
+import { filecoinHyperspace, scrollTestnet } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 import { ChakraProvider } from '@chakra-ui/react'
@@ -10,7 +10,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Layout from '../components/Layout'
 
 const { chains, provider } = configureChains(
-  [filecoinHyperspace],
+  [filecoinHyperspace, scrollTestnet],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
 )
 
