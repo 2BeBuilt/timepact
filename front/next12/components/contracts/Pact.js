@@ -152,18 +152,20 @@ export default function Pact({ address, index }) {
                   {console.log(tokenId, ' stamp ', new Date(stamp))}
                   {console.log(tokenId, ' stamp ', stamp)}
                   <Countdown
-                    date={new Date(stamp)}
+                    date={new Date(stamp * 1000)}
                     intervalDelay={0}
                     precision={3}
                     renderer={renderer}
                   ></Countdown>
                 </Text>
-                <UnlockPact
-                  timeOut={timeOut}
-                  tokenId={tokenId}
-                  isLocked={locked}
-                  cid={cid}
-                />
+                {timeOut && (
+                  <UnlockPact
+                    timeOut={timeOut}
+                    tokenId={tokenId}
+                    isLocked={locked}
+                    cid={cid}
+                  />
+                )}
               </>
             ) : (
               <Text
