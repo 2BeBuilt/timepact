@@ -2,9 +2,9 @@
 
 Wallet Ethereum Address: 0x93df989465E0b1cD882E195DD5C4a760018151F9 
 
-TimePact deployed to: 0x1A0FF661F18F545dB13653988F009c9D26E06b81
+TimePact deployed to: 0xc9bD6E2544aD630a69450D0f99020cF32920aF71
 
-ScrollBridge deployed to Scroll: 0x0f97BaE260F9a1Da70A8976914D5dE002509D1B0
+ScrollBridge deployed to Scroll: 0x150C6275651c474082E9b9bfA45b01021148Dea7
 
 # Scroll Bridge for TimePact
 

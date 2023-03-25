@@ -119,6 +119,9 @@ contract TimePact is ERC721Enumerable {
         if (!checkUnlock(tokenId)) {
             revert TimePact__NotEnoughTimePassed();
         }
+        if (keys[tokenId].locked == false) {
+            revert TimePact__AlreadyUnlocked();
+        }
 
         keys[tokenId].locked = false;
 
@@ -150,6 +153,8 @@ contract TimePact is ERC721Enumerable {
     function checkUnlock(uint256 tokenId) public view returns (bool) {
         if (uint256(keys[tokenId].unlock) <= block.timestamp) {
             return true;
+        } else if (uint256(keys[tokenId].erase) <= block.timestamp) {
+            return false;
         } else {
             return false;
         }
