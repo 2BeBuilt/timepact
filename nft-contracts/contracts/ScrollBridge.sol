@@ -27,6 +27,7 @@ contract ScrollBridge is ERC721Enumerable {
     function releaseCopy(
         string memory creator,
         uint64 unlock,
+        bool filecoin,
         address recipient,
         string memory uri,
         uint256 tokenId
@@ -40,6 +41,7 @@ contract ScrollBridge is ERC721Enumerable {
             PactInfo storage info = keys[tokenId];
             info.creator = creator;
             info.unlock = unlock;
+            info.filecoin = filecoin;
             tokenURIs[tokenId] = uri;
 
             _safeMint(msg.sender, tokenId); //Only works with ERC721 reciever/holder in the case with smart contracts
@@ -47,9 +49,9 @@ contract ScrollBridge is ERC721Enumerable {
     }
 
     /// @dev locks the NFT in the contract and releases original on the other chain
-    function bridgeToFilecoin(uint256 tokenId, address recipient) public returns (address) {
+    function bridgeToFilecoin(uint256 tokenId) public returns (uint256, address) {
         safeTransferFrom(msg.sender, owner, tokenId);
-        return recipient;
+        return (tokenId, msg.sender);
     }
 
     /// @notice gives out details on specific deal

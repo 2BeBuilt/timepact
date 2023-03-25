@@ -7,13 +7,14 @@ interface IScrollBridge {
     function releaseCopy(
         string memory creator,
         uint64 unlock,
+        bool filecoin,
         address recipient,
         string memory uri,
         uint256 tokenId
     ) external;
 
     /// @dev locks the NFT in the contract and releases original on the other chain
-    function bridgeToFilecoin(uint256 tokenId, address recipient) external returns (address);
+    function bridgeToFilecoin(uint256 tokenId) external returns (uint256, address);
 
     /// @notice gives out details on specific deal
     /// Creator - string of the initiator of the mint

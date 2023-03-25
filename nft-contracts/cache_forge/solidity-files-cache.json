@@ -104,8 +104,8 @@
       }
     },
     "contracts/ScrollBridge.sol": {
-      "lastModificationDate": 1679717735021,
-      "contentHash": "ace1783c37e0dab7fbf12f6bf4d56ea9",
+      "lastModificationDate": 1679755015491,
+      "contentHash": "3b65ff40089b71b3baeff45f4621d3f1",
       "sourceName": "contracts/ScrollBridge.sol",
       "solcConfig": {
         "settings": {
@@ -1930,8 +1930,8 @@
       }
     },
     "test/ScrollBridge.t.sol": {
-      "lastModificationDate": 1679719189521,
-      "contentHash": "492f8c5b66b3130d47ffe233033626d5",
+      "lastModificationDate": 1679755702771,
+      "contentHash": "bce768182693e7dc5eaa2bae4373af21",
       "sourceName": "test/ScrollBridge.t.sol",
       "solcConfig": {
         "settings": {
