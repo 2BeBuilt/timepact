@@ -26,7 +26,7 @@ export default function Home() {
     <main>
       <PageHead title="TimePact" />
       <Box p={4}>
-        <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
+        <Stack spacing={4} as={Container} maxW={'4xl'} textAlign={'center'}>
           <Heading fontSize={'3xl'}>TimePact</Heading>
           <Text color={'gray.600'} fontSize={'xl'}>
             Introducing TimePact - a blockchain marvel that blends ancient magic
@@ -45,7 +45,7 @@ export default function Home() {
           <SimpleGrid columns={3} spacing={10}>
             <Flex direction="column" justify="center" alignItems="center">
               <Text fontSize="xl" mb={2}>
-                You choose yout data
+                You choose your data
               </Text>
               <Image src="main/data.png" />
             </Flex>
