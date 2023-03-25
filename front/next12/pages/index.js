@@ -28,9 +28,16 @@ export default function Home() {
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
           <Heading fontSize={'3xl'}>Welcome to the TimePact</Heading>
-          <Text color={'gray.600'} fontSize={'xl'}>
-            This app was designed to help you preserve the most necessary data
-            in the blockchain
+          <Text color={'gray.600'} fontSize={'lg'}>
+            Introducing TimePact - a blockchain marvel that blends ancient magic
+            and futuristic technology to lock and encrypt your data. Enter into
+            an Immutable Pact with an ancient librarian, who safeguards your
+            information with powerful magic encryption. Receive a unique NFT key
+            that can unlock and retrieve your data from the formidable IPFS or
+            Filecoin Storage Providers at a pre-determined time. The keys can
+            travel through space and time and can even be traded for mystical
+            cryptographic currency on other blockchains, like Scroll. Step into
+            the future with TimePact, where magic meets technology.
           </Text>
         </Stack>
 
