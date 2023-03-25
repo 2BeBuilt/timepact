@@ -79,11 +79,11 @@ contract TimePact is ERC721Enumerable {
 
         dealsClient.makeDealProposal(deal);
 
-        PactInfo storage info = keys[number];
+        PactInfo storage info = keys[tokenId];
         info.CID = pcid;
         info.filecoin = true;
 
-        emit PactWithFilecoin(pcid, keys[number].creator, keys[number].unlock);
+        emit PactWithFilecoin(pcid, keys[tokenId].creator, keys[tokenId].unlock);
     }
 
     /// @dev locks the NFT in the contract and releases a copy on other chain
