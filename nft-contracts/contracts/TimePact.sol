@@ -11,15 +11,16 @@ error TimePact__CallerIsNotOwnerNorApproved();
 error TimePact__TokenDoesNotExist();
 error TimePact__AlreadyUnlocked();
 error TimePact__CidExists();
+error TimePact__CallerIsNotOwner();
 
 contract TimePact is ERC721Enumerable {
     struct PactInfo {
         string creator; // reference to the creator of the Pact
         uint64 unlock; // unix timestamp
         string CID; // reference to the encrypted storage piece CID
-        bool locked; //Pact locked or unlocked
-        uint64 erase; //unlock + delay (UNIX)
-        bool filecoin;
+        bool locked; // Pact locked or unlocked
+        uint64 erase; // unlock + delay (UNIX)
+        bool filecoin; //flag for Filecoin
     }
 
     mapping(uint256 => PactInfo) internal keys;
@@ -38,7 +39,7 @@ contract TimePact is ERC721Enumerable {
 
     event Pact(string cid, string creator, uint64 edate); //Creation of the Pact
     event Unlocked(uint256 tokenId, address owner, string cid); //Unlocking the file (expiration of the Pact)
-    event PactWithFilecoin(string pcid, string creator, uint64 edate);
+    event PactWithFilecoin(string pcid, string creator, uint64 edate); //Creation of the Pact with Filecoin
 
     /// @notice Creates the record of the tokenId -> CID pair
     /// @param cid IPFS pointer
@@ -69,6 +70,8 @@ contract TimePact is ERC721Enumerable {
 
     /// @notice Creates the record of the tokenId -> CID pair
     /// @param pcid piece_cid or car
+    /// @param tokenId tokenId
+    /// @param deal struct for the Deal Client
     function pactFilecoin(string memory pcid, uint256 tokenId, DealRequest calldata deal) external {
         if (keccak256(abi.encode(pcid)) == keccak256(abi.encode(""))) {
             revert TimePact__EmptyKey();
@@ -78,9 +81,33 @@ contract TimePact is ERC721Enumerable {
 
         PactInfo storage info = keys[number];
         info.CID = pcid;
-        info.filecoin = false;
+        info.filecoin = true;
 
         emit PactWithFilecoin(pcid, keys[number].creator, keys[number].unlock);
+    }
+
+    /// @dev locks the NFT in the contract and releases a copy on other chain
+    function bridgeToScroll(
+        uint256 tokenId
+    ) public returns (string memory, uint64, bool, address, string memory, uint256) {
+        safeTransferFrom(msg.sender, owner, tokenId);
+        string memory uri = tokenURI(tokenId);
+        return (
+            keys[tokenId].creator,
+            keys[tokenId].unlock,
+            keys[tokenId].filecoin,
+            address(msg.sender),
+            uri,
+            tokenId
+        );
+    }
+
+    /// @dev returns the NFT to the local chain
+    function bridgeFromScroll(uint256 tokenId, address recipient) public {
+        if (msg.sender != owner) {
+            revert TimePact__CallerIsNotOwner();
+        }
+        safeTransferFrom(owner, recipient, tokenId);
     }
 
     /// @notice Unlocks the file and emits the event
@@ -92,6 +119,9 @@ contract TimePact is ERC721Enumerable {
         if (!checkUnlock(tokenId)) {
             revert TimePact__NotEnoughTimePassed();
         }
+        if (keys[tokenId].locked == false) {
+            revert TimePact__AlreadyUnlocked();
+        }
 
         keys[tokenId].locked = false;
 
@@ -99,6 +129,11 @@ contract TimePact is ERC721Enumerable {
     }
 
     /// @notice gives out details on specific deal
+    /// Creator - string of the initiator of the mint
+    /// Unlock - UNIX unlock date
+    /// CID - ipfs cid or filecoin's storage providers' pcid or car
+    /// Erase - SP storage expiry
+    /// Filecoin - true in case the deal with storage providers was made
     function tokenInfo(
         uint256 tokenId
     ) public view returns (string memory, uint64, string memory, bool, uint64, bool) {
@@ -118,6 +153,8 @@ contract TimePact is ERC721Enumerable {
     function checkUnlock(uint256 tokenId) public view returns (bool) {
         if (uint256(keys[tokenId].unlock) <= block.timestamp) {
             return true;
+        } else if (uint256(keys[tokenId].erase) <= block.timestamp) {
+            return false;
         } else {
             return false;
         }
@@ -145,7 +182,7 @@ contract TimePact is ERC721Enumerable {
         return delay;
     }
 
-    //@dev Token becomes wallet-bound after Pact is unlocked (to prevent malicious trading)
+    ///@dev Token becomes wallet-bound after Pact is unlocked (to prevent malicious trading)
     function _transfer(address from, address to, uint256 tokenId) internal override {
         if (!keys[tokenId].locked) {
             revert TimePact__AlreadyUnlocked();
@@ -162,8 +199,8 @@ contract TimePact is ERC721Enumerable {
         return true;
     }
 
-    //@dev Sets `_tokenURI` as the tokenURI of `tokenId`.
-    //`tokenId` must exist.
+    ///@dev Sets `_tokenURI` as the tokenURI of `tokenId`.
+    ///`tokenId` must exist.
     function _setTokenURI(uint256 tokenId) internal {
         if (!_exists(tokenId)) {
             revert TimePact__TokenDoesNotExist();
@@ -208,6 +245,7 @@ contract TimePact is ERC721Enumerable {
         dealsClient.withdrawBalance(client, value);
     }
 
+    // Address of the deployed Deal Client
     function getDealClient() public view returns (address) {
         return address(dealsClient);
     }
