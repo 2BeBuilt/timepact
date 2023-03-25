@@ -31,10 +31,6 @@ export default function Pact({ address, index }) {
   const [timeOut, setTimeOut] = useState(false)
   const [uri] = useTokenUri(tokenId)
   const [info] = useTokenInfo(tokenId)
-  const [clicked, setClicked] = useState(false)
-  const handleClose = () => {
-    setClicked((prev) => !prev)
-  }
   useEffect(() => {
     const fetchData = () => {
       axios
@@ -60,17 +56,6 @@ export default function Pact({ address, index }) {
     info && setLocked(info[3])
     info && setProposed(info[5])
   }, [info])
-
-  const [timeNow, setTimeNow] = useState(null)
-  useEffect(() => {
-    const getTimeNow = () => {
-      axios.get('/api/time/now').then((response) => {
-        setTimeNow(Math.floor(response.data / 1000))
-      })
-    }
-
-    getTimeNow()
-  }, [clicked])
 
   useEffect(() => {}, [tokenId])
 
@@ -125,7 +110,6 @@ export default function Pact({ address, index }) {
           >
             {image ? (
               <Image
-                onClick={() => setClicked((prev) => !prev)}
                 rounded={'lg'}
                 height={230}
                 width={282}
@@ -152,7 +136,7 @@ export default function Pact({ address, index }) {
                 <SendPact from={address} tokenId={tokenId} />
               </SimpleGrid>
             )}
-            {stamp && timeNow ? (
+            {stamp ? (
               <>
                 <Text
                   color={'gray.500'}
@@ -187,12 +171,6 @@ export default function Pact({ address, index }) {
           </Stack>
         </Box>
       </Center>
-      <PactModal
-        clicked={clicked}
-        tokenId={tokenId}
-        info={info}
-        handleClose={handleClose}
-      />
     </>
   )
 }
