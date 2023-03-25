@@ -10,7 +10,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Layout from '../components/Layout'
 
 const { chains, provider } = configureChains(
-  [filecoin, filecoinHyperspace],
+  [filecoinHyperspace],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
 )
 
