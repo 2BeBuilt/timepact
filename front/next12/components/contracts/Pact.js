@@ -7,7 +7,6 @@ import {
   Stack,
   Image,
   Flex,
-  Skeleton,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
@@ -17,13 +16,14 @@ import useTokenInfo from '@/hooks/useTokenInfo'
 import Countdown from 'react-countdown'
 import PactModal from '../Modals/PactModal'
 import { zeroPad } from 'react-countdown'
-import { useInterval } from 'usehooks-ts'
 import UnlockPact from './UnlockPact'
 
 export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
+  const [cid, setCid] = useState(null)
   const [image, setImage] = useState(null)
   const [stamp, setStamp] = useState(null)
+  const [locked, setLocked] = useState(null)
   const [uri] = useTokenUri(tokenId)
   const [info] = useTokenInfo(tokenId)
   const [clicked, setClicked] = useState(false)
@@ -50,15 +50,16 @@ export default function Pact({ address, index }) {
   }, [uri])
 
   useEffect(() => {
-    console.log(`indx:${index}, tokenId:${tokenId}`)
     info && setStamp(Number(info[1]))
+    info && setCid(info[2])
+    info && setLocked(info[3])
   }, [info])
 
   const [timeNow, setTimeNow] = useState(null)
   useEffect(() => {
     const getTimeNow = () => {
       axios.get('/api/time/now').then((response) => {
-        setTimeNow(response.data / 1000)
+        setTimeNow(Math.floor(response.data / 1000))
       })
     }
 
@@ -80,7 +81,6 @@ export default function Pact({ address, index }) {
       )
     }
   }
-
   return (
     <>
       <Center py={12}>
@@ -139,19 +139,36 @@ export default function Pact({ address, index }) {
               fontSize={'sm'}
               textTransform={'uppercase'}
             >
-              {tokenId === null ? '...' : `Pact #${tokenId}`}
+              {tokenId === null || tokenId === NaN ? '...' : `Pact #${tokenId}`}
             </Text>
-            <Text color={'gray.500'} fontSize={'m'} textTransform={'uppercase'}>
-              {stamp && timeNow && (
-                <Countdown
-                  date={Date.now() + (stamp - timeNow) * 1000}
-                  intervalDelay={0}
-                  precision={3}
-                  renderer={renderer}
-                ></Countdown>
-              )}
-            </Text>
-            <UnlockPact tokenId={tokenId} />
+            {stamp && timeNow ? (
+              <>
+                <Text
+                  color={'gray.500'}
+                  fontSize={'m'}
+                  textTransform={'uppercase'}
+                >
+                  {console.log(tokenId, ' stamp ', new Date(stamp))}
+                  {console.log(tokenId, ' stamp ', stamp)}
+                  {console.log(tokenId, ' unlocked? ', !locked)}
+                  <Countdown
+                    date={new Date(stamp)}
+                    intervalDelay={0}
+                    precision={3}
+                    renderer={renderer}
+                  ></Countdown>
+                </Text>
+                <UnlockPact tokenId={tokenId} isLocked={locked} cid={cid} />
+              </>
+            ) : (
+              <Text
+                color={'gray.500'}
+                fontSize={'m'}
+                textTransform={'uppercase'}
+              >
+                ...
+              </Text>
+            )}
           </Stack>
         </Box>
       </Center>

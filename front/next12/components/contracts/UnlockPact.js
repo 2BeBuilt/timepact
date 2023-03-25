@@ -5,12 +5,17 @@ import {
   useContractEvent,
 } from 'wagmi'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import { Button, Flex, Heading, Input } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
 import useCheckUnlock from '@/hooks/useCheckUnlock'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function UnlockPact({ tokenId }) {
+export default function UnlockPact({ tokenId, isLocked, cid }) {
+  const [locked, setLocked] = useState(isLocked)
+  useEffect(() => {
+    setLocked(isLocked)
+  }, [isLocked])
+
   const {
     config,
     error: prepareError,
@@ -27,7 +32,6 @@ export default function UnlockPact({ tokenId }) {
     hash: data?.hash,
   })
 
-  const [cid, setCid] = useState(null)
   useContractEvent({
     address: pact,
     abi: contractAbi,
@@ -35,7 +39,7 @@ export default function UnlockPact({ tokenId }) {
     listener(fetchedTokenId, owner, cid) {
       const fTokenId = Number(fetchedTokenId)
       if (fTokenId === tokenId) {
-        setCid(cid)
+        setLocked(false)
       }
     },
   })
@@ -44,23 +48,28 @@ export default function UnlockPact({ tokenId }) {
     window.open(`/api/ipfs/retrieve?cid=${cid}`, '_blank')
   }
 
-  const [unlock] = useCheckUnlock(tokenId)
+  const [canUnlock] = useCheckUnlock(tokenId)
+  {
+    console.log(tokenId, ' unlocked? ', canUnlock)
+  }
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
-        {unlock && (
+        {canUnlock && (
           <>
-            {!isSuccess ? (
-              <Button
-                isLoading={isLoading}
-                disabled={!write || isLoading}
-                onClick={write}
-                ml={2}
-              >
-                Unlock
-              </Button>
-            ) : (
+            {!locked ? (
               <Button onClick={retrieve}>Download</Button>
+            ) : (
+              !isSuccess && (
+                <Button
+                  isLoading={isLoading}
+                  disabled={!write || isLoading}
+                  onClick={write}
+                  ml={2}
+                >
+                  Unlock
+                </Button>
+              )
             )}
           </>
         )}
