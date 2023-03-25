@@ -12,29 +12,6 @@ import { useState } from 'react'
 import LinkAlert from '../Alerts/LinkAlert'
 import axios from 'axios'
 import UploadModal from '../Modals/UploadModal'
-/*
-[
-        '0x' +
-          new CID('bafkreiffpbhkmbbctrd56fgq4q3rg2tpiqpcsazfmli3ub2qmba7mxht7e')
-            .toString('base16')
-            .substring(1),
-        151642,
-        false,
-        'bafkreiffpbhkmbbctrd56fgq4q3rg2tpiqpcsazfmli3ub2qmba7mxht7e',
-        189200,
-        789000,
-        10,
-        0,
-        1,
-        1,
-        [
-          'https://ipfs.io/ipfs/QmetJ2J2PyjPpr48fa3bPPiFvF7beDEtFYs766q12EXJ2E?filename=test.car',
-          149000,
-          false,
-          false,
-        ],
-      ]
-*/
 
 export default function SignPact({ address }) {
   const [date, setDate] = useState(null)

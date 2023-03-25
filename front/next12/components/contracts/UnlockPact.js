@@ -50,13 +50,16 @@ export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
 
   const [canUnlock] = useCheckUnlock(tokenId)
 
-  console.log(tokenId, ' unlocked? ', canUnlock, 'timeout ', timeOut)
+  const [seed, setSeed] = useState(1)
+  const reset = () => {
+    setSeed(Math.random())
+  }
 
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
         {timeOut && !canUnlock ? (
-          <Button disabled>Soon</Button>
+          <Button onClick={reset}>Soon</Button>
         ) : (
           <>
             {!locked ? (

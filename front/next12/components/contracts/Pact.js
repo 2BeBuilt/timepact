@@ -17,14 +17,16 @@ import Countdown from 'react-countdown'
 import PactModal from '../Modals/PactModal'
 import { zeroPad } from 'react-countdown'
 import UnlockPact from './UnlockPact'
+import Provider from '../Providers/Provider'
 
 export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
   const [cid, setCid] = useState(null)
   const [image, setImage] = useState(null)
-  const [timeOut, setTimeOut] = useState(false)
   const [stamp, setStamp] = useState(null)
   const [locked, setLocked] = useState(null)
+  const [proposed, setProposed] = useState(null)
+  const [timeOut, setTimeOut] = useState(false)
   const [uri] = useTokenUri(tokenId)
   const [info] = useTokenInfo(tokenId)
   const [clicked, setClicked] = useState(false)
@@ -54,6 +56,7 @@ export default function Pact({ address, index }) {
     info && setStamp(Number(info[1]))
     info && setCid(info[2])
     info && setLocked(info[3])
+    info && setProposed(info[5])
   }, [info])
 
   const [timeNow, setTimeNow] = useState(null)
@@ -74,7 +77,6 @@ export default function Pact({ address, index }) {
       setTimeOut(true)
       return <></>
     } else {
-      // Render a countdown
       return (
         <span>
           {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
@@ -142,6 +144,9 @@ export default function Pact({ address, index }) {
             >
               {tokenId === null || tokenId === NaN ? '...' : `Pact #${tokenId}`}
             </Text>
+            {cid && tokenId && (
+              <Provider cid={cid} tokenId={tokenId} isProposed={proposed} />
+            )}
             {stamp && timeNow ? (
               <>
                 <Text
@@ -149,8 +154,6 @@ export default function Pact({ address, index }) {
                   fontSize={'m'}
                   textTransform={'uppercase'}
                 >
-                  {console.log(tokenId, ' stamp ', new Date(stamp))}
-                  {console.log(tokenId, ' stamp ', stamp)}
                   <Countdown
                     date={new Date(stamp * 1000)}
                     intervalDelay={0}
