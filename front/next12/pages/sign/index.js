@@ -2,6 +2,7 @@ import SignPact from '@/components/contracts/SignPact'
 import { useAccount, useNetwork } from 'wagmi'
 import PageAlerts from '@/components/Alerts/PageAlerts'
 import PageHead from '@/components/PageHead'
+import Countdown from 'react-countdown'
 
 export default function Sign() {
   const { address, isDisconnected } = useAccount()

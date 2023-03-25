@@ -153,7 +153,7 @@ export default function FileUpload({ handleFilesSelected }) {
               </Box>
               <Stack p="1" textAlign="center" spacing="1">
                 <Heading fontSize="lg" color="gray.700" fontWeight="bold">
-                  Drop files here
+                  Drop file here
                 </Heading>
                 <Text fontWeight="light">or click to upload</Text>
               </Stack>
@@ -172,7 +172,6 @@ export default function FileUpload({ handleFilesSelected }) {
             onDragEnter={startAnimation}
             onDragLeave={stopAnimation}
             onChange={handleFilesSelected}
-            multiple
           />
         </Box>
       </Box>

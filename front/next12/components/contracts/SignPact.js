@@ -47,7 +47,7 @@ export default function SignPact({ address }) {
     address: pact,
     abi: contractAbi,
     functionName: 'pact',
-    args: [cid, address, 1679598588],
+    args: [cid, address, 1679746130],
   })
   const { data, write } = useContractWrite(config)
   const { isLoading, isSuccess, isError } = useWaitForTransaction({
@@ -57,17 +57,17 @@ export default function SignPact({ address }) {
     const files = Array.from(e.target.files)
     var formData = new FormData()
     for (let key in files) {
-      formData.append('file' + key, files[key])
+      formData.append('data', files[key])
     }
     axios
-      .post('/api/ipfs/upload', formData, {
+      .post(`/api/ipfs/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
       .then(function (response) {
         setCid(response.data.path)
-        console.log(cid)
+        console.log(response)
         setUploadModal(true)
       })
       .catch(function (error) {
