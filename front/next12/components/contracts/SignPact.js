@@ -66,7 +66,7 @@ export default function SignPact({ address }) {
   }
   return (
     <>
-      <Flex align="center" justify="center" marginTop={4}>
+      <Flex direction="column" align="center" justify="center" marginTop={4}>
         <FileUpload handleFilesSelected={handleFilesSelected} />
         {!(date && cid) ? (
           <UploadModal
@@ -80,7 +80,7 @@ export default function SignPact({ address }) {
               isLoading={isLoading}
               disabled={!write || isLoading}
               onClick={write}
-              ml={2}
+              mt={2}
             >
               Sign Pact
             </Button>
