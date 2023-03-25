@@ -9,6 +9,7 @@ import { Button, Flex } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
 import useCheckUnlock from '@/hooks/useCheckUnlock'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
   const [locked, setLocked] = useState(isLocked)
@@ -45,7 +46,10 @@ export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
   })
 
   const retrieve = () => {
-    window.open(`/api/ipfs/retrieve?cid=${cid}`, '_blank')
+    axios.get(`/api/cid/encrypt?cid=${cid}`).then((response) => {
+      console.log(response)
+      window.open(`/api/ipfs/retrieve?cid=${response.data}`, '_blank')
+    })
   }
 
   const [canUnlock] = useCheckUnlock(tokenId)
