@@ -7,6 +7,7 @@ import {
   Box,
   Flex,
   Link,
+  Image,
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 
@@ -35,7 +36,7 @@ export default function LinkAlert({ isOpen, status, title, url }) {
           </AlertTitle>
           <AlertDescription maxWidth="sm">
             <Link href={url} isExternal>
-              {url}
+              filfox
             </Link>
           </AlertDescription>
         </Box>
