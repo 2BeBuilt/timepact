@@ -13,14 +13,14 @@ contract ScrollBridgeTest is DSTest, ERC721Holder {
     }
 
     function testTokenInfo() public {
-        scrollBridge.releaseCopy("creatoor", 0, address(this), "URI", 0);
-        scrollBridge.releaseCopy("creatooor", 0, address(this), "URILLLL", 1);
+        scrollBridge.releaseCopy("creatoor", 0, true, address(this), "URI", 0);
+        scrollBridge.releaseCopy("creatooor", 0, true, address(this), "URILLLL", 1);
         scrollBridge.balanceOf(address(this));
         uint256 token = scrollBridge.tokenOfOwnerByIndex(address(this), 0);
         (string memory creator, uint64 time, bool filecoin) = scrollBridge.tokenInfo(token);
         assertEq(creator, "creatoor");
         assertEq(time, 0);
-        require(!filecoin);
+        require(filecoin);
         uint256 token2 = scrollBridge.tokenOfOwnerByIndex(address(this), 1);
         (string memory creator2, uint64 time2, ) = scrollBridge.tokenInfo(token2);
         assertEq(creator2, "creatooor");
@@ -28,18 +28,18 @@ contract ScrollBridgeTest is DSTest, ERC721Holder {
     }
 
     function testreleaseCopy() public {
-        scrollBridge.releaseCopy("creatoor", 0, address(this), "URI", 0);
+        scrollBridge.releaseCopy("creatoor", 0, true, address(this), "URI", 0);
         assertEq(scrollBridge.balanceOf(address(this)), 1);
         (string memory creator, uint64 unlock, bool filecoin) = scrollBridge.tokenInfo(0);
         assertEq(creator, "creatoor");
         assertEq(unlock, 0);
-        require(!filecoin);
+        require(filecoin);
         assertEq(scrollBridge.tokenURI(0), "URI");
     }
 
     function testBridgeToFilecoin() public {
-        scrollBridge.releaseCopy("creatoor", 0, address(this), "URI", 10);
-        scrollBridge.bridgeToFilecoin(10, address(this));
+        scrollBridge.releaseCopy("creatoor", 0, false, address(this), "URI", 10);
+        scrollBridge.bridgeToFilecoin(10);
         assertEq(scrollBridge.balanceOf(address(this)), 1);
         (string memory creator, uint64 unlock, bool filecoin) = scrollBridge.tokenInfo(10);
         assertEq(creator, "creatoor");

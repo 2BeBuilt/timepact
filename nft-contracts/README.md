@@ -2,7 +2,7 @@
 
 Wallet Ethereum Address: 0x93df989465E0b1cD882E195DD5C4a760018151F9 
 
-TimePact deployed to: 0xc9bD6E2544aD630a69450D0f99020cF32920aF71
+TimePact deployed to: 0x7df86c47473b58Bfa4ee13d36C8274064341A5f7
 
 ScrollBridge deployed to Scroll: 0x150C6275651c474082E9b9bfA45b01021148Dea7
 
@@ -26,6 +26,7 @@ Scroll
 WE: function releaseCopy(
         string memory creator,
         uint64 unlock,
+        bool filecoin,
         address recipient,
         string memory uri,
         uint256 tokenId
