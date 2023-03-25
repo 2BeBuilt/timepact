@@ -7,7 +7,6 @@ import {
   Stack,
   Image,
   Flex,
-  Button,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
@@ -23,6 +22,7 @@ export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
   const [cid, setCid] = useState(null)
   const [image, setImage] = useState(null)
+  const [timeOut, setTimeOut] = useState(false)
   const [stamp, setStamp] = useState(null)
   const [locked, setLocked] = useState(null)
   const [uri] = useTokenUri(tokenId)
@@ -51,7 +51,7 @@ export default function Pact({ address, index }) {
   }, [uri])
 
   useEffect(() => {
-    info && setStamp(Number(info[1]) * 1000)
+    info && setStamp(Number(info[1]))
     info && setCid(info[2])
     info && setLocked(info[3])
   }, [info])
@@ -71,8 +71,8 @@ export default function Pact({ address, index }) {
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
-      // Render a completed state
-      return <Button disabled>Soon</Button>
+      setTimeOut(true)
+      return <></>
     } else {
       // Render a countdown
       return (
@@ -151,7 +151,6 @@ export default function Pact({ address, index }) {
                 >
                   {console.log(tokenId, ' stamp ', new Date(stamp))}
                   {console.log(tokenId, ' stamp ', stamp)}
-                  {console.log(tokenId, ' unlocked? ', !locked)}
                   <Countdown
                     date={new Date(stamp)}
                     intervalDelay={0}
@@ -159,7 +158,12 @@ export default function Pact({ address, index }) {
                     renderer={renderer}
                   ></Countdown>
                 </Text>
-                <UnlockPact tokenId={tokenId} isLocked={locked} cid={cid} />
+                <UnlockPact
+                  timOut={timeOut}
+                  tokenId={tokenId}
+                  isLocked={locked}
+                  cid={cid}
+                />
               </>
             ) : (
               <Text

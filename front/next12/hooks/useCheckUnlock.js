@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { pact } from '@/utils/constants/addresses'
 import contractAbi from '@/utils/constants/abiTimePact.json'
 
-export default function useCheckUnlock(tokenId) {
+export default function useCheckUnlock(tokenId, timeOver) {
   const [canUnlock, setUnlock] = useState(null)
   const { data, isSuccess } = useContractRead({
     address: pact,
@@ -11,6 +11,7 @@ export default function useCheckUnlock(tokenId) {
     functionName: 'checkUnlock',
     args: [tokenId],
   })
+
   useEffect(() => {
     console.log(data)
     setUnlock(data)
