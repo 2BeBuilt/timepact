@@ -17,7 +17,9 @@ const ipfs_logo = 'providers/ipfs-logo.png'
 
 export default function Provider({ cid, tokenId, isProposed }) {
   const [proposed, setProposed] = useState(isProposed)
-  useEffect(() => {}, [proposed])
+  useEffect(() => {
+    setProposed(isProposed)
+  }, [isProposed])
 
   const {
     config,
@@ -58,6 +60,11 @@ export default function Provider({ cid, tokenId, isProposed }) {
     hash: data?.hash,
   })
 
+  const handleClick = () => {
+    if (proposed) return
+    write()
+  }
+
   return (
     <>
       <Tooltip
@@ -70,7 +77,7 @@ export default function Provider({ cid, tokenId, isProposed }) {
         }
         fontSize="md"
       >
-        <Flex cursor="pointer" onClick={write}>
+        <Flex cursor="pointer" onClick={handleClick}>
           {isLoading ? (
             <Spinner size="md" />
           ) : (
