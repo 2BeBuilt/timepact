@@ -7,6 +7,7 @@ import {
   Stack,
   Image,
   Flex,
+  Button,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
@@ -71,7 +72,7 @@ export default function Pact({ address, index }) {
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state
-      return <></>
+      return <Button disabled>Soon</Button>
     } else {
       // Render a countdown
       return (
