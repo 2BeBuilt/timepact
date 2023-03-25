@@ -32,7 +32,7 @@ WE: function releaseCopy(
         uint256 tokenId
     ) 
 
-USERS: function bridgeToFilecoin(uint256 tokenId, address recipient) public returns (address) {
+    function bridgeToFilecoin(uint256 tokenId) public returns (uint256, address) {
         safeTransferFrom(msg.sender, owner, tokenId);
-        return recipient;
+        return (tokenId, msg.sender);
     }
