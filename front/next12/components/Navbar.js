@@ -26,8 +26,8 @@ export default function Nav() {
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <NextLink href="/">
-            <Flex direction="row" justify="center" alignItems="center">
+          <Flex direction="row" justify="center" alignItems="center">
+            <NextLink href="/">
               <Box>
                 <Image
                   borderRadius="full"
@@ -37,22 +37,25 @@ export default function Nav() {
                   m={2}
                 />
               </Box>
+            </NextLink>
+            <NextLink href="/">
               <Heading fontSize="xl">TimePact</Heading>
-            </Flex>
-          </NextLink>
-          <HStack spacing={8} alignItems={'center'}>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
-            >
-              {Links.map((link) => (
-                <NextLink key={link.label} href={link.href}>
-                  <Heading fontSize="x">{link.label}</Heading>
-                </NextLink>
-              ))}
+            </NextLink>
+            <HStack spacing={8} alignItems="center">
+              <HStack
+                ml={4}
+                as={'nav'}
+                spacing={4}
+                display={{ base: 'none', md: 'flex' }}
+              >
+                {Links.map((link) => (
+                  <NextLink key={link.label} href={link.href}>
+                    <Heading fontSize="md">{link.label}</Heading>
+                  </NextLink>
+                ))}
+              </HStack>
             </HStack>
-          </HStack>
+          </Flex>
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <ConnectButton />
