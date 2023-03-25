@@ -11,10 +11,14 @@ import {
   ModalFooter,
   Button,
 } from '@chakra-ui/react'
+import { useState } from 'react'
 
 export default function PactModal({ clicked, tokenId, info, handleClose }) {
+  const OverlayOne = () => <ModalOverlay backdropFilter="blur(10px) " />
+  const [overlay, setOverlay] = useState(<OverlayOne />)
   return (
     <Modal isOpen={clicked} onClose={handleClose}>
+      {overlay}
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Pact #{tokenId}</ModalHeader>
