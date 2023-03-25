@@ -50,7 +50,7 @@ export default function Pact({ address, index }) {
   }, [uri])
 
   useEffect(() => {
-    info && setStamp(Number(info[1]))
+    info && setStamp(Number(info[1]) * 1000)
     info && setCid(info[2])
     info && setLocked(info[3])
   }, [info])
