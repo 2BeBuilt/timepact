@@ -23,4 +23,10 @@ module.exports = async ({ deployments }) => {
     // const dc = await DealClient.deploy()
     // await dc.deployed()
     // console.log("DealClient deployed to:", dc.address)
+
+    // const ScrollBridge = await ethers.getContractFactory("ScrollBridge", wallet)
+    // console.log("Deploying ScrollBridge...")
+    // const scrollBridge = await ScrollBridge.deploy()
+    // await scrollBridge.deployed()
+    // console.log("ScrollBridge deployed to Scroll:", scrollBridge.address)
 }

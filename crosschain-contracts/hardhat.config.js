@@ -33,9 +33,9 @@ module.exports = {
         scrollAlpha: {
             url: "https://alpha-rpc.scroll.io/l2" || "",
             accounts:
-                process.env.PRIVATE_KEY !== undefined
-                    ? [process.env.PRIVATE_KEY]
-                    : [PRIVATE_KEY_GOERLI],
+                process.env.PRIVATE_KEY_GOERLI !== undefined
+                    ? [process.env.PRIVATE_KEY_GOERLI]
+                    : [],
         },
         Goerli: {
             chainId: 5,
