@@ -144,7 +144,7 @@ export default function Pact({ address, index }) {
             >
               {tokenId === null || tokenId === NaN ? '...' : `Pact #${tokenId}`}
             </Text>
-            {cid && tokenId && (
+            {cid && tokenId !== null && (
               <Provider cid={cid} tokenId={tokenId} isProposed={proposed} />
             )}
             {stamp && timeNow ? (
