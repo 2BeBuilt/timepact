@@ -37,6 +37,7 @@ import UploadModal from '../Modals/UploadModal'
 */
 
 export default function SignPact({ address }) {
+  const [date, setDate] = useState(null)
   const [cid, setCid] = useState('')
   const [uploadModal, setUploadModal] = useState(false)
   const {
@@ -47,7 +48,7 @@ export default function SignPact({ address }) {
     address: pact,
     abi: contractAbi,
     functionName: 'pact',
-    args: [cid, address, 1679746130],
+    args: [cid, address, date],
   })
   const { data, write } = useContractWrite(config)
   const { isLoading, isSuccess, isError } = useWaitForTransaction({
@@ -75,15 +76,26 @@ export default function SignPact({ address }) {
       })
       .finally(function () {})
   }
+  const handleDateChange = (e) => {
+    const fDate = new Date(e.target.value).getTime()
+    console.log(fDate)
+    axios.get(`/api/date/parse?stamp=${fDate}`).then((response) => {
+      console.log(typeof response.data)
+      setDate(response.data)
+    })
+  }
   const handleCloseUploadModal = () => {
     setUploadModal(false)
   }
-
   return (
     <>
       <Flex align="center" justify="center" marginTop={4}>
         <FileUpload handleFilesSelected={handleFilesSelected} />
-        <UploadModal isOpen={uploadModal} onClose={handleCloseUploadModal} />
+        <UploadModal
+          isOpen={uploadModal}
+          onClose={handleCloseUploadModal}
+          handleDateChange={handleDateChange}
+        />
         <Button
           isLoading={isLoading}
           disabled={!write || isLoading || !cid}

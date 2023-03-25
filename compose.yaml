@@ -47,6 +47,8 @@ services:
       context: front/next12
     ports:
       - "${NEXT_PORT}:${NEXT_PORT}"
+    volumes:
+      - ./docker-data/next/public:/home/nextjs/app/public
     networks:
       - app
     environment:
