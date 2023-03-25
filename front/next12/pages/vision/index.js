@@ -28,6 +28,11 @@ export default function Vision() {
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
           <Heading fontSize={'3xl'}>Vision</Heading>
+          <Container maxW={'6xl'} mt={10}>
+            <Flex direction="column" justify="center" alignItems="center">
+              <Image src="oracle.png" borderRadius="full" />
+            </Flex>
+          </Container>
           <Text color={'gray.600'} fontSize={'lg'}>
             One of the key benefits of TimePact is that it is a modular
             technology, anyone can spin up TimePact nodes and create a
@@ -45,12 +50,6 @@ export default function Vision() {
             in the level of privacy and security in the digital world.
           </Text>
         </Stack>
-
-        <Container maxW={'6xl'} mt={10}>
-          <Flex direction="column" justify="center" alignItems="center">
-            <Image src="oracle.png" borderRadius="full" />
-          </Flex>
-        </Container>
       </Box>
     </main>
   )
