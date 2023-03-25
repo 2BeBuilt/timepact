@@ -39,38 +39,9 @@ export default function SendPact({ from, tokenId }) {
     },
   })
 
-  const retrieve = () => {
-    window.open(`/api/ipfs/retrieve?cid=${cid}`, '_blank')
-  }
-
-  const [canUnlock] = useCheckUnlock(tokenId)
-
-  console.log(tokenId, ' unlocked? ', canUnlock)
-
   return (
     <>
-      <Flex align="center" justify="center" marginTop={4}>
-        {timeOut && !canUnlock ? (
-          <Button disabled>Soon</Button>
-        ) : (
-          <>
-            {!locked ? (
-              <Button onClick={retrieve}>Download</Button>
-            ) : (
-              !isSuccess && (
-                <Button
-                  isLoading={isLoading}
-                  disabled={!write || isLoading}
-                  onClick={write}
-                  ml={2}
-                >
-                  Unlock
-                </Button>
-              )
-            )}
-          </>
-        )}
-      </Flex>
+      <Button>Transfer</Button>
     </>
   )
 }
