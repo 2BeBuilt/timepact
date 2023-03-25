@@ -159,7 +159,7 @@ export default function Pact({ address, index }) {
                   ></Countdown>
                 </Text>
                 <UnlockPact
-                  timOut={timeOut}
+                  timeOut={timeOut}
                   tokenId={tokenId}
                   isLocked={locked}
                   cid={cid}
