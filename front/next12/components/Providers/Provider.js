@@ -17,7 +17,9 @@ const ipfs_logo = 'providers/ipfs-logo.png'
 
 export default function Provider({ cid, tokenId, isProposed }) {
   const [proposed, setProposed] = useState(isProposed)
-  useEffect(() => {}, [proposed])
+  useEffect(() => {
+    setProposed(isProposed)
+  }, [isProposed])
 
   const {
     config,
@@ -70,7 +72,7 @@ export default function Provider({ cid, tokenId, isProposed }) {
         }
         fontSize="md"
       >
-        <Flex cursor="pointer" onClick={write}>
+        <Flex cursor="pointer" onClick={!proposed ? write : () => {}}>
           {isLoading ? (
             <Spinner size="md" />
           ) : (
