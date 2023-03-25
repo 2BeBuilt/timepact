@@ -7,6 +7,7 @@ import {
   Stack,
   Image,
   Flex,
+  SimpleGrid,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
@@ -18,6 +19,7 @@ import PactModal from '../Modals/PactModal'
 import { zeroPad } from 'react-countdown'
 import UnlockPact from './UnlockPact'
 import Provider from '../Providers/Provider'
+import SendPact from './SendPact'
 
 export default function Pact({ address, index }) {
   const [tokenId] = useTokenId(address, index)
@@ -145,7 +147,10 @@ export default function Pact({ address, index }) {
               {tokenId === null || tokenId === NaN ? '...' : `Pact #${tokenId}`}
             </Text>
             {cid && tokenId !== null && (
-              <Provider cid={cid} tokenId={tokenId} isProposed={proposed} />
+              <SimpleGrid columns={2} spacing={2}>
+                <Provider cid={cid} tokenId={tokenId} isProposed={proposed} />
+                <SendPact from={address} tokenId={tokenId} />
+              </SimpleGrid>
             )}
             {stamp && timeNow ? (
               <>
