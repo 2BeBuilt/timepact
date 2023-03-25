@@ -23,8 +23,10 @@
     "fs": "^0.0.1-security",
     "next": "13.2.4",
     "react": "18.2.0",
+    "react-countdown": "^2.3.5",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
+    "usehooks-ts": "^2.9.1",
     "wagmi": "^0.12.6"
   }
 }
