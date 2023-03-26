@@ -47,7 +47,6 @@ export default function UnlockPact({ timeOut, tokenId, isLocked, cid }) {
 
   const retrieve = () => {
     axios.get(`/api/cid/encrypt?cid=${cid}`).then((response) => {
-      console.log(response)
       window.open(`/api/ipfs/retrieve?cid=${response.data}`, '_blank')
     })
   }
