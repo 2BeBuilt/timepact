@@ -66,8 +66,16 @@ module.exports = {
                 network: "scrollAlpha",
                 chainId: 534353,
                 urls: {
-                    apiURL: "https://alpha-rpc.scroll.io/l2",
-                    browserURL: "https://blockscout.scroll.io/api/eth-rpc",
+                    apiURL: "https://blockscout.scroll.io/api",
+                    browserURL: "https://blockscout.scroll.io",
+                },
+            },
+            {
+                network: "hyperspace",
+                chainId: 3141,
+                urls: {
+                    apiURL: "https://api.hyperspace.node.glif.io/rpc/v1",
+                    browserURL: "https://hyperspace.filfox.info",
                 },
             },
         ],
