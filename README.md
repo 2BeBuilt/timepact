@@ -1,4 +1,4 @@
-# TimePact: Secure Data Storage with Unlockable Encrypted Content through Non-fungible tokens. Tokenizing the Privacy
+# TimePact: Secure Data Storage with Unlockable Encrypted Content through Non-fungible tokens. Developing Privacy
 
 TimePact is a decentralized application (dApp) built on the Hyperspace testnet of Filecoin EVM (FEVM), which has recently transitioned to Mainnet. It allows users to create secure time capsules containing specific data, with an expiration date, that can be unlocked using special NFTs. These NFTs can be easily transferred between accounts and bridged to other blockchains (currently Scroll), providing a market for speculation on the contents of each TimePact.
 
@@ -61,4 +61,6 @@ TimePact aims to become a modular solution, allowing anyone to deploy nodes with
 Moreover, the modular design of TimePact makes it scalable and flexible, ensuring that it can adapt to the changing needs of its users. This means that as more people start using TimePact, the service can scale up to accommodate the growing demand for its services.
 
 By creating a decentralized privacy layer on top of Filecoin EVM and IPFS, TimePact is helping to establish a new standard for data security and protection in the blockchain space. As more people adopt this technology, we can expect to see a significant increase in the level of privacy and security in the digital world.
+
+
 
