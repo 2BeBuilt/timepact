@@ -2,9 +2,9 @@
 
 Wallet Ethereum Address: `0x93df989465E0b1cD882E195DD5C4a760018151F9`
 
-TimePact deployed to: `0x4E0c5D412B208DEDD6B6dF49A8Cd41b66B3936ea`
+TimePact deployed to: `0x49EC9f2C07Ccdf45b8F390197B2E7bE0650F7130`
 
-ScrollBridge deployed to Scroll: `0x75b69b55945C86BCaC598C234784f347c8f0234b`
+ScrollBridge deployed to Scroll: `0x8f1dce0fc28a70e0066e05F326C76ad7a98c7A88`
 
 # Filecoin-Scroll Bridge Operation
 
