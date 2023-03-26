@@ -1,13 +1,14 @@
 import { useAccount } from 'wagmi'
-import { Flex, SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import Pact from './Pact'
 import useBalanceOf from '@/hooks/useBalanceOf'
-import convertToGateway from '@/utils/ipfsStringConverter'
 import DefaultAlert from '../Alerts/DefaultAlert'
 import AlertContainer from '../Alerts/AlertContainer'
+import { pact } from '@/utils/constants/addresses'
+import abi from '@/utils/constants/abiTimePact.json'
 
 export default function GetPacts({ address }) {
-  const [amount] = useBalanceOf(address)
+  const [amount] = useBalanceOf(address, pact, abi)
   const pacts = []
   for (let i = 0; i < amount; i++) {
     pacts.push({ key: i })
