@@ -11,11 +11,12 @@ ScrollBridge deployed to Scroll: 0x75b69b55945C86BCaC598C234784f347c8f0234b
 Bridging process:
 
 TimePact
-USERS: function bridgeToScroll(
+
+function bridgeToScroll(
         uint256 tokenId
     ) public returns (string memory, uint64, bool, address, string memory, uint256)
 
-WE: function bridgeFromScroll(uint256 tokenId, address recipient) public {
+function bridgeFromScroll(uint256 tokenId, address recipient) public {
         if (msg.sender != owner) {
             revert TimePact__CallerIsNotOwner();
         }
@@ -23,7 +24,8 @@ WE: function bridgeFromScroll(uint256 tokenId, address recipient) public {
     }
 
 Scroll
-WE: function releaseCopy(
+
+function releaseCopy(
         string memory creator,
         uint64 unlock,
         bool filecoin,
