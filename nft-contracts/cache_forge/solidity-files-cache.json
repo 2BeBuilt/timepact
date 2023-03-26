@@ -104,7 +104,7 @@
       }
     },
     "contracts/ScrollBridge.sol": {
-      "lastModificationDate": 1679755015491,
+      "lastModificationDate": 1679755592211,
       "contentHash": "3b65ff40089b71b3baeff45f4621d3f1",
       "sourceName": "contracts/ScrollBridge.sol",
       "solcConfig": {
