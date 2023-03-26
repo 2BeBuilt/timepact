@@ -1,73 +1,32 @@
-# Filecoin infrustructure
+# Filecoin infrustructure and main contracts
 
-Wallet Ethereum Address: 0x93df989465E0b1cD882E195DD5C4a760018151F9 
+Wallet Ethereum Address: `0x93df989465E0b1cD882E195DD5C4a760018151F9`
 
-TimePact deployed to: 0x4E0c5D412B208DEDD6B6dF49A8Cd41b66B3936ea
+TimePact deployed to: `0x4E0c5D412B208DEDD6B6dF49A8Cd41b66B3936ea`
 
-ScrollBridge deployed to Scroll: 0x75b69b55945C86BCaC598C234784f347c8f0234b
+ScrollBridge deployed to Scroll: `0x75b69b55945C86BCaC598C234784f347c8f0234b`
 
-# Scroll Bridge for TimePact
+# Filecoin-Scroll Bridge Operation
 
-Bridging process:
+This smart contract contains some of the code for bridging tokens between Filecoin and Scroll, two blockchain platforms.
 
-Filecoin -> Scroll
+## Bridging from Filecoin to Scroll
 
-`function bridgeToScroll(uint256 tokenId) public returns (string memory, uint64, bool, address, string memory, uint256) {
-        safeTransferFrom(msg.sender, owner, tokenId);
-        string memory uri = tokenURI(tokenId);
-        emit BridgeToScroll(
-            keys[tokenId].creator,
-            keys[tokenId].unlock,
-            keys[tokenId].filecoin,
-            msg.sender,
-            uri,
-            tokenId
-        );
-        return (
-            keys[tokenId].creator,
-            keys[tokenId].unlock,
-            keys[tokenId].filecoin,
-            address(msg.sender),
-            uri,
-            tokenId
-        );
-    }
+`bridgeToScroll(uint256 tokenId)` on **FEVM** then `releaseCopy(string memory creator,uint64 unlock,bool filecoin,address recipient,string memory uri,uint256 tokenId)` on **Scroll**
 
-function releaseCopy(
-        string memory creator,
-        uint64 unlock,
-        bool filecoin,
-        address recipient,
-        string memory uri,
-        uint256 tokenId
-        ) external {
-        if (msg.sender != owner) {
-            revert ScrollBridge__CallerIsNotOwner(); //Only deployer node can sign the transaction
-        }
-        if (_exists(tokenId)) {
-            safeTransferFrom(owner, recipient, tokenId);
-        } else {
-            PactInfo storage info = keys[tokenId];
-            info.creator = creator;
-            info.unlock = unlock;
-            info.filecoin = filecoin;
-            tokenURIs[tokenId] = uri;
 
-            _safeMint(msg.sender, tokenId); //Only works with ERC721 reciever/holder in the case with smart contracts
-        }
-    }`
+## Bridging from Scroll to Filecoin
 
-Scroll -> Filecoin
+`bridgeToFilecoin(uint256 tokenId)`
 
-    function bridgeToFilecoin(uint256 tokenId) public returns (uint256, address) {
-        safeTransferFrom(msg.sender, owner, tokenId);
-        emit BridgeToFilecoin(tokenId, msg.sender);
-        return (tokenId, msg.sender);
-    }
+emits an event `BridgeToFilecoin` with the following parameters:
 
-    function bridgeFromScroll(uint256 tokenId, address recipient) public {
-        if (msg.sender != owner) {
-            revert TimePact__CallerIsNotOwner();
-        }
-        safeTransferFrom(owner, recipient, tokenId);
-    }
+- `tokenId`: the ID of the token
+- `msg.sender`: the address of the sender
+
+then call `bridgeFromScroll(uint256 tokenId, address recipient)` on **FEVM**
+
+## TimePact
+
+**TimePact** is the main registry of the `ERC721` tokens, `deployer` of `deal-client` for **FEVM** and the main logic operations contract. 
+**ScrollBridge** is the copy of the most important metadata on **Scroll** blockchain and works in synergy with **TimePact** to bridge **FEVM ERC721** to **Scroll ERC721** 
