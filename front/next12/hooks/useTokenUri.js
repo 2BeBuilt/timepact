@@ -1,14 +1,11 @@
 import { useContractRead } from 'wagmi'
 import { useState, useEffect } from 'react'
-import { pact } from '@/utils/constants/addresses'
-import { convertToGateway } from '@/utils/ipfsStringConverter'
-import contractAbi from '@/utils/constants/abiTimePact.json'
 
-export default function useTokenUri(tokenId) {
+export default function useTokenUri(tokenId, contract, abi) {
   const [uri, setURI] = useState(null)
   const { data, isSuccess } = useContractRead({
-    address: pact,
-    abi: contractAbi,
+    address: contract,
+    abi: abi,
     functionName: 'tokenURI',
     args: [tokenId],
   })

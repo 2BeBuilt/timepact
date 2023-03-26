@@ -4,20 +4,20 @@ import {
   useWaitForTransaction,
   useContractEvent,
 } from 'wagmi'
-import contractAbi from '@/utils/constants/abiTimePact.json'
+import contractAbi from '@/utils/constants/abiScrollBridge.json'
 import { Spinner, Flex, Tooltip, Image } from '@chakra-ui/react'
-import { pact } from '@/utils/constants/addresses'
+import { scroll } from '@/utils/constants/addresses'
 import axios from 'axios'
 
-export default function FileToScroll({ tokenId }) {
+export default function ScrollToFile({ tokenId }) {
   const {
     config,
     error: prepareError,
     isError: isPrepareError,
   } = usePrepareContractWrite({
-    address: pact,
+    address: scroll,
     abi: contractAbi,
-    functionName: 'bridgeToScroll',
+    functionName: 'bridgeToFilecoin',
     args: [tokenId],
   })
 
@@ -27,15 +27,15 @@ export default function FileToScroll({ tokenId }) {
   })
 
   useContractEvent({
-    address: pact,
+    address: scroll,
     abi: contractAbi,
-    eventName: 'BridgeToScroll',
-    listener(creator, unlock, filecoin, recipient, uri, fetchedTokenId) {
+    eventName: 'BridgeToFilecoin',
+    listener(fetchedTokenId, recipient) {
       const fTokenId = Number(fetchedTokenId)
       if (fTokenId === tokenId) {
         axios
           .get(
-            `/api/bridge/filecoinToScroll?creator=${creator}&unlock=${unlock}&filecoin=${filecoin}&recipient=${recipient}&uri=${uri}&tokenId=${tokenId}`
+            `/api/bridge/scrollToFilecoin?tokenId=${tokenId}&recipient=${recipient}`
           )
           .then((response) => {
             window.location.reload(false)
@@ -50,7 +50,7 @@ export default function FileToScroll({ tokenId }) {
   return (
     <>
       <Tooltip
-        label={isLoading ? 'Bridging...' : 'Bridge to scroll'}
+        label={isLoading ? 'Bridging...' : 'Bridge to filecoin'}
         fontSize="md"
       >
         <Flex cursor="pointer" onClick={!isLoading ? write : () => {}}>
