@@ -34,7 +34,7 @@ To create a TimePact:
 2. **Input Creator Information**: Provide the necessary creator information (twitter, wallet, name...).
 3. **Choose Unlock Date**: Select the date when the encrypted data can be decrypted and revealed (the unlock date). After the unlock date is confirmed, the data's erase time will be set to 24 weeks after the unlock date.
 
-After confirming the unlock time, a `Sign Pact` button will appear. Click it to sign the transaction, which will encrypt the data, and mint a unique NFT key (1 out of 5 randomized types) with all necessary information in the user's FEVM wallet.
+After confirming the unlock time, a `Sign Pact` button will appear. Click it to sign the transaction, which will encrypt the data, and mint a unique NFT key (1 out of 5 pseudo-randomized types) with all necessary information in the user's FEVM wallet.
 
 ## Data Storage
 
