@@ -23,6 +23,8 @@ contract ScrollBridge is ERC721Enumerable {
         owner = msg.sender;
     }
 
+    event BridgeToFilecoin(uint256 tokenId, address recipient);
+
     /// @dev Releases a copy on the chain
     function releaseCopy(
         string memory creator,
@@ -51,6 +53,7 @@ contract ScrollBridge is ERC721Enumerable {
     /// @dev locks the NFT in the contract and releases original on the other chain
     function bridgeToFilecoin(uint256 tokenId) public returns (uint256, address) {
         safeTransferFrom(msg.sender, owner, tokenId);
+        emit BridgeToFilecoin(tokenId, msg.sender);
         return (tokenId, msg.sender);
     }
 

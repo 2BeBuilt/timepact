@@ -104,8 +104,8 @@
       }
     },
     "contracts/ScrollBridge.sol": {
-      "lastModificationDate": 1679755592211,
-      "contentHash": "3b65ff40089b71b3baeff45f4621d3f1",
+      "lastModificationDate": 1679790406415,
+      "contentHash": "c2bfd16bdddb2f446e69cc6e47f619ed",
       "sourceName": "contracts/ScrollBridge.sol",
       "solcConfig": {
         "settings": {
@@ -161,8 +161,8 @@
       }
     },
     "contracts/TimePact.sol": {
-      "lastModificationDate": 1679775129575,
-      "contentHash": "8b91d9d57c90c3ef356a318eac5f1aef",
+      "lastModificationDate": 1679790375955,
+      "contentHash": "d701df4285d7b0f9e212a1b8b3b13292",
       "sourceName": "contracts/TimePact.sol",
       "solcConfig": {
         "settings": {
