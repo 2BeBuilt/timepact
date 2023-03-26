@@ -40,6 +40,14 @@ contract TimePact is ERC721Enumerable {
     event Pact(string cid, string creator, uint64 edate); //Creation of the Pact
     event Unlocked(uint256 tokenId, address owner, string cid); //Unlocking the file (expiration of the Pact)
     event PactWithFilecoin(string pcid, string creator, uint64 edate); //Creation of the Pact with Filecoin
+    event BridgeToScroll(
+        string creator,
+        uint64 unlock,
+        bool filecoin,
+        address recipient,
+        string uri,
+        uint256 tokenId
+    );
 
     /// @notice Creates the record of the tokenId -> CID pair
     /// @param cid IPFS pointer
@@ -92,6 +100,14 @@ contract TimePact is ERC721Enumerable {
     ) public returns (string memory, uint64, bool, address, string memory, uint256) {
         safeTransferFrom(msg.sender, owner, tokenId);
         string memory uri = tokenURI(tokenId);
+        emit BridgeToScroll(
+            keys[tokenId].creator,
+            keys[tokenId].unlock,
+            keys[tokenId].filecoin,
+            msg.sender,
+            uri,
+            tokenId
+        );
         return (
             keys[tokenId].creator,
             keys[tokenId].unlock,

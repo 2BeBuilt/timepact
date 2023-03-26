@@ -61,6 +61,15 @@ module.exports = {
     },
     etherscan: {
         apiKey: ETHERSCAN_API_KEY,
-        customChains: [],
+        customChains: [
+            {
+                network: "scrollAlpha",
+                chainId: 534353,
+                urls: {
+                    apiURL: "https://alpha-rpc.scroll.io/l2",
+                    browserURL: "https://blockscout.scroll.io/api/eth-rpc",
+                },
+            },
+        ],
     },
 }

@@ -95,6 +95,49 @@
             {
                 "indexed": false,
                 "internalType": "string",
+                "name": "creator",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint64",
+                "name": "unlock",
+                "type": "uint64"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "filecoin",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "recipient",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "uri",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "BridgeToScroll",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
                 "name": "cid",
                 "type": "string"
             },
