@@ -15,6 +15,7 @@ import UploadModal from '../Modals/UploadModal'
 
 export default function SignPact({ address }) {
   const [date, setDate] = useState(null)
+  const [fDate, setFDate] = useState(null)
   const [cid, setCid] = useState('')
   const [uploadModal, setUploadModal] = useState(false)
   const {
@@ -53,12 +54,13 @@ export default function SignPact({ address }) {
       .finally(function () {})
   }
   const handleDateChange = (e) => {
-    const fDate = new Date(e.target.value).getTime()
+    const date = new Date(e.target.value).getTime()
+    setFDate(date)
+  }
+  const handleCloseUploadModal = () => {
     axios.get(`/api/date/parse?stamp=${fDate}`).then((response) => {
       setDate(response.data)
     })
-  }
-  const handleCloseUploadModal = () => {
     setUploadModal(false)
   }
   return (

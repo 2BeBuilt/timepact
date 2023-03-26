@@ -64,11 +64,20 @@ export default function ScrollPact({ address, index }) {
         </Tooltip>
       )
     } else {
-      return (
-        <span>
-          {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
-        </span>
-      )
+      if (days) {
+        return (
+          <span>
+            {zeroPad(days)}:{zeroPad(hours)}:{zeroPad(minutes)}:
+            {zeroPad(seconds)}
+          </span>
+        )
+      } else {
+        return (
+          <span>
+            {zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
+          </span>
+        )
+      }
     }
   }
   return (
