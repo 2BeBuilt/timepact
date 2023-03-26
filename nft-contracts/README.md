@@ -12,16 +12,16 @@ Bridging process:
 
 TimePact
 
-`function bridgeToScroll(
+function bridgeToScroll(
         uint256 tokenId
-    ) public returns (string memory, uint64, bool, address, string memory, uint256)`
+    ) public returns (string memory, uint64, bool, address, string memory, uint256)
 
-`function bridgeFromScroll(uint256 tokenId, address recipient) public {
+function bridgeFromScroll(uint256 tokenId, address recipient) public {
         if (msg.sender != owner) {
             revert TimePact__CallerIsNotOwner();
         }
         safeTransferFrom(owner, recipient, tokenId);
-    }`
+    }
 
 Scroll
 
@@ -34,7 +34,7 @@ Scroll
         uint256 tokenId
     ) `
 
-    `function bridgeToFilecoin(uint256 tokenId) public returns (uint256, address) {
+    function bridgeToFilecoin(uint256 tokenId) public returns (uint256, address) {
         safeTransferFrom(msg.sender, owner, tokenId);
         return (tokenId, msg.sender);
-    }`
+    }
