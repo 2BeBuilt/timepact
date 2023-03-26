@@ -12,7 +12,16 @@ This smart contract contains some of the code for bridging tokens between Fileco
 
 ## Bridging from Filecoin to Scroll
 
-`bridgeToScroll(uint256 tokenId)` on **FEVM** then `releaseCopy(string memory creator,uint64 unlock,bool filecoin,address recipient,string memory uri,uint256 tokenId)` on **Scroll**
+`bridgeToScroll(uint256 tokenId)` emits an event with the following parameters:
+
+- `creator`: the creator of the token
+- `unlock`: the unlock date of the token
+- `filecoin`: a boolean value indicating whether the token is stored on the Filecoin blockchain
+- `msg.sender`: the address of the sender
+- `uri`: the token URI
+- `tokenId`: the ID of the token
+
+on **FEVM** then `releaseCopy(string memory creator,uint64 unlock,bool filecoin,address recipient,string memory uri,uint256 tokenId)` on **Scroll**
 
 
 ## Bridging from Scroll to Filecoin
