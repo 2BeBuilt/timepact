@@ -1,6 +1,0 @@
-{
-    "filecoin": { "pact": ["0x45939260a8B84C3cF752233622C750EEC86798De"] },
-    "scroll": {
-        "ScrollBridge": [""]
-    }
-}
