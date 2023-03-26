@@ -12,9 +12,7 @@ Bridging process:
 
 Filecoin -> Scroll
 
-function bridgeToScroll(
-        uint256 tokenId
-    ) public returns (string memory, uint64, bool, address, string memory, uint256) {
+function bridgeToScroll(uint256 tokenId) public returns (string memory, uint64, bool, address, string memory, uint256) {
         safeTransferFrom(msg.sender, owner, tokenId);
         string memory uri = tokenURI(tokenId);
         emit BridgeToScroll(
@@ -35,14 +33,12 @@ function bridgeToScroll(
         );
     }
 
-function releaseCopy(
-        string memory creator,
+function releaseCopy(string memory creator,
         uint64 unlock,
         bool filecoin,
         address recipient,
         string memory uri,
-        uint256 tokenId
-    ) external {
+        uint256 tokenId) external {
         if (msg.sender != owner) {
             revert ScrollBridge__CallerIsNotOwner(); //Only deployer node can sign the transaction
         }
