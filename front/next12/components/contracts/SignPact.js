@@ -45,7 +45,6 @@ export default function SignPact({ address }) {
       })
       .then(function (response) {
         setCid(response.data.path)
-        console.log(response)
         setUploadModal(true)
       })
       .catch(function (error) {
@@ -55,9 +54,7 @@ export default function SignPact({ address }) {
   }
   const handleDateChange = (e) => {
     const fDate = new Date(e.target.value).getTime()
-    console.log(fDate)
     axios.get(`/api/date/parse?stamp=${fDate}`).then((response) => {
-      console.log(typeof response.data)
       setDate(response.data)
     })
   }

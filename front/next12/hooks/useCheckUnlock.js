@@ -13,7 +13,6 @@ export default function useCheckUnlock(tokenId, timeOver) {
   })
 
   useEffect(() => {
-    console.log(data)
     setUnlock(data)
   }, [data, isSuccess])
 

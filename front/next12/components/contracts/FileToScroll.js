@@ -5,29 +5,11 @@ import {
   useContractEvent,
 } from 'wagmi'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import {
-  Spinner,
-  Flex,
-  Tooltip,
-  Image,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  Input,
-  SimpleGrid,
-  Text,
-  Button,
-  ModalFooter,
-} from '@chakra-ui/react'
+import { Spinner, Flex, Tooltip, Image } from '@chakra-ui/react'
 import { pact } from '@/utils/constants/addresses'
-import { useState } from 'react'
+import axios from 'axios'
 
-export default function SendPact({ from, tokenId }) {
-  const [to, setTo] = useState(null)
-  const [modalOpen, setModalOpen] = useState(false)
+export default function FileToScroll({ tokenId }) {
   const {
     config,
     error: prepareError,
@@ -35,8 +17,8 @@ export default function SendPact({ from, tokenId }) {
   } = usePrepareContractWrite({
     address: pact,
     abi: contractAbi,
-    functionName: 'transferFrom',
-    args: [from, to, tokenId],
+    functionName: 'bridgeToScroll',
+    args: [tokenId],
   })
 
   const { data, write } = useContractWrite(config)
@@ -44,51 +26,47 @@ export default function SendPact({ from, tokenId }) {
     hash: data?.hash,
   })
 
-  const handleAddressChange = (e) => {
-    setTo(e.target.value)
-  }
-
-  if (isSuccess) window.location.reload(false)
+  useContractEvent({
+    address: pact,
+    abi: contractAbi,
+    eventName: 'BridgeToScroll',
+    listener(creator, unlock, filecoin, recipient, uri, fetchedTokenId) {
+      const fTokenId = Number(fetchedTokenId)
+      if (fTokenId === tokenId) {
+        axios
+          .get(
+            `/api/bridge/filecoinToScroll?creator=${creator}&unlock=${unlock}&filecoin=${filecoin}&recipient=${recipient}&uri=${uri}&tokenId=${tokenId}`
+          )
+          .then((response) => {
+            console.log(response)
+            window.location.reload(false)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    },
+  })
 
   return (
     <>
-      <Tooltip label={isLoading ? 'Transfering...' : 'Transfer'} fontSize="md">
-        <Flex
-          cursor="pointer"
-          onClick={!isLoading ? () => setModalOpen(true) : () => {}}
-        >
+      <Tooltip
+        label={isLoading ? 'Bridging...' : 'Bridge to scroll'}
+        fontSize="md"
+      >
+        <Flex cursor="pointer" onClick={!isLoading ? write : () => {}}>
           {isLoading ? (
             <Spinner size="md" />
           ) : (
             <Image
               borderRadius="full"
               boxSize="30px"
-              src="send.png"
-              alt="transfer icon"
+              src="portal.png"
+              alt="portal icon"
             />
           )}
         </Flex>
       </Tooltip>
-      <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Enter address</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              type="text"
-              placeholder="to"
-              onChange={handleAddressChange}
-            />
-          </ModalBody>
-          <ModalFooter>
-            <SimpleGrid columns={2} spacing={2}>
-              <Button onClick={write}>Ok</Button>
-              <Button onClick={() => setModalOpen(false)}>Close</Button>
-            </SimpleGrid>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </>
   )
 }
