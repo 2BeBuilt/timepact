@@ -2,7 +2,9 @@ import SignPact from '@/components/contracts/SignPact'
 import { useAccount, useNetwork } from 'wagmi'
 import PageAlerts from '@/components/Alerts/PageAlerts'
 import PageHead from '@/components/PageHead'
-import Countdown from 'react-countdown'
+import AlertContainer from '@/components/Alerts/AlertContainer'
+import DefaultAlert from '@/components/Alerts/DefaultAlert'
+import { Flex } from '@chakra-ui/react'
 
 export default function Sign() {
   const { address, isDisconnected } = useAccount()
@@ -10,12 +12,22 @@ export default function Sign() {
   return (
     <main>
       <PageHead title="Signing pact" />
-      {/*TODO wrong chain handler*/}
-      {!isDisconnected && (
-        <>
-          <SignPact address={address} />
-        </>
-      )}
+      {!isDisconnected &&
+        (chain && chain.id === 3141 ? (
+          <>
+            <SignPact address={address} />
+          </>
+        ) : (
+          <AlertContainer>
+            <Flex marginTop={2}></Flex>
+            <DefaultAlert
+              isOpen={true}
+              status="warning"
+              title="Switch to filecoin"
+              description="Pacts signing are supported only on filecoin right now"
+            />
+          </AlertContainer>
+        ))}
       <PageAlerts chain={chain} isDisconnected={isDisconnected} />
     </main>
   )

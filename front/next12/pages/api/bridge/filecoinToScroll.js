@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     const recipient = req.query.recipient
     const uri = req.query.uri
     const tokenId = req.query.tokenId
-
     const provider = new ethers.providers.JsonRpcProvider(
       'https://alpha-rpc.scroll.io/l2'
     )
@@ -21,7 +20,7 @@ export default async function handler(req, res) {
     const result = await scrollBridge.releaseCopy(
       creator,
       Number(unlock),
-      Boolean(filecoin),
+      filecoin,
       ethers.utils.getAddress(recipient),
       uri,
       Number(tokenId)

@@ -1,13 +1,11 @@
 import { useContractRead } from 'wagmi'
 import { useState, useEffect } from 'react'
-import { pact } from '@/utils/constants/addresses'
-import contractAbi from '@/utils/constants/abiTimePact.json'
 
-export default function useBalanceOf(address) {
+export default function useBalanceOf(address, contract, abi) {
   const [amount, setAmount] = useState(null)
   const { data, isSuccess } = useContractRead({
-    address: pact,
-    abi: contractAbi,
+    address: contract,
+    abi: abi,
     functionName: 'balanceOf',
     args: [address],
   })

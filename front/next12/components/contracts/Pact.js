@@ -15,7 +15,8 @@ import useTokenId from '@/hooks/useTokenId'
 import axios from 'axios'
 import useTokenInfo from '@/hooks/useTokenInfo'
 import Countdown from 'react-countdown'
-import PactModal from '../Modals/PactModal'
+import { pact } from '@/utils/constants/addresses'
+import contractAbi from '@/utils/constants/abiTimePact.json'
 import { zeroPad } from 'react-countdown'
 import UnlockPact from './UnlockPact'
 import Provider from '../Providers/Provider'
@@ -23,15 +24,15 @@ import SendPact from './SendPact'
 import FileToScroll from './FileToScroll'
 
 export default function Pact({ address, index }) {
-  const [tokenId] = useTokenId(address, index)
+  const [tokenId] = useTokenId(address, index, pact, contractAbi)
   const [cid, setCid] = useState(null)
   const [image, setImage] = useState(null)
   const [stamp, setStamp] = useState(null)
   const [locked, setLocked] = useState(null)
   const [proposed, setProposed] = useState(null)
   const [timeOut, setTimeOut] = useState(false)
-  const [uri] = useTokenUri(tokenId)
-  const [info] = useTokenInfo(tokenId)
+  const [uri] = useTokenUri(tokenId, pact, contractAbi)
+  const [info] = useTokenInfo(tokenId, pact, contractAbi)
   useEffect(() => {
     const fetchData = () => {
       axios

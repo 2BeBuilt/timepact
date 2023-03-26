@@ -4,11 +4,13 @@ import {
   Center,
   useColorModeValue,
   Text,
+  Tooltip,
   Stack,
   Image,
   Flex,
   SimpleGrid,
 } from '@chakra-ui/react'
+import { scroll } from '@/utils/constants/addresses'
 import { useEffect, useState, useRef } from 'react'
 import useTokenUri from '@/hooks/useTokenUri'
 import useTokenId from '@/hooks/useTokenId'
@@ -16,15 +18,15 @@ import axios from 'axios'
 import useTokenInfo from '@/hooks/useTokenInfo'
 import Countdown from 'react-countdown'
 import { zeroPad } from 'react-countdown'
-import Provider from '../Providers/Provider'
-import SendPact from './SendPact'
-import contractAbi from '@/utils/constants/scrollBridgeAbi.json'
+import ScrollProvider from './ScrollProvider'
+import SendPactScroll from './SendPactScroll'
+import contractAbi from '@/utils/constants/abiScrollBridge.json'
+import ScrollToFile from './ScrollToFIle'
 
-export default function Pact({ address, index }) {
-  const [tokenId] = useTokenId(address, index, contractAbi)
-  const [uri] = useTokenUri(tokenId, contractAbi)
-  const [info] = useTokenInfo(tokenId, contractAbi)
-  const [cid, setCid] = useState(null)
+export default function ScrollPact({ address, index }) {
+  const [tokenId] = useTokenId(address, index, scroll, contractAbi)
+  const [uri] = useTokenUri(tokenId, scroll, contractAbi)
+  const [info] = useTokenInfo(tokenId, scroll, contractAbi)
   const [image, setImage] = useState(null)
   const [stamp, setStamp] = useState(null)
   const [proposed, setProposed] = useState(null)
@@ -49,17 +51,18 @@ export default function Pact({ address, index }) {
 
   useEffect(() => {
     info && setStamp(Number(info[1]))
-    info && setCid(info[2])
-    info && setLocked(info[3])
-    info && setProposed(info[5])
+    info && setProposed(info[2])
   }, [info])
 
   useEffect(() => {}, [tokenId])
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
-      setTimeOut(true)
-      return <></>
+      return (
+        <Tooltip label="Change chain to unlock">
+          <Image borderRadius="xl" boxSize="60px" src="lock.png" alt="locked" />
+        </Tooltip>
+      )
     } else {
       return (
         <span>
@@ -127,10 +130,10 @@ export default function Pact({ address, index }) {
             >
               {tokenId === null || tokenId === NaN ? '...' : `Pact #${tokenId}`}
             </Text>
-            {cid && tokenId !== null && (
-              <SimpleGrid columns={3} spacing={2}>
-                <Provider cid={cid} tokenId={tokenId} isProposed={proposed} />
-                <SendPact from={address} tokenId={tokenId} />
+            {tokenId !== null && (
+              <SimpleGrid columns={2} spacing={2}>
+                <SendPactScroll from={address} tokenId={tokenId} />
+                <ScrollToFile tokenId={tokenId} />
               </SimpleGrid>
             )}
             {stamp ? (
