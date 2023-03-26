@@ -15,23 +15,19 @@ import useTokenId from '@/hooks/useTokenId'
 import axios from 'axios'
 import useTokenInfo from '@/hooks/useTokenInfo'
 import Countdown from 'react-countdown'
-import PactModal from '../Modals/PactModal'
 import { zeroPad } from 'react-countdown'
-import UnlockPact from './UnlockPact'
 import Provider from '../Providers/Provider'
 import SendPact from './SendPact'
-import FileToScroll from './FileToScroll'
+import contractAbi from '@/utils/constants/scrollBridgeAbi.json'
 
 export default function Pact({ address, index }) {
-  const [tokenId] = useTokenId(address, index)
+  const [tokenId] = useTokenId(address, index, contractAbi)
+  const [uri] = useTokenUri(tokenId, contractAbi)
+  const [info] = useTokenInfo(tokenId, contractAbi)
   const [cid, setCid] = useState(null)
   const [image, setImage] = useState(null)
   const [stamp, setStamp] = useState(null)
-  const [locked, setLocked] = useState(null)
   const [proposed, setProposed] = useState(null)
-  const [timeOut, setTimeOut] = useState(false)
-  const [uri] = useTokenUri(tokenId)
-  const [info] = useTokenInfo(tokenId)
   useEffect(() => {
     const fetchData = () => {
       axios
@@ -135,7 +131,6 @@ export default function Pact({ address, index }) {
               <SimpleGrid columns={3} spacing={2}>
                 <Provider cid={cid} tokenId={tokenId} isProposed={proposed} />
                 <SendPact from={address} tokenId={tokenId} />
-                <FileToScroll tokenId={tokenId} />
               </SimpleGrid>
             )}
             {stamp ? (
@@ -152,14 +147,6 @@ export default function Pact({ address, index }) {
                     renderer={renderer}
                   ></Countdown>
                 </Text>
-                {timeOut && (
-                  <UnlockPact
-                    timeOut={timeOut}
-                    tokenId={tokenId}
-                    isLocked={locked}
-                    cid={cid}
-                  />
-                )}
               </>
             ) : (
               <Text

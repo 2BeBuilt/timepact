@@ -36,7 +36,6 @@ export default function Home({ host }) {
         },
       })
       .then(function (response) {
-        console.log(response)
         setCid(response.data.path)
 
         setLoading(false)
@@ -56,7 +55,6 @@ export default function Home({ host }) {
   const handleAbortLoading = () => {
     abortController.abort()
     setLoading(false)
-    console.log('Upload aborted!')
   }
   return (
     <main>
