@@ -131,7 +131,8 @@ export default function ScrollPact({ address, index }) {
               {tokenId === null || tokenId === NaN ? '...' : `Pact #${tokenId}`}
             </Text>
             {tokenId !== null && (
-              <SimpleGrid columns={2} spacing={2}>
+              <SimpleGrid columns={3} spacing={2}>
+                <ScrollProvider isProposed={proposed} />
                 <SendPactScroll from={address} tokenId={tokenId} />
                 <ScrollToFile tokenId={tokenId} />
               </SimpleGrid>

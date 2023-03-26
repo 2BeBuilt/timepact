@@ -7,10 +7,11 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const creator = req.query.creator
     const unlock = req.query.unlock
-    const filecoin = req.query.filecoin
+    const filecoin = req.query.filecoin === 'true' ? true : false
     const recipient = req.query.recipient
     const uri = req.query.uri
     const tokenId = req.query.tokenId
+
     const provider = new ethers.providers.JsonRpcProvider(
       'https://alpha-rpc.scroll.io/l2'
     )
