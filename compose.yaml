@@ -1,7 +1,7 @@
 version: '3.5'
 
 services:
-  express:
+  tp-express:
     container_name: express
     build: 
       context: back/express
@@ -9,7 +9,7 @@ services:
     networks:
       - app
     ports:
-      - '${EXPRESS_PORT}:${EXPRESS_PORT}'
+      - '127.0.0.1:${EXPRESS_PORT}:${EXPRESS_PORT}'
     volumes:
       - './docker-data/express/security/RSA:/usr/src/app/security/RSA'
     environment:
@@ -20,7 +20,7 @@ services:
       - 'LOTUS_PORT=${LOTUS_PORT}'
       - 'LOTUS_PROTOCOL=${LOTUS_PROTOCOL}'
       - 'LOTUS_AUTH_TOKEN=${LOTUS_AUTH_TOKEN}'
-  ipfs:
+  tp-ipfs:
     container_name: ipfs
     image: ipfs/go-ipfs:latest
     environment:
@@ -28,25 +28,28 @@ services:
       - IPFS_PATH=/ipfsdata
     networks:
       - app
+    restart: always
     ports:
       - "${IPFS_PORT}:${IPFS_PORT}" # ipfs swarm - expose if needed/wanted
       - "${SWARM_PORT}:${SWARM_PORT}" # ipfs api - expose if needed/wanted
-      - "${GATE_PORT}:${GATE_PORT}" # ipfs gateway - expose if needed/wanted
+      - "127.0.0.1:${GATE_PORT}:${GATE_PORT}" # ipfs gateway - expose if needed/wanted
     volumes:
       - ./docker-data/ipfs:/ipfsdata
-  nginx:
+  tp-nginx:
     container_name: nginx
     build: nginx
     ports:
-      - '81:81'
+      - '127.0.0.1:33:33'
+    restart: always
     networks:
       - app
-  next:
+  tp-next:
     container_name: next
     build:
       context: front/next12
     ports:
-      - "${NEXT_PORT}:${NEXT_PORT}"
+      - "127.0.0.1:${NEXT_PORT}:${NEXT_PORT}"
+    restart: always
     networks:
       - app
     environment:
