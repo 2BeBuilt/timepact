@@ -1,7 +1,7 @@
 import { useContractRead } from 'wagmi'
 import { useState, useEffect } from 'react'
 
-export default function useTokenId(address, index, contract, abi) {
+function useTokenId(address, index, contract, abi) {
   const [id, setId] = useState(null)
   const { data, isSuccess } = useContractRead({
     address: contract,
@@ -15,3 +15,5 @@ export default function useTokenId(address, index, contract, abi) {
 
   return [id]
 }
+
+export { useTokenId }

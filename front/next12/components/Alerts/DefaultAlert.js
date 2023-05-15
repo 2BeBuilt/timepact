@@ -24,7 +24,8 @@ export default function DefaultAlert({ isOpen, status, title, description }) {
       justifyContent="center"
       textAlign="center"
       height="200px"
-      width="500px"
+      width={{ md: '500px', base: '300px' }}
+      rounded={'lg'}
     >
       <Flex direction="column" alignItems="center" justifyContent="center">
         <AlertIcon boxSize="40px" mr={0} />
