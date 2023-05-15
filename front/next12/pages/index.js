@@ -2,16 +2,14 @@ import {
   Box,
   Container,
   Heading,
-  SimpleGrid,
   Image,
   Text,
   Stack,
   Flex,
-  VStack,
   Center,
 } from '@chakra-ui/react'
-import { CheckIcon } from '@chakra-ui/icons'
-import Head from 'next/head'
+
+import Page from '@/components/Common/Page'
 import PageHead from '@/components/Common/PageHead'
 
 const features = Array.apply(null, Array(8)).map(function (x, i) {
@@ -24,7 +22,7 @@ const features = Array.apply(null, Array(8)).map(function (x, i) {
 
 export default function Home() {
   return (
-    <Center pt={20}>
+    <Page>
       <PageHead title="TimePact" />
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'4xl'} textAlign={'center'}>
@@ -64,6 +62,6 @@ export default function Home() {
           </Stack>
         </Container>
       </Box>
-    </Center>
+    </Page>
   )
 }

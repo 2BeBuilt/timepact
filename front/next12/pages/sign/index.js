@@ -1,10 +1,11 @@
-import SignPact from '@/components/contracts/SignPact'
+import { Center, Flex } from '@chakra-ui/react'
 import { useAccount, useNetwork } from 'wagmi'
+
+import SignPact from '@/components/Web3/Filecoin/SignPact'
 import PageAlerts from '@/components/Alerts/PageAlerts'
 import PageHead from '@/components/Common/PageHead'
 import AlertContainer from '@/components/Alerts/AlertContainer'
 import DefaultAlert from '@/components/Alerts/DefaultAlert'
-import { Center, Flex } from '@chakra-ui/react'
 import Page from '@/components/Common/Page'
 
 export default function Sign() {

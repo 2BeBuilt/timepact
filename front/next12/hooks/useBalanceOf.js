@@ -1,7 +1,7 @@
 import { useContractRead } from 'wagmi'
 import { useState, useEffect } from 'react'
 
-export default function useBalanceOf(address, contract, abi) {
+function useBalanceOf(address, contract, abi) {
   const [amount, setAmount] = useState(null)
   const { data, isSuccess } = useContractRead({
     address: contract,
@@ -15,3 +15,5 @@ export default function useBalanceOf(address, contract, abi) {
 
   return [amount]
 }
+
+export { useBalanceOf }

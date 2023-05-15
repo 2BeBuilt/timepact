@@ -1,10 +1,10 @@
-import { useAccount } from 'wagmi'
 import { SimpleGrid } from '@chakra-ui/react'
-import Pact from './Pact'
-import useBalanceOf from '@/hooks/useBalanceOf'
-import DefaultAlert from '../Alerts/DefaultAlert'
-import AlertContainer from '../Alerts/AlertContainer'
 import { pact } from '@/utils/constants/addresses'
+import { useBalanceOf } from '@/hooks/useBalanceOf'
+
+import Pact from './Pact'
+import DefaultAlert from '@/components/Alerts/DefaultAlert'
+import AlertContainer from '@/components/Alerts/AlertContainer'
 import abi from '@/utils/constants/abiTimePact.json'
 
 export default function GetPacts({ address }) {
