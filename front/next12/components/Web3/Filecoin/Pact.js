@@ -10,16 +10,17 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react'
 import { useEffect, useState, useRef } from 'react'
+import { pact } from '@/utils/constants/addresses'
+import { zeroPad } from 'react-countdown'
+
 import useTokenUri from '@/hooks/useTokenUri'
 import useTokenId from '@/hooks/useTokenId'
 import axios from 'axios'
 import useTokenInfo from '@/hooks/useTokenInfo'
 import Countdown from 'react-countdown'
-import { pact } from '@/utils/constants/addresses'
 import contractAbi from '@/utils/constants/abiTimePact.json'
-import { zeroPad } from 'react-countdown'
 import UnlockPact from './UnlockPact'
-import Provider from '../Providers/Provider'
+import Provider from '@/components/Providers/Provider'
 import SendPact from './SendPact'
 import FileToScroll from './FileToScroll'
 

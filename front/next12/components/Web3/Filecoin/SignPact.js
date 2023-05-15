@@ -3,15 +3,16 @@ import {
   useContractWrite,
   useWaitForTransaction,
 } from 'wagmi'
-import contractAbi from '@/utils/constants/abiTimePact.json'
-import { Button, Flex, Text } from '@chakra-ui/react'
-import { pact } from '@/utils/constants/addresses'
-import FileUpload from '../FileUpload'
-import AlertContainer from '../Alerts/AlertContainer'
 import { useState } from 'react'
-import LinkAlert from '../Alerts/LinkAlert'
+import { Button, Flex } from '@chakra-ui/react'
+import { pact } from '@/utils/constants/addresses'
+
+import contractAbi from '@/utils/constants/abiTimePact.json'
+import FileUpload from '@/components/FileUpload'
+import AlertContainer from '@/components/Alerts/AlertContainer'
+import LinkAlert from '@/components/Alerts/LinkAlert'
 import axios from 'axios'
-import UploadModal from '../Modals/UploadModal'
+import UploadModal from '@/components/Modals/UploadModal'
 
 export default function SignPact({ address }) {
   const [date, setDate] = useState(null)

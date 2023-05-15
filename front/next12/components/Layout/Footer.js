@@ -26,13 +26,7 @@ export default function Footer() {
       zIndex={10}
       display={{ base: 'flex', md: 'none' }}
     >
-      <HStack
-        userSelect="none"
-        as={'nav'}
-        spacing={8}
-        align={'center'}
-        justify={'center'}
-      >
+      <HStack userSelect="none" spacing={8} align={'center'} justify={'center'}>
         {Links.map((link) => (
           <NextLink key={link.label} href={link.href}>
             <Heading fontSize="lg" fontWeight={'550'}>

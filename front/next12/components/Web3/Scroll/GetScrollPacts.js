@@ -1,9 +1,10 @@
 import { SimpleGrid } from '@chakra-ui/react'
+import { scroll } from '@/utils/constants/addresses'
+import { useBalanceOf } from '@/hooks/useBalanceOf'
+
 import ScrollPact from './ScrollPact'
-import useBalanceOf from '@/hooks/useBalanceOf'
 import DefaultAlert from '../../Alerts/DefaultAlert'
 import AlertContainer from '../../Alerts/AlertContainer'
-import { scroll } from '@/utils/constants/addresses'
 import abi from '@/utils/constants/abiScrollBridge.json'
 
 export default function GetScrollPacts({ address }) {
@@ -16,7 +17,7 @@ export default function GetScrollPacts({ address }) {
   return (
     <>
       {amount != 0 ? (
-        <SimpleGrid columns={5} spacing={10}>
+        <SimpleGrid columns={{ base: 1, md: 5 }} spacing={10}>
           {pacts.map((pact) => (
             <ScrollPact key={pact.key} index={pact.key} address={address} />
           ))}
