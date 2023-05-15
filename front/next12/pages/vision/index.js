@@ -8,10 +8,12 @@ import {
   Stack,
   Flex,
   VStack,
+  Center,
 } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
-import Head from 'next/head'
-import PageHead from '@/components/PageHead'
+
+import PageHead from '@/components/Common/PageHead'
+import Page from '@/components/Common/Page'
 
 const features = Array.apply(null, Array(8)).map(function (x, i) {
   return {
@@ -23,7 +25,7 @@ const features = Array.apply(null, Array(8)).map(function (x, i) {
 
 export default function Vision() {
   return (
-    <main>
+    <Page>
       <PageHead title="Vision" />
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
@@ -51,6 +53,6 @@ export default function Vision() {
           </Text>
         </Stack>
       </Box>
-    </main>
+    </Page>
   )
 }

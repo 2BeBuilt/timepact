@@ -1,13 +1,17 @@
 import '@/styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css'
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  lightTheme,
+} from '@rainbow-me/rainbowkit'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { filecoinHyperspace, scrollTestnet } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 import { ChakraProvider } from '@chakra-ui/react'
 
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/Layout'
 
 const { chains, provider } = configureChains(
   [filecoinHyperspace, scrollTestnet],
@@ -28,7 +32,7 @@ const wagmiClient = createClient({
 export default function App({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} theme={lightTheme()}>
         <ChakraProvider>
           <Layout>
             <Component {...pageProps} />

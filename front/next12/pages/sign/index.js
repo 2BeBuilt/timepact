@@ -1,16 +1,17 @@
 import SignPact from '@/components/contracts/SignPact'
 import { useAccount, useNetwork } from 'wagmi'
 import PageAlerts from '@/components/Alerts/PageAlerts'
-import PageHead from '@/components/PageHead'
+import PageHead from '@/components/Common/PageHead'
 import AlertContainer from '@/components/Alerts/AlertContainer'
 import DefaultAlert from '@/components/Alerts/DefaultAlert'
-import { Flex } from '@chakra-ui/react'
+import { Center, Flex } from '@chakra-ui/react'
+import Page from '@/components/Common/Page'
 
 export default function Sign() {
   const { address, isDisconnected } = useAccount()
   const { chain } = useNetwork()
   return (
-    <main>
+    <Page>
       <PageHead title="Signing pact" />
       {!isDisconnected &&
         (chain && chain.id === 3141 ? (
@@ -19,7 +20,7 @@ export default function Sign() {
           </>
         ) : (
           <AlertContainer>
-            <Flex marginTop={2}></Flex>
+            <Flex marginTop={2} />
             <DefaultAlert
               isOpen={true}
               status="warning"
@@ -29,6 +30,6 @@ export default function Sign() {
           </AlertContainer>
         ))}
       <PageAlerts chain={chain} isDisconnected={isDisconnected} />
-    </main>
+    </Page>
   )
 }

@@ -17,7 +17,7 @@ export default function GetPacts({ address }) {
   return (
     <>
       {amount != 0 ? (
-        <SimpleGrid columns={5} spacing={10}>
+        <SimpleGrid columns={{ md: '5', base: '1' }} spacing={10}>
           {pacts.map((pact) => (
             <Pact key={pact.key} index={pact.key} address={address} />
           ))}
