@@ -8,10 +8,11 @@ import {
   Stack,
   Flex,
   VStack,
+  Center,
 } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 import Head from 'next/head'
-import PageHead from '@/components/PageHead'
+import PageHead from '@/components/Common/PageHead'
 
 const features = Array.apply(null, Array(8)).map(function (x, i) {
   return {
@@ -23,7 +24,7 @@ const features = Array.apply(null, Array(8)).map(function (x, i) {
 
 export default function Home() {
   return (
-    <main>
+    <Center pt={20}>
       <PageHead title="TimePact" />
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW={'4xl'} textAlign={'center'}>
@@ -40,9 +41,8 @@ export default function Home() {
             the future with TimePact, where magic meets technology.
           </Text>
         </Stack>
-
         <Container maxW={'6xl'} mt={10}>
-          <SimpleGrid columns={3} spacing={10}>
+          <Stack spacing={10} direction={{ md: 'row', base: 'column' }}>
             <Flex direction="column" justify="center" alignItems="center">
               <Text fontSize="xl" mb={2}>
                 You choose your data
@@ -61,9 +61,9 @@ export default function Home() {
               </Text>
               <Image src="main/crypto-key.png" />
             </Flex>
-          </SimpleGrid>
+          </Stack>
         </Container>
       </Box>
-    </main>
+    </Center>
   )
 }
