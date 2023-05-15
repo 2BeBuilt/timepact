@@ -17,26 +17,24 @@ export default function AlertTx({ isOpen }) {
   const cancelRef = useRef()
 
   return (
-    <>
-      <AlertDialog
-        isOpen={open}
-        leastDestructiveRef={cancelRef}
-        onClose={() => setOpen(false)}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Transaction failed
-            </AlertDialogHeader>
+    <AlertDialog
+      isOpen={open}
+      leastDestructiveRef={cancelRef}
+      onClose={() => setOpen(false)}
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            Transaction failed
+          </AlertDialogHeader>
 
-            <AlertDialogBody>Try again</AlertDialogBody>
+          <AlertDialogBody>Try again</AlertDialogBody>
 
-            <AlertDialogFooter>
-              <Button onClick={() => setOpen(false)}>Ok</Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </>
+          <AlertDialogFooter>
+            <Button onClick={() => setOpen(false)}>Ok</Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
   )
 }
