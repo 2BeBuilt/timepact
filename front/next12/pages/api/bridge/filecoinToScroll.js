@@ -1,5 +1,4 @@
 import { ethers } from 'ethers'
-import { pk } from '../../../security/pk.json'
 import { scroll } from '@/utils/constants/addresses'
 import contractAbi from '@/utils/constants/abiScrollBridge.json'
 
@@ -15,7 +14,7 @@ export default async function handler(req, res) {
     const provider = new ethers.providers.JsonRpcProvider(
       'https://alpha-rpc.scroll.io/l2'
     )
-    const signer = new ethers.Wallet(pk, provider)
+    const signer = new ethers.Wallet(process.env.PK, provider)
     const scrollBridge = new ethers.Contract(scroll, contractAbi, signer)
 
     const result = await scrollBridge.releaseCopy(

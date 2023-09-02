@@ -1,5 +1,4 @@
 import { ethers } from 'ethers'
-import { pk } from '../../../security/pk.json'
 import { pact } from '@/utils/constants/addresses'
 import contractAbi from '@/utils/constants/abiTimePact.json'
 
@@ -11,7 +10,7 @@ export default async function handler(req, res) {
     const provider = new ethers.providers.JsonRpcProvider(
       'https://api.hyperspace.node.glif.io/rpc/v1'
     )
-    const signer = new ethers.Wallet(pk, provider)
+    const signer = new ethers.Wallet(process.env.PK, provider)
     const timePact = new ethers.Contract(pact, contractAbi, signer)
 
     const result = await timePact.bridgeFromScroll(
